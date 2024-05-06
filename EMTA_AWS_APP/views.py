@@ -594,6 +594,12 @@ def EmployeeDashboard(request):
         
         users = User.objects.filter(is_superuser=False)
         user_data = []
+        
+        # Initialize variables with default values
+        document_id = None
+        bussiness_id = None
+        bank_id = None
+        
         for user in users:
             profile = None  # Initialize profile to None
             try:
@@ -606,7 +612,6 @@ def EmployeeDashboard(request):
 
             if profile:
                 user_data.append({
-                    
                     'user': user,
                     'shop_name': profile.shop_name.capitalize(),
                     'mobile_number': profile.mobile_number,
