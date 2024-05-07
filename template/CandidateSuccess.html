@@ -1,68 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us</title>
-  <!-- Add Materialize CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
-<body>
-
-<!-- Navbar -->
-<nav>
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Company Name</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="#">Home</a></li>
-      <li class="active"><a href="#">About Us</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- About Us Content -->
-<div class="container">
-  <h3>About Us</h3>
-  <div class="row">
-    <div class="col s12 m6">
-      <img src="/static/pics/EMTA.jpeg" alt="Company Logo" class="responsive-img">
-    </div>
-    <div class="col s12 m6">
-      <p>Welcome to Elite Manpower & Training Academy! We are a leading company in [industry/field]. Our mission is to provide [brief description of services/products].</p>
-      <p>Contact us:</p>
-      <ul>
-        <li>Phone: +1234567890</li>
-        <li>Email: info@example.com</li>
-      </ul>
-      <p>Visit our website: <a href="https://www.example.com">www.example.com</a></p>
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="page-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Company Name</h5>
-        <p class="grey-text text-lighten-4">Brief description of the company.</p>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8 text-center">
+        <!-- First Line -->
+        <div class="mb-4">
+            <h1 class="text-4xl font-bold text-indigo-600">Thank You</h1>
+            <div class="mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 inline-block text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.166 17.173c.507.408 1.243.408 1.75 0l7.084-5.694c.618-.498.766-1.374.32-2.04a1.505 1.505 0 0 0-1.727-.533l-3.725 1.485-1.604-2.825c-.355-.625-.95-.69-1.425-.155l-5.65 5.41-2.24-2.764c-.472-.584-1.348-.578-1.815.01a1.494 1.494 0 0 0-.031 2.052l7.085 6.036z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        </div>
+        <!-- Second Line -->
+        <div class="mb-8">
+            <p class="text-lg">Our team will connect you shortly</p>
+        </div>
+        <!-- Third Line -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-2">Contact Us</h2>
+            <p class="mb-2">Mobile No: <a href="tel:1234567890" class="text-indigo-600">1234567890</a></p>
+            <p class="mb-2">Email: <a href="mailto:info@example.com" class="text-indigo-600">info@example.com</a></p>
+            <p class="mb-2">Website: <a href="https://example.com" class="text-indigo-600">example.com</a></p>
+            <p>Location: <a href="#" class="text-indigo-600">View on Map</a></p>
+            <!-- You can embed a map here if you have the map embed code -->
+        </div>
+        <!-- Fourth Line -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-2">Follow Us On</h2>
+          <div class="flex justify-center">
+              <a href="https://www.instagram.com/emta.placements/" class="mr-4 text-indigo-600">
+                  <i class="fab fa-instagram fa-lg"></i>
+              </a>
+              <a href="#" class="mr-4 text-indigo-600">
+                  <i class="fab fa-linkedin-in fa-lg"></i>
+              </a>
+              <a href="#" class="mr-4 text-indigo-600">
+                  <i class="fab fa-facebook-f fa-lg"></i>
+              </a>
+          </div>
       </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
-        <ul>
-          <li><a class="grey-text text-lighten-3" href="#">Home</a></li>
-          <li><a class="grey-text text-lighten-3" href="#">About Us</a></li>
-          <li><a class="grey-text text-lighten-3" href="#">Services</a></li>
-          <li><a class="grey-text text-lighten-3" href="#">Contact</a></li>
-        </ul>
-      </div>
+        </div>
     </div>
-  </div>
-</footer>
-
-<!-- Add Materialize JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
