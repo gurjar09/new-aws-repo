@@ -330,6 +330,19 @@ def Bank_Details(request):
             vendor = Vendor.objects.get(user=request.user)
             bank_details, created = Bank.objects.get_or_create(vendor=vendor)
 
+            context = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'account_holder_name': bank_details.account_holder_name,
+                'account_number1': bank_details.account_number1,
+                'ifs_code': bank_details.ifs_code,
+                'micr_code': bank_details.micr_code,
+                'bank_name': bank_details.bank_name,
+                'account_type': bank_details.account_type if bank_details.account_type else '',
+                'preffered_payout_date': bank_details.preffered_payout_date if bank_details.preffered_payout_date else [],
+                'bank_document_url': bank_details.bank_document.url if bank_details.bank_document else None,
+            }
+
             if request.method == 'POST':
                 bank_document = request.FILES.get('bank_document')
                 account_type = request.POST.get('account_type')
@@ -356,18 +369,7 @@ def Bank_Details(request):
 
                 return redirect(Bank_Details)
 
-            context = {
-                'first_name': request.user.first_name,
-                'last_name': request.user.last_name,
-                'account_holder_name': bank_details.account_holder_name,
-                'account_number1': bank_details.account_number1,
-                'ifs_code': bank_details.ifs_code,
-                'micr_code': bank_details.micr_code,
-                'bank_name': bank_details.bank_name,
-                'account_type': bank_details.account_type if bank_details.account_type else '',
-                'preffered_payout_date': bank_details.preffered_payout_date if bank_details.preffered_payout_date else [],
-                'bank_document_url': bank_details.bank_document.url if bank_details.bank_document else None,
-            }
+            
             return render(request, 'VendorBankDetails.html', context)
         
         except Vendor.DoesNotExist:
