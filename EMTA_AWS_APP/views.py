@@ -840,5 +840,5 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.save()
-        return redirect(CandidateDetails, candidate_id=candidate_id)
+        return redirect(EmployeeCandidateDetails, candidate_id=candidate_id)
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
