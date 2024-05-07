@@ -489,22 +489,27 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
         window.open(deepLink, "_blank");
     }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
-    // Function to open share options
-    function shareOptions() {
-      // Check if the share API is supported by the browser
-      if (navigator.share) {
-        // Use the native share API if supported
-        navigator.share({
-          title: 'Share via', // Title of the sharing dialog
-          url: window.location.href // URL to share
-        }).catch(console.error);
-      } else {
-        // If the share API is not supported, display a message or provide alternative options
-        alert('Share functionality is not supported in this browser. Please use the sharing options provided by your device.');
-      }
+  // Function to open share options
+  function shareOptions() {
+    // Check if the share API is supported by the browser
+    if (navigator.share) {
+      // Use the native share API if supported
+      navigator.share({
+        title: 'Share via', // Title of the sharing dialog
+        url: window.location.href // URL to share
+      }).catch(console.error);
+    } else {
+      // If the share API is not supported, provide fallback options
+      alert('Share functionality is not supported in this browser. Please use the sharing options provided by your device.');
+      // Here you can provide alternative sharing options, like copying the URL to clipboard or sharing via email, etc.
+      // Example:
+      // var shareUrl = window.location.href;
+      // window.prompt('Copy the URL below:', shareUrl);
     }
-  </script>
+  }
+</script>
 
 
 </body>
