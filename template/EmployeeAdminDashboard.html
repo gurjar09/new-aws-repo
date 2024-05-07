@@ -14,6 +14,7 @@
     <!-- Icons -->
     <link href="/static/css/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="/static/css/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="/static/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
 </head>
@@ -202,19 +203,14 @@
                         </div>
                         <div class="table-responsive">
                             <table class="table table-borderless table-striped table-earning">
-                                <thead class="thead-light">
-                                    <th scope="col">Vendor Code</th>
-                                    <!-- <th scope="col">User ID</th>
-                                    <th scope="col">Document ID</th>
-                                    <th scope="col">Establishment ID</th>
-                                    <th scope="col">Bank ID</th> -->
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Bussiness</th>
-                                    <th scope="col">Date</th>
-                                    <!-- <th scope="col">Commision Generated</th> -->
-                                    <!-- <th scope="col">Commission Recived</th> -->
+                                <thead class="thead-danger">
+                                    <th class="fs-5" scope="col">Vendor Code</th>
+                                    <th class="fs-5" scope="col">Name</th>
+                                    <th class="fs-5" scope="col">Mobile</th>
+                                    <th class="fs-5" scope="col">Email</th>
+                                    <th class="fs-5" scope="col">Bussiness</th>
+                                    <th class="fs-5" scope="col">Date</th>
+                                    
                                 </thead>
                                 <tbody>
                                     {% for data in user_data %}

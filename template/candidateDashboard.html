@@ -17,11 +17,8 @@
     <!-- CSS Files -->
     <link href="/static/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        #candidateTable thead th {
-            font-size: 18px; /* Change this value to adjust the font size */
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 </head>
 
 <body class="">
@@ -176,7 +173,7 @@
                             <table id="candidateTable" class="table table-borderless table-striped table-earning">
                                 <thead class="thead-bold font-size-16">
                                     <tr>
-                                        <th scope="col">
+                                        <th scope="col"  class="fs-5">
                                             Contact 
                                             <select class="form-control filter-input" data-filter="contact-filter">
                                                 <option value="">All</option>
@@ -184,35 +181,35 @@
                                                 <option value="No">No</option>
                                             </select>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Contact By 
                                             <input type="text" class="form-control filter-input" data-filter="contact-by-filter" placeholder="Filter Contact By">
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Refer Code 
                                             <input type="text" class="form-control filter-input" data-filter="refer-code-filter" placeholder="Filter Refer Code">
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Name <input type="text" class="form-control filter-input" data-filter="name-filter" placeholder="Filter Name">
                                         
                                             </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Mobile 
                                             <input type="text" class="form-control filter-input" data-filter="mobile-filter" placeholder="Filter Mobile">
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Email 
                                             <input type="text" class="form-control filter-input" data-filter="email-filter" placeholder="Filter Email">
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Location 
                                             <input type="text" class="form-control filter-input" data-filter="location-filter" placeholder="Filter Location">
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Job Preference 
                                             <input type="text" class="form-control filter-input" data-filter="job-preference-filter" placeholder="Filter Job Preference">
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="fs-5">
                                             Status 
                                             <select class="form-control filter-input" data-filter="status-filter">
                                                 <option value="">All</option>
@@ -222,25 +219,25 @@
                                                 <option value="Selected">Selected</option>
                                             </select>
                                         </th>
-                                        <th scope="col">Details</th>
-                                        <th scope="col">Remove Candidate</th>
+                                        <th scope="col" class="fs-5">Details</th>
+                                        <th scope="col" class="fs-5">Remove Candidate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for candidate in candidates %}
                                     <tr>
                                         <!-- <td>{{ forloop.counter }}</td> -->
-                                        <td data-filter="contact-filter" style="color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">{{ candidate.Contact }}</td>
-                                        <td data-filter="contact-by-filter">{{ candidate.Contact_by }}</td>
-                                        <td data-filter="refer-code-filter">{{ candidate.refer_code }}</td>
-                                        <td data-filter="name-filter">{{ candidate.first_name }}&nbsp;{{ candidate.last_name }}</td>
-                                        <td data-filter="mobile-filter">{{ candidate.mobile_number }}</td>
-                                        <td data-filter="email-filter">{{ candidate.email }}</td>
-                                        <td data-filter="location-filter">{{ candidate.location }}</td>
-                                        <td data-filter="job-preference-filter">{{ candidate.sector }}</td>
-                                        <td data-filter="status-filter" style="color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">{{ candidate.status }}</td>
-                                        <td><button type="button" class="btn btn-success" onclick="redirectToDetails('{{ candidate.id }}')">View</button></td>
-                                        <td>
+                                        <td class="fs-5" data-filter="contact-filter" style="color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">{{ candidate.Contact }}</td>
+                                        <td class="fs-5" data-filter="contact-by-filter">{{ candidate.Contact_by }}</td>
+                                        <td class="fs-5" data-filter="refer-code-filter">{{ candidate.refer_code }}</td>
+                                        <td class="fs-5" data-filter="name-filter">{{ candidate.first_name }}&nbsp;{{ candidate.last_name }}</td>
+                                        <td class="fs-5" data-filter="mobile-filter">{{ candidate.mobile_number }}</td>
+                                        <td class="fs-5" data-filter="email-filter">{{ candidate.email }}</td>
+                                        <td class="fs-5" data-filter="location-filter">{{ candidate.location }}</td>
+                                        <td class="fs-5" data-filter="job-preference-filter">{{ candidate.sector }}</td>
+                                        <td class="fs-5" data-filter="status-filter" style="color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">{{ candidate.status }}</td>
+                                        <td class="fs-5"><button type="button" class="btn btn-success" onclick="redirectToDetails('{{ candidate.id }}')">View</button></td>
+                                        <td class="fs-5">
                                             <form method="post">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="candidate_id" value="{{ candidate.id }}">
