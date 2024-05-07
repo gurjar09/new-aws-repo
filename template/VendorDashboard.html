@@ -208,15 +208,13 @@
                                         <div class="col">
                                             <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
                                             <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
-                                            <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}" id="referralLink">{{ referral_link }}</a></p>
+                                            <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}" id="referralLink">{{ referral_link }} <a onclick="copyReferralLink()" class="brand-logo logo"> <!-- Add 'logo' class -->
+                                                <i class="fas fa-copy"></i>
+                                              </a></i></a></p>
                                         </div>
                                         <div class="col-auto">
-                                            <!-- Copy Link Button with Copy Icon -->
-                                            <button class="btn btn-primary btn-sm" onclick="copyReferralLink()">
-                                                <i class="fas fa-copy"></i> <!-- Font Awesome Copy Icon -->
-                                                Copy Link
-                                            </button>
-                                            <button class="btn btn-primary btn-sm" onclick="shareReferralLink()">
+                                            
+                                            <button class="btn btn-primary btn-sm" onclick="shareOptions()">
                                                 <i class="fas fa-share"></i> <!-- Font Awesome Share Icon -->
                                                 Share Link
                                             </button>
@@ -491,6 +489,22 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
         window.open(deepLink, "_blank");
     }
 </script>
+<script>
+    // Function to open share options
+    function shareOptions() {
+      // Check if the share API is supported by the browser
+      if (navigator.share) {
+        // Use the native share API if supported
+        navigator.share({
+          title: 'Share via', // Title of the sharing dialog
+          url: window.location.href // URL to share
+        }).catch(console.error);
+      } else {
+        // If the share API is not supported, display a message or provide alternative options
+        alert('Share functionality is not supported in this browser.');
+      }
+    }
+  </script>
 
 
 </body>
