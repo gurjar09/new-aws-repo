@@ -357,14 +357,14 @@ def Bank_Details(request):
                 if account_number1 != account_number2:
                     return render(request, 'password.html', {'error': 'Account numbers do not match'})
 
-                bank_details.bank_document = bank_document
-                bank_details.account_type = account_type
-                bank_details.preffered_payout_date = preffered_payout_date
-                bank_details.account_holder_name = account_holder_name.capitalize()
-                bank_details.account_number1 = account_number1 if account_number1 else None
-                bank_details.ifs_code = ifs_code
-                bank_details.micr_code = micr_code
-                bank_details.bank_name = bank_name
+                # bank_details.bank_document = bank_document
+                # bank_details.account_type = account_type
+                # bank_details.preffered_payout_date = preffered_payout_date
+                # bank_details.account_holder_name = account_holder_name.capitalize()
+                # bank_details.account_number1 = account_number1 if account_number1 else None
+                # bank_details.ifs_code = ifs_code
+                # bank_details.micr_code = micr_code
+                # bank_details.bank_name = bank_name
                 bank_details.save()
 
                 return redirect(Bank_Details)
