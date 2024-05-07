@@ -537,7 +537,7 @@
             var message = "Your message here"; 
     
             // Replace "Your referral link here" with your actual referral link
-            var referralLink = "Your referral link here";
+            var referralLink = "{{ referral_link }}";
     
             // Construct the Telegram share URL
             var shareUrl = "https://telegram.me/share/url?url=" + encodeURIComponent(referralLink) + "&text=" + encodeURIComponent(message);
@@ -573,18 +573,18 @@
     </script>
 
 <script>
-    // Function to share a message on LinkedIn
-    function shareOnLinkedInMessage() {
-        // Replace "Your message here" with your actual message
-        var message = "Your message here"; 
+    // Function to handle sharing as a message on LinkedIn
+    function shareAsMessageOnLinkedIn() {
+        var referralLink = "Your referral link here"; // Replace with your actual referral link
 
-        // Construct the LinkedIn message URL
-        var messageUrl = "https://www.linkedin.com/messaging/compose/?msg=" + encodeURIComponent(message);
+        // Construct the LinkedIn share URL
+        var shareUrl = "https://www.linkedin.com/shareArticle?url=" + encodeURIComponent(referralLink);
 
-        // Open the LinkedIn message URL in a new tab
-        window.open(messageUrl, "_blank");
+        // Open the LinkedIn share URL in a new tab
+        window.open(shareUrl, "_blank");
     }
 </script>
+
 
 <script>
     // Function to handle sharing via Messenger
