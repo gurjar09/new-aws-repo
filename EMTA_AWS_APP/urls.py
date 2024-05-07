@@ -32,8 +32,8 @@ urlpatterns = [
     path('vendor/<int:vendor_id>/details/', AdminVendorDetails, name='admin_vendor_details'),
     path('admin/vendor/<int:vendor_id>/details/', AdminVendorDetails, name='admin_vendor_details'),
     path('EmployeeCandidateDetails/<int:candidate_id>/',EmployeeCandidateDetails , name = 'Employee_Candidate_Details'),
-    path('AdminVendorCandidateDetails/<int:pk>/', AdminVendorCandidateDetails, name='Admin_Vendor_Candidate_Details'),
-    path('AdminVendorCandidateDetails/<int:pk>/' , AdminVendorCandidateDetails , name = 'Admin_Vendor_Candidate_Details'),
+    path('AdminVendorCandidateDetails/<int:candidate_id>/', AdminVendorCandidateDetails, name='Admin_Vendor_Candidate_Details'),
+    path('AdminVendorCandidateDetails/<int:candidate_id>/' , AdminVendorCandidateDetails , name = 'Admin_Vendor_Candidate_Details'),
     path('admin/', admin.site.urls),
 ]
 
