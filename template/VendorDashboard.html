@@ -481,17 +481,16 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
         ("Link copied to clipboard!");
     }
 </script>
-
 <script>
     function shareReferralLink() {
         var referralLink = "{{ referral_link }}";
         var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
         var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage; // WhatsApp deep link
         
-        window.location.href = deepLink;
+        // Open the WhatsApp link in a new tab
+        window.open(deepLink, "_blank");
     }
 </script>
-
 
 
 </body>
