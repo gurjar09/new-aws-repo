@@ -11,9 +11,6 @@ from django.utils import timezone
 from decimal import Decimal
 from django.db.models import Sum, ExpressionWrapper, IntegerField
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
 
 def VendorDashboard(request):
@@ -106,7 +103,7 @@ def CandidateDetails(request, candidate_id):
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.save()
-        return redirect(candidateDashboard, candidate_id=candidate_id)
+        return redirect(CandidateDetails, candidate_id=candidate_id)
     return render(request, 'CandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
 
 def VendorLogin(request):
@@ -503,7 +500,10 @@ def vendor_candidates(request, vendor_code):
     except Vendor.DoesNotExist:
         return render(request, 'vendor_not_found.html', {'error': 'Vendor not found'})
 
+from django.db.models import Q
 
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 def candidateDashboard(request):
     candidates = Candidate.objects.all()
@@ -742,6 +742,7 @@ def EmployeeDetails(request):
     
 
 
+
 def AdminVendorDetails(request, vendor_id):
     # Retrieve the vendor object by its ID or return a 404 error if not found
     vendor = get_object_or_404(Vendor, id=vendor_id)
@@ -838,47 +839,5 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.save()
-        return redirect(Employeecandidate, candidate_id=candidate_id)
+        return redirect(EmployeeCandidateDetails, candidate_id=candidate_id)
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
-
-def EmployeeVendorCandidateDetails(request, candidate_id):
-    candidate = get_object_or_404(Candidate, id=candidate_id)
-    initial_data = {
-        'commission': candidate.commission,
-        'totalCommission': candidate.totalCommission,
-        'Contact': candidate.Contact,
-        'status': candidate.status,
-        'Contact_by' : candidate.Contact_by,
-        'resume': candidate.resume.url if candidate.resume else None
-    }
-    if request.method == 'POST':
-        candidate.commission = request.POST.get('commission')
-        candidate.totalCommission = request.POST.get('totalCommission')
-        candidate.Contact = request.POST.get('Contact')
-        candidate.status = request.POST.get('status')
-        candidate.Contact_by = request.POST.get('Contact_by')
-        candidate.save()
-        return redirect(Employee_vendorecandidate, candidate_id=candidate_id)
-    return render(request, 'EmployeeVendorCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
-
-
-def AdminVendorCandidateDetails(request, candidate_id):
-    candidate = get_object_or_404(Candidate, id=candidate_id)
-    initial_data = {
-        'commission': candidate.commission,
-        'totalCommission': candidate.totalCommission,
-        'Contact': candidate.Contact,
-        'status': candidate.status,
-        'Contact_by' : candidate.Contact_by,
-        'resume': candidate.resume.url if candidate.resume else None
-    }
-    if request.method == 'POST':
-        candidate.commission = request.POST.get('commission')
-        candidate.totalCommission = request.POST.get('totalCommission')
-        candidate.Contact = request.POST.get('Contact')
-        candidate.status = request.POST.get('status')
-        candidate.Contact_by = request.POST.get('Contact_by')
-        candidate.save()
-        return redirect(vendor_candidates, candidate_id=candidate_id)
-    return render(request, 'AdminVendorCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
-
