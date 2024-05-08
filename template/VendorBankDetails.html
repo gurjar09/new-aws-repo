@@ -164,13 +164,14 @@
                   <i class="ni education_hat mr-2"></i>Account type - {{ account_type }}
                 </div>
                 <div>
-                  <i class="ni education_hat mr-2"></i>Payout Date - 
-                  {% if preffered_payout_date %}
-                      {{ preffered_payout_date }}
-                  {% else %}
-                      Not selected
-                  {% endif %}
+                  <i class="ni education_hat mr-2"></i>Payout Dates - 
+                  <select name="preffered_payout_dates" id="preffered_payout_dates" multiple>
+                      {% for date in available_payout_dates %}
+                          <option value="{{ date }}" {% if date in preffered_payout_dates %}selected{% endif %}>{{ date }}</option>
+                      {% endfor %}
+                  </select>
               </div>
+              
               
 
                 <hr class="my-4" />

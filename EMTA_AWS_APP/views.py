@@ -323,6 +323,8 @@ def EstablishmentDetails(request):
             return render(request, 'EstablishmentDetails.html', {'error': 'Business details not found'})
     else:
         return render(request, 'username.html', {'error': 'User not authenticated'})
+
+
 @login_required
 def Bank_Details(request):
     if request.user.is_authenticated:
@@ -336,7 +338,6 @@ def Bank_Details(request):
             if request.method == 'POST':
                 bank_document = request.FILES.get('bank_document')
                 account_type = request.POST.get('account_type')
-                preffered_payout_date = request.POST.get('preffered_payout_date')
                 account_holder_name = request.POST.get('account_holder_name')
                 account_number1 = request.POST.get('account_number1')
                 account_number2 = request.POST.get('account_number2')
@@ -344,20 +345,23 @@ def Bank_Details(request):
                 micr_code = request.POST.get('micr_code')
                 bank_name = request.POST.get('bank_name')
 
+                # Get selected payout dates as a list
+                preffered_payout_dates = request.POST.getlist('preffered_payout_dates')
+
                 if account_number1 != account_number2:
                     return render(request, 'password.html', {'error': 'Account numbers do not match'})
 
                 bank_details.bank_document = bank_document
                 bank_details.account_type = account_type
-                bank_details.preffered_payout_date = preffered_payout_date
                 bank_details.account_holder_name = account_holder_name.capitalize()
                 bank_details.account_number1 = account_number1 if account_number1 else None
                 bank_details.ifs_code = ifs_code
                 bank_details.micr_code = micr_code
                 bank_details.bank_name = bank_name
+                bank_details.preffered_payout_dates = preffered_payout_dates  # Save selected dates
                 bank_details.save()
 
-                return redirect(Bank_Details)
+                return redirect('Bank_Details')
 
             context = {
                 'first_name': request.user.first_name,
@@ -368,7 +372,7 @@ def Bank_Details(request):
                 'micr_code': bank_details.micr_code,
                 'bank_name': bank_details.bank_name,
                 'account_type': bank_details.account_type if bank_details.account_type else '',
-                'preffered_payout_date': bank_details.preffered_payout_date if bank_details.preffered_payout_date else '',
+                'preffered_payout_dates': bank_details.preffered_payout_dates if bank_details.preffered_payout_dates else [],
                 'bank_document_url': bank_details.bank_document.url if bank_details.bank_document else None,
                 'available_payout_dates': available_payout_dates,
             }
@@ -380,6 +384,7 @@ def Bank_Details(request):
             return render(request, 'VendorBankDetails.html', {'error': 'Bank details not found'})
     else:
         return render(request, 'username.html', {'error': 'User not authenticated'})
+
 
 
 def forgot_password(request):
