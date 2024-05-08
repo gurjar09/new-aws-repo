@@ -103,7 +103,7 @@ class Bank(models.Model) :
         ('Saving', 'Saving'),
         ('Current', 'Current'),
     ]
-    account_type = models.CharField(max_length=10, choices=account_type)
+    account_type = models.CharField(max_length=100, choices=account_type)
     preffered_payout_date = [
         ('05', '05'),
         ('15', '15'),

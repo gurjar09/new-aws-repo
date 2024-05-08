@@ -332,8 +332,12 @@ def Bank_Details(request):
             vendor = Vendor.objects.get(user=request.user)
             bank_details, created = Bank.objects.get_or_create(vendor=vendor)
 
-            # Define available payout dates, you might fetch these from somewhere else in your application
-            available_payout_date = ['05', '15' , '25']  # Example dates
+            # Define available payout dates
+            preffered_payout_date = [
+                ('05', '05'),
+                ('15', '15'),
+                ('25', '25'),
+            ]
 
             if request.method == 'POST':
                 bank_document = request.FILES.get('bank_document')
@@ -345,7 +349,7 @@ def Bank_Details(request):
                 micr_code = request.POST.get('micr_code')
                 bank_name = request.POST.get('bank_name')
 
-                # Get selected payout dates as a list
+                # Get the selected payout dates
                 preffered_payout_date = request.POST.getlist('preffered_payout_date')
 
                 if account_number1 != account_number2:
@@ -358,10 +362,10 @@ def Bank_Details(request):
                 bank_details.ifs_code = ifs_code
                 bank_details.micr_code = micr_code
                 bank_details.bank_name = bank_name
-                bank_details.preffered_payout_date = preffered_payout_date  # Save selected dates
+                bank_details.preffered_payout_date = ','.join(preffered_payout_date)  # Serialize the list of selected dates
                 bank_details.save()
 
-                return redirect('Bank_Details')
+                return redirect(Bank_Details)
 
             context = {
                 'first_name': request.user.first_name,
@@ -372,9 +376,8 @@ def Bank_Details(request):
                 'micr_code': bank_details.micr_code,
                 'bank_name': bank_details.bank_name,
                 'account_type': bank_details.account_type if bank_details.account_type else '',
-                'preffered_payout_date': bank_details.preffered_payout_date if bank_details.preffered_payout_date else [],
-                'bank_document_url': bank_details.bank_document.url if bank_details.bank_document else None,
-                'available_payout_date': available_payout_date,
+                'preffered_payout_date': bank_details.preffered_payout_date.split(',') if bank_details.preffered_payout_date else [],
+                'available_payout_dates': preffered_payout_date,
             }
             return render(request, 'VendorBankDetails.html', context)
         
