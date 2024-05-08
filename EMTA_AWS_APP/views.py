@@ -13,39 +13,41 @@ from django.db.models import Sum, ExpressionWrapper, IntegerField
 from django.core.exceptions import ObjectDoesNotExist
 
 
+
+@login_required
 def VendorDashboard(request):
-    if request.user.is_authenticated:
-        try:
-            vendor = Vendor.objects.get(user=request.user)
-            referral_link = request.build_absolute_uri('/candidateform/?ref={}'.format(vendor.refer_code))
-            candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
-            num_candidates = candidates.count()
-            
-            # Calculate total commission for the vendor
-            total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission']
-            
-            if request.method == 'POST' and request.FILES.get('profile_picture'):
-                profile_picture = request.FILES['profile_picture']
-                vendor.profile_image = profile_picture
-                vendor.save()
-            
-            context = {
-                'first_name': request.user.first_name,
-                'last_name': request.user.last_name,
-                'shop_name': vendor.shop_name,
-                # 'vendorCommission': vendor.vendorCommission,
-                'candidates': candidates,
-                'num_candidates': num_candidates,
-                'total_commission': total_commission,
-                'profile_picture': vendor.profile_image.url if vendor.profile_image else None,
-                'referral_link': referral_link,
-                
-            }
-            return render(request, 'VendorDashboard.html', context)
-        except Vendor.DoesNotExist:
-            return render(request, 'VendorLogin.html', {'error': 'Vendor details not found'})
-    else:
-        return render(request, 'username.html', {'error': 'User not authenticated'})
+    try:
+        vendor = Vendor.objects.get(user=request.user)
+    except Vendor.DoesNotExist:
+        return render(request, 'VendorLogin.html', {'error': 'Vendor details not found'})
+
+    referral_link = request.build_absolute_uri('/candidateform/?ref={}'.format(vendor.refer_code))
+    candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
+    num_candidates = candidates.count()
+    
+    # Calculate total commission for the vendor
+    total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission']
+    
+    # Generate QR code for the referral link
+    
+
+    if request.method == 'POST' and request.FILES.get('profile_picture'):
+        profile_picture = request.FILES['profile_picture']
+        vendor.profile_image = profile_picture
+        vendor.save()
+    
+    context = {
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'shop_name': vendor.shop_name,
+        'candidates': candidates,
+        'num_candidates': num_candidates,
+        'total_commission': total_commission,
+        'profile_picture': vendor.profile_image.url if vendor.profile_image else None,
+        'referral_link': referral_link,
+        
+    }
+    return render(request, 'VendorDashboard.html', context)
 
 def candidateform(request):
     if request.method == 'POST':
@@ -68,7 +70,6 @@ def candidateform(request):
         # Create Candidate object
         candidate = Candidate.objects.create(
             first_name=first_name,
-
             qualification=qualification,
             mobile_number=mobile_number,
             email=email,
@@ -849,3 +850,6 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.save()
         return redirect(EmployeeCandidateDetails, candidate_id=candidate_id)
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
+
+
+
