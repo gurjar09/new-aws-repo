@@ -166,8 +166,8 @@
                 <div>
                   <i class="ni education_hat mr-2"></i>Payout Dates - 
                   <select name="preffered_payout_dates" id="preffered_payout_dates" multiple>
-                      {% for date in available_payout_dates %}
-                          <option value="{{ date }}" {% if date in preffered_payout_dates %}selected{% endif %}>{{ date }}</option>
+                      {% for date in available_payout_date %}
+                          <option value="{{ date }}" {% if date in preffered_payout_date %}selected{% endif %}>{{ date }}</option>
                       {% endfor %}
                   </select>
               </div>

@@ -372,7 +372,7 @@ def Bank_Details(request):
                 'micr_code': bank_details.micr_code,
                 'bank_name': bank_details.bank_name,
                 'account_type': bank_details.account_type if bank_details.account_type else '',
-                'preffered_payout_dates': bank_details.preffered_payout_dates if bank_details.preffered_payout_dates else [],
+                'preffered_payout_date': bank_details.preffered_payout_date if bank_details.preffered_payout_date else [],
                 'bank_document_url': bank_details.bank_document.url if bank_details.bank_document else None,
                 'available_payout_date': available_payout_date,
             }
