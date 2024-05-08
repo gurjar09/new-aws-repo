@@ -164,8 +164,12 @@
                   <i class="ni education_hat mr-2"></i>Account type - {{ account_type }}
                 </div>
                 <div>
-                  <i class="ni education_hat mr-2"></i>Payout Date - {{ preffered_payout_date }}
-                </div>
+                  <i class="ni education_hat mr-2"></i>Payout Date - 
+                  {% for date in preferred_payout_date %}
+                      {{ date }}
+                      {% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+              </div>
 
                 <hr class="my-4" />
               </div>
@@ -269,21 +273,21 @@
                       <div class="fuel-type">Preferred Payment Date :</div>
                       <div class="checkbox-wrapper-29">
                           <label class="checkbox">
-                              <input type="radio" class="checkbox__input" name="preffered_payout_date" value="05" {% if "05" in preffered_payout_date %} checked {% endif %}>
+                              <input type="checkbox" class="checkbox__input" name="preffered_payout_date" value="05" {% if "05" in preffered_payout_date %} checked {% endif %}>
                               <span class="checkbox__label"></span>
                               05
                           </label>
                       </div>
                       <div class="checkbox-wrapper-29">
                           <label class="checkbox">
-                              <input type="radio" class="checkbox__input" name="preffered_payout_date" value='15' {% if "15" in preffered_payout_date %} checked {% endif %}>
+                              <input type="checkbox" class="checkbox__input" name="preffered_payout_date" value='15' {% if "15" in preffered_payout_date %} checked {% endif %}>
                               <span class="checkbox__label"></span>
                               15
                           </label>
                       </div>
                       <div class="checkbox-wrapper-29">
                           <label class="checkbox">
-                              <input type="radio" class="checkbox__input" name="preffered_payout_date" value='25' {% if "25" in preffered_payout_date %} checked {% endif %}>
+                              <input type="checkbox" class="checkbox__input" name="preffered_payout_date" value='25' {% if "25" in preffered_payout_date %} checked {% endif %}>
                               <span class="checkbox__label"></span>
                               25
                           </label>
