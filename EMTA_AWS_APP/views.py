@@ -330,6 +330,9 @@ def Bank_Details(request):
             vendor = Vendor.objects.get(user=request.user)
             bank_details, created = Bank.objects.get_or_create(vendor=vendor)
 
+            # Define available payout dates, you might fetch these from somewhere else in your application
+            available_payout_dates = ['05', '15' , '25']  # Example dates
+
             if request.method == 'POST':
                 bank_document = request.FILES.get('bank_document')
                 account_type = request.POST.get('account_type')
@@ -365,8 +368,9 @@ def Bank_Details(request):
                 'micr_code': bank_details.micr_code,
                 'bank_name': bank_details.bank_name,
                 'account_type': bank_details.account_type if bank_details.account_type else '',
-                'preffered_payout_date': bank_details.preffered_payout_date if bank_details.preffered_payout_date else [],
+                'preffered_payout_date': bank_details.preffered_payout_date if bank_details.preffered_payout_date else '',
                 'bank_document_url': bank_details.bank_document.url if bank_details.bank_document else None,
+                'available_payout_dates': available_payout_dates,
             }
             return render(request, 'VendorBankDetails.html', context)
         
@@ -377,10 +381,6 @@ def Bank_Details(request):
     else:
         return render(request, 'username.html', {'error': 'User not authenticated'})
 
-
-# from django.shortcuts import render, redirect
-# from django.contrib.auth.models import User
-# from django.contrib import messages
 
 def forgot_password(request):
     if request.method == 'POST':

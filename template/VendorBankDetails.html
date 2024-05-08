@@ -165,7 +165,7 @@
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>Payout Date - 
-                  {% for date in preferred_payout_date %}
+                  {% for date in available_payout_dates %}
                       {{ date }}
                       {% if not forloop.last %}, {% endif %}
                   {% endfor %}
