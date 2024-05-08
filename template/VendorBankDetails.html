@@ -29,7 +29,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="{% url 'VendorDashboard' %}">
-        <img src="/static/pics/EMTALOGO.jpeg" class="navbar-brand-img" alt="...">
+        <img src="/static/pics/EMTALOGO.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <!-- Collapse -->
@@ -165,11 +165,13 @@
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>Payout Date - 
-                  {% for date in available_payout_dates %}
-                      {{ date }}
-                      {% if not forloop.last %}, {% endif %}
-                  {% endfor %}
+                  {% if preffered_payout_date %}
+                      {{ preffered_payout_date }}
+                  {% else %}
+                      Not selected
+                  {% endif %}
               </div>
+              
 
                 <hr class="my-4" />
               </div>
