@@ -188,7 +188,7 @@
                   </div>
                   <div class="card-body">
   
-                      <form method="POST" enctype="multipart/form-data">
+                      <form method="POST" enctype="multipart/form-data" onsubmit="showPopup()">
                           {% csrf_token %}
                           <h6 class="heading-small text-muted mb-4">Candidate Details</h6>
                           <div class="pl-lg-4">
@@ -292,7 +292,7 @@
                   </div>
   
                   <div class="col-4 text-right">
-                      <button class="btn btn-sm btn-primary" onclick="showPopup()" type="submit">Update</button>
+                      <button class="btn btn-sm btn-primary"  type="submit">Update</button>
                   </div>
                   </form>
               </div>
