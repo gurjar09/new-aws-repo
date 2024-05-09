@@ -45,7 +45,7 @@ def VendorDashboard(request):
         'total_commission': total_commission,
         'profile_picture': vendor.profile_image.url if vendor.profile_image else None,
         'referral_link': referral_link,
-        'Bussiness_year' : vendor.Bussiness_year
+        
         
     }
     return render(request, 'VendorDashboard.html', context)
