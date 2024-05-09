@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k3pyzib&+c=rr#+$ga5&n5g_!kr&0m1=nu19%br-^u()&ngt-q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['emtavms.com', 'www.emtavms.com', '3.25.106.135']
+ALLOWED_HOSTS = ['emtavms.com', 'www.emtavms.com', '3.25.106.135','*']
 
 
 # Application definition
