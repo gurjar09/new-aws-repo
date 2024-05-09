@@ -13,7 +13,7 @@ class Vendor(models.Model):
     refer_code = models.CharField(max_length=10, unique=True)
     date_of_birth = models.TextField(max_length=10)
     profile_image = models.FileField(upload_to='profile/')
-    # vendorCommission = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    Bussiness_year = models.CharField(max_length=12)
     CommissionReceived = [
         ('Yes', 'Yes'),
         ('No', 'No'),
@@ -73,6 +73,7 @@ class Candidate(models.Model):
     location = models.CharField(max_length=50)
     totalCommission = models.CharField(max_length=10)
     Contact_by = models.CharField(max_length=50,default='None')
+    
     
     
 class ProfileDocument(models.Model) :
