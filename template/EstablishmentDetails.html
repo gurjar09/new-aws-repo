@@ -17,6 +17,11 @@
   <!-- CSS Files -->
   <link href="/static/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <style>
+    .file-attached {
+      border-color: green; /* Change the border color to green */
+    }
+  </style>
 </head>
 
 <body class="">
@@ -276,7 +281,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Establishment Inside Image</label>
                         <input id="input-address" class="form-control form-control-alternative" name="Bphoto_inside"
-                          placeholder="Inside Image" type="file">
+                          placeholder="Inside Image" type="file" onchange="checkFile(this)">
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -361,7 +366,16 @@
       alert("Details updated successfully!");
     }
   </script>
-  
+  <script>
+    function checkFile(input) {
+      var file = input.files[0];
+      if (file) {
+        input.classList.add('file-attached');
+      } else {
+        input.classList.remove('file-attached');
+      }
+    }
+  </script>
 </body>
 
 </html>
