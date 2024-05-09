@@ -196,7 +196,7 @@
             </div>
             <div class="card-body">
 
-              <form method="POST" enctype="multipart/form-data" onsubmit="showPopup()">
+              <form method="POST" id="bankDetailsForm" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h6 class="heading-small text-muted mb-4">Bank information</h6>
                 <div class="pl-lg-4">
@@ -222,7 +222,7 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Account Number</label>
-                        <input type="text" id="input-email" class="form-control form-control-alternative"
+                        <input type="text" id="account_number1" class="form-control form-control-alternative"
                           placeholder="Account Number" name='account_number1' value="{{ account_number1 }}">
                       </div>
                     </div>
@@ -230,7 +230,7 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Confirm Account Number</label>
-                        <input type="password" id="input-email" class="form-control form-control-alternative"
+                        <input type="password" id="account_number2" class="form-control form-control-alternative"
                           placeholder="Confirm Account Number" name='account_number2' value="{{ account_number1 }}">
                       </div>
                     </div>
@@ -304,7 +304,7 @@
             </div>
           </div>
           <div class="col-4 text-right">
-            <button class="btn btn-sm btn-primary"  type="submit">Update</button>
+            <button class="btn btn-sm btn-primary" id="submitButton" type="submit">Update</button>
           </div>
           </form>
         </div>
@@ -326,11 +326,26 @@
   <script src="static/js/demo.min.js"></script>
 
   <script>
-    function showPopup() {
-      alert("Details updated successfully!");
-    }
-  </script>
-  
+    document.getElementById('submitButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        
+        var accountNumber1 = document.getElementById('account_number1').value;
+        var accountNumber2 = document.getElementById('account_number2').value;
+        
+        console.log("Account Number 1:", accountNumber1);
+        console.log("Account Number 2:", accountNumber2);
+        
+        if (accountNumber1 !== accountNumber2) {
+            alert('Account numbers do not match');
+            return;
+        }
+        
+        console.log("Form submitted!");
+        document.getElementById('bankDetailsForm').submit();
+        alert('Bank details updated successfully');
+    });
+</script>
+
 </body>
 
 </html>

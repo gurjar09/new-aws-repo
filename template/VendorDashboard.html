@@ -496,33 +496,7 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
         }
     </script>
 
-<script>
-    function copyReferralLink() {
-        // Get the referral link element
-        var referralLink = document.getElementById("referralLink");
-        
-        // Create a temporary input element
-        var tempInput = document.createElement("input");
-        
-        // Set the value of the input to the referral link
-        tempInput.value = referralLink.href;
-        
-        // Append the input element to the document body
-        document.body.appendChild(tempInput);
-        
-        // Select the text inside the input element
-        tempInput.select();
-        
-        // Copy the selected text to the clipboard
-        document.execCommand("copy");
-        
-        // Remove the temporary input element
-        document.body.removeChild(tempInput);
-        
-        // Show a message or perform any other action to indicate that the link has been copied
-        ("Link copied to clipboard!");
-    }
-</script>
+
 
 <script>
     function shareReferralLink() {
@@ -557,7 +531,7 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
         document.body.removeChild(tempInput);
 
         // Show a message or perform any other action to indicate that the link has been copied
-        ("Link copied to clipboard!");
+        alert("Link copied to clipboard!");
     }
 </script>
 <script>
