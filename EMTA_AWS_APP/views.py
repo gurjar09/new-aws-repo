@@ -111,10 +111,18 @@ def VendorLogin(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        remember_me = request.POST.get('remember_me')  # Get the value of the remember_me checkbox
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect(VendorDashboard)  
+            if remember_me:  # Check if the remember_me checkbox is checked
+                # Remember the user by setting a session variable
+                request.session.set_expiry(settings.REMEMBER_ME_EXPIRY)  # Set session expiry according to your settings
+                request.session['remember_me'] = True
+            else:
+                # If remember_me is not checked, ensure any existing remember_me session variable is cleared
+                request.session.pop('remember_me', None)
+            return redirect('VendorDashboard')  
         else:
             error_message = "Invalid username or password. Please try again."
             return render(request, 'VendorLogin.html', {'error_message': error_message})

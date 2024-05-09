@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['emtavms.com', 'www.emtavms.com', '3.25.106.135','*']
 
 
-# Application definition
+REMEMBER_ME_EXPIRY = 604800
 
 INSTALLED_APPS = [
     'django.contrib.admin',
