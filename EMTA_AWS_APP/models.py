@@ -95,6 +95,10 @@ class BussinessDetails(models.Model) :
     Bphoto_outer = models.FileField(upload_to='Bussiness photo/outer')
     Bphoto_inside = models.FileField(upload_to='Bussiness photo/inside')
     Gumasta_number = models.CharField(max_length=15)
+    Busness_email = models.EmailField(max_length=50)
+    VCname = models.CharField(max_length=50)
+    VCmobile = models.CharField(max_length=12)
+    VCaddress = models.CharField(max_length=150)
     
 class Bank(models.Model) :
     vendor = models.OneToOneField(Vendor, on_delete=models.CASCADE)

@@ -232,7 +232,7 @@ def Profile(request):
                 'pan_card': profile_document.pan_card,
                 'adhar_image_url': adhar_image_url,
                 'pan_image_url': pan_image_url,
-                'verification_status': profileVerification,  # Add verification status to context
+                'verification_status': profileVerification, 
             }
             return render(request, 'Profile.html', context)
 
@@ -275,7 +275,12 @@ def EstablishmentDetails(request):
                 'Bpan_number': bussiness_profile.Bpan_number,
                 'MSME_number': bussiness_profile.MSME_number,
                 'Contact_number': bussiness_profile.Contact_number,
-                'Gumasta_number' : bussiness_profile.Gumasta_number
+                'Gumasta_number' : bussiness_profile.Gumasta_number,
+                'Busness_email' : bussiness_profile.Busness_email,
+                'VCname' : bussiness_profile.VCname,
+                'VCmobile' : bussiness_profile.VCmobile,
+                'VCaddress' : bussiness_profile.VCaddress,
+                
             }
             if request.method == 'POST':
                 # Handle form submission
@@ -291,6 +296,10 @@ def EstablishmentDetails(request):
                 MSME_image = request.FILES.get('MSME_image')
                 Bphoto_outer = request.FILES.get('Bphoto_outer')
                 Bphoto_inside = request.FILES.get('Bphoto_inside')
+                Busness_email = request.POST.get('Busness_email')
+                VCname = request.POST.get('VCname')
+                VCmobile = request.POST.get('VCmobile')
+                VCaddress = request.POST.get('VCaddress')
 
                 # Update fields with form data
                 bussiness_profile.gst_number = gst_number
@@ -298,6 +307,10 @@ def EstablishmentDetails(request):
                 bussiness_profile.MSME_number = MSME_number
                 bussiness_profile.Contact_number = Contact_number
                 bussiness_profile.Gumasta_number = Gumasta_number
+                bussiness_profile.Busness_email = Busness_email
+                bussiness_profile.VCname = VCname
+                bussiness_profile.VCmobile = VCmobile
+                bussiness_profile.VCaddress = VCaddress
 
                 # Handle file uploads
                 if Bpan_image:
