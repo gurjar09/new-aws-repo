@@ -223,7 +223,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Account Number</label>
                         <input type="text" id="account_number1" class="form-control form-control-alternative"
-                          placeholder="Account Number" name='account_number1' value="{{ account_number1 }}">
+                          placeholder="Account Number" name='account_number1' value="{{ account_number1 }}" pattern="[0-9]{8,15}" title="Please enter a valid account number (5-10 digits).">
                       </div>
                     </div>
 
