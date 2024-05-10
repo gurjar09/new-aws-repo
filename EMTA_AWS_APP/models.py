@@ -82,7 +82,7 @@ class ProfileDocument(models.Model) :
     pan_card = models.CharField(max_length=15)
     adhar_image = models.FileField(upload_to='adhar/')
     pan_image = models.FileField(upload_to='pan/')
-    Bussiness_year = models.CharField(max_length=12)
+    # Bussiness_year = models.CharField(max_length=12)
 
 class BussinessDetails(models.Model) :
     vendor = models.OneToOneField(Vendor, on_delete=models.CASCADE)

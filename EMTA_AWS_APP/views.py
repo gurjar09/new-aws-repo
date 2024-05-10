@@ -214,11 +214,11 @@ def Profile(request):
                 pan_card = request.POST.get('pan_card')
                 adhar_image = request.FILES.get('adhar_image')
                 pan_image = request.FILES.get('pan_image')
-                Bussiness_year = request.POST.get('Bussiness_year')
+                # Bussiness_year = request.POST.get('Bussiness_year')
 
                 profile_document.adhar_card = adhar_card
                 profile_document.pan_card = pan_card
-                profile_document.Bussiness_year = Bussiness_year
+                # profile_document.Bussiness_year = Bussiness_year
                 if adhar_image:
                     profile_document.adhar_image = adhar_image
                 if pan_image:
@@ -246,7 +246,6 @@ def Profile(request):
                 'adhar_image_url': adhar_image_url,
                 'pan_image_url': pan_image_url,
                 'verification_status': profileVerification, 
-                'Bussiness_year' : Bussiness_year
             }
             return render(request, 'Profile.html', context)
 
