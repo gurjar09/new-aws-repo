@@ -587,6 +587,7 @@ def EmployeeDashboard(request):
     except User.DoesNotExist:
         return render(request, 'usernotfound.html', {'error': 'User details not found'})
     
+@login_required
 def Employeecandidate(request):
     candidates = Candidate.objects.all()
     total_candidates_all = candidates.count()
@@ -603,7 +604,7 @@ def Employeecandidate(request):
 
     return render(request, 'Employeecandidate.html', {'candidates': candidates, 'total_candidates_all': total_candidates_all, 'superuser_name': superuser_name})
 
-
+@login_required
 def Employee_vendorecandidate(request, vendor_code):
     try:
         vendor = Vendor.objects.get(refer_code=vendor_code)
@@ -682,7 +683,7 @@ def EmployeeDetails(request):
     
 
 
-
+@login_required
 def AdminVendorDetails(request, vendor_id):
     vendor = get_object_or_404(Vendor, id=vendor_id)
     bank_details = Bank.objects.filter(vendor=vendor).first()
@@ -746,7 +747,7 @@ def AdminVendorDetails(request, vendor_id):
         'bank_document_url' : bank_document_url
     })
 
-
+@login_required
 def EmployeeCandidateDetails(request, candidate_id):
     candidate = get_object_or_404(Candidate, id=candidate_id)
     initial_data = {
