@@ -117,7 +117,7 @@ class Bank(models.Model) :
     ]
     preffered_payout_date = models.CharField(max_length=10, choices=preffered_payout_date)
     account_holder_name = models.CharField(max_length=50)
-    account_number1 = models.CharField(max_length=20)
+    account_number1 = models.CharField(max_length=20,null=True)
     ifs_code = models.CharField(max_length=20)
     micr_code = models.CharField(max_length=20)
     bank_name = models.CharField(max_length=20)
