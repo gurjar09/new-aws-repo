@@ -12,6 +12,10 @@ from django.utils import timezone
 from decimal import Decimal
 from django.db.models import Sum, ExpressionWrapper, IntegerField
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 
 @login_required
@@ -477,10 +481,6 @@ def vendor_candidates(request, vendor_code):
     except Vendor.DoesNotExist:
         return render(request, 'vendor_not_found.html', {'error': 'Vendor not found'})
 
-from django.db.models import Q
-
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
 def candidateDashboard(request):
     candidates = Candidate.objects.all()
@@ -546,6 +546,7 @@ def candidateDashboard(request):
 def EmployeeDashboard(request):
     try:
         user_name = request.user.username.capitalize()
+        superuser_name = request.user.username.capitalize()
         username_query = request.GET.get('username', '')
         vendors = Vendor.objects.filter(user__username__icontains=username_query)
         total_candidate_commission = Candidate.objects.aggregate(total_commission=Sum('commission'))['total_commission']
@@ -583,7 +584,7 @@ def EmployeeDashboard(request):
         current_year = timezone.now().year
         vendors_this_month = Vendor.objects.filter(user__date_joined__year=current_year, user__date_joined__month=current_month).count()
 
-        return render(request, 'EmployeeAdminDashboard.html', {'username': username,'user_data': user_data, 'vendor_count': vendor_count, 'vendors_this_month': vendors_this_month, 'total_vendor_commission': total_vendor_commission, 'total_candidate_commission': total_candidate_commission , 'total_candidates_all': total_candidates_all, 'username_query': username_query, 'user_name': user_name})
+        return render(request, 'EmployeeAdminDashboard.html', {'superuser_name' : superuser_name , 'username': username,'user_data': user_data, 'vendor_count': vendor_count, 'vendors_this_month': vendors_this_month, 'total_vendor_commission': total_vendor_commission, 'total_candidate_commission': total_candidate_commission , 'total_candidates_all': total_candidates_all, 'username_query': username_query, 'user_name': user_name})
     except User.DoesNotExist:
         return render(request, 'usernotfound.html', {'error': 'User details not found'})
     

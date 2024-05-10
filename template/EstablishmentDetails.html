@@ -304,7 +304,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-address"> Name</label>
                         <input id="input-address" class="form-control form-control-alternative"
-                          placeholder="Name" name="VCname" value="{{ VCname }}">
+                          placeholder="Name" name="VCname" value="{{ VCname }}" type="text">
                       </div>
                     </div>
                   
@@ -313,7 +313,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Mobile Number</label>
                         <input id="input-address" class="form-control form-control-alternative"
-                          placeholder="Establishment Address" name="VCmobile" value="{{ VCmobile }}">
+                          placeholder="Mobile Number" name="VCmobile" value="{{ VCmobile }}" type="tel" pattern="[0-9]{10}">
                       </div>
                     </div>
 
@@ -321,20 +321,14 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Address</label>
                         <input id="input-address" class="form-control form-control-alternative"
-                          placeholder=" Address" name="VCaddress" value="{{ VCaddress }}">
+                          placeholder=" Address" name="VCaddress" value="{{ VCaddress }}" type="text">
                       </div>
                     </div>
                   </div>
                 </div>
                 </div>
-
-                
-
-                
             </div>
-            
           </div>
-          
           <div class="col-4 text-right">
             <button class="btn btn-sm btn-primary"  type="submit">Update</button>
           </div>
