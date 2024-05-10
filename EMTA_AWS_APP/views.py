@@ -1,5 +1,6 @@
-from django.contrib.auth import authenticate, login ,logout
-from django.shortcuts import get_object_or_404, render,redirect                   
+from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import get_object_or_404, render, redirect
 from .urls import *
 from .models import *
 from django.contrib.auth.models import User, auth
@@ -13,7 +14,6 @@ from django.db.models import Sum, ExpressionWrapper, IntegerField
 from django.core.exceptions import ObjectDoesNotExist
 
 
-
 @login_required
 def VendorDashboard(request):
     try:
@@ -24,18 +24,14 @@ def VendorDashboard(request):
     referral_link = request.build_absolute_uri('/candidateform/?ref={}'.format(vendor.refer_code))
     candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
     num_candidates = candidates.count()
-    
-    # Calculate total commission for the vendor
+
     total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission']
-    
-    # Generate QR code for the referral link
-    
 
     if request.method == 'POST' and request.FILES.get('profile_picture'):
         profile_picture = request.FILES['profile_picture']
         vendor.profile_image = profile_picture
         vendor.save()
-    
+
     context = {
         'first_name': request.user.first_name,
         'last_name': request.user.last_name,
@@ -45,8 +41,6 @@ def VendorDashboard(request):
         'total_commission': total_commission,
         'profile_picture': vendor.profile_image.url if vendor.profile_image else None,
         'referral_link': referral_link,
-        
-        
     }
     return render(request, 'VendorDashboard.html', context)
 
@@ -62,13 +56,11 @@ def candidateform(request):
         location = request.POST.get('location')
         refer_code = request.POST.get('refer_code', '')
         totalCommission = request.POST.get('totalCommission')
-        commission = request.POST.get('commission') 
+        commission = request.POST.get('commission')
         Contact = request.POST.get('Contact')
         status = request.POST.get('status')
         Contact_by = request.POST.get('Contact_by')
 
-
-        # Create Candidate object
         candidate = Candidate.objects.create(
             first_name=first_name,
             qualification=qualification,
@@ -77,15 +69,13 @@ def candidateform(request):
             sector=sector,
             location=location,
             refer_code=refer_code,
-            
         )
 
-        # Redirect to success page after form submission
         return redirect(CandidateSuccess, candidate_id=candidate.id)
-    
+
     else:
-        refer_code = request.GET.get('ref', '')  # Get referral code from query parameter
-        initial_data = {'refer_code': refer_code}  # Pass referral code as initial data to the form
+        refer_code = request.GET.get('ref', '')
+        initial_data = {'refer_code': refer_code}
         return render(request, 'candidateform.html', {'initial_data': initial_data})
 
 def CandidateDetails(request, candidate_id):
@@ -95,7 +85,7 @@ def CandidateDetails(request, candidate_id):
         'totalCommission': candidate.totalCommission,
         'Contact': candidate.Contact,
         'status': candidate.status,
-        'Contact_by' : candidate.Contact_by,
+        'Contact_by': candidate.Contact_by,
         'resume': candidate.resume.url if candidate.resume else None
     }
     if request.method == 'POST':
@@ -112,27 +102,24 @@ def VendorLogin(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        remember_me = request.POST.get('remember_me')  # Get the value of the remember_me checkbox
+        remember_me = request.POST.get('remember_me')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            if remember_me:  # Check if the remember_me checkbox is checked
-                # Remember the user by setting a session variable
-                request.session.set_expiry(settings.REMEMBER_ME_EXPIRY)  # Set session expiry according to your settings
+            if remember_me:
+                request.session.set_expiry(settings.REMEMBER_ME_EXPIRY)
                 request.session['remember_me'] = True
             else:
-                # If remember_me is not checked, ensure any existing remember_me session variable is cleared
                 request.session.pop('remember_me', None)
-            return redirect('VendorDashboard')  
+            return redirect('VendorDashboard')
         else:
             error_message = "Invalid username or password. Please try again."
             return render(request, 'VendorLogin.html', {'error_message': error_message})
     else:
         return render(request, 'VendorLogin.html')
-    
+
 def VendorSignup(request):
     if request.method == 'POST':
-        # Extract user data from the form
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         mobile_number = request.POST.get('mobile_number')
@@ -146,36 +133,31 @@ def VendorSignup(request):
             messages.error(request, 'Username must be set')
             return render(request, 'VendorSignup.html')
 
-        # Validate passwords
         if password1 != password2:
             messages.error(request, 'Passwords do not match')
             return render(request, 'VendorSignup.html')
 
-        # Check if username already exists
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken')
             return render(request, 'VendorSignup.html')
 
-        # Create the user object
         user = User.objects.create_user(username=username, email=email, password=password1)
         user.first_name = first_name
         user.last_name = last_name
         user.save()
 
-        # Create the vendor object without setting vendorCommission
         vendor = Vendor.objects.create(user=user, mobile_number=mobile_number, refer_code=refer_code)
-        
-        # Redirect to the login page
+
         return redirect(VendorLogin)
-    
-    # Render the signup page for GET requests
+
     return render(request, 'VendorSignup.html')
+
 def VendorLogout(request):
     logout(request)
     return redirect(VendorLogin)
 
-def CandidateSuccess(request,candidate_id) :
-    return render(request , 'CandidateSuccess.html')
+def CandidateSuccess(request, candidate_id):
+    return render(request, 'CandidateSuccess.html')
 
 
 @login_required
@@ -186,39 +168,32 @@ def Profile(request):
             profile_document, created = ProfileDocument.objects.get_or_create(vendor=vendor)
 
             if request.method == 'POST':
-                # Handle profile update
                 first_name = request.POST.get('first_name')
                 last_name = request.POST.get('last_name')
                 shop_name = request.POST.get('shop_name')
                 mobile_number = request.POST.get('mobile_number')
                 address = request.POST.get('address')
                 date_of_birth = request.POST.get('date_of_birth')
-                
 
-                # Update User model fields
                 user = request.user
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
 
-                # Update Vendor model fields
                 vendor.shop_name = shop_name
                 vendor.mobile_number = mobile_number
                 vendor.address = address
                 vendor.date_of_birth = date_of_birth
-                
+
                 vendor.save()
 
-                # Handle profile document update
                 adhar_card = request.POST.get('adhar_card')
                 pan_card = request.POST.get('pan_card')
                 adhar_image = request.FILES.get('adhar_image')
                 pan_image = request.FILES.get('pan_image')
-                # Bussiness_year = request.POST.get('Bussiness_year')
 
                 profile_document.adhar_card = adhar_card
                 profile_document.pan_card = pan_card
-                # profile_document.Bussiness_year = Bussiness_year
                 if adhar_image:
                     profile_document.adhar_image = adhar_image
                 if pan_image:
@@ -227,10 +202,8 @@ def Profile(request):
 
                 return redirect(Profile)
 
-            # Get verification status
             profileVerification = vendor.profileVerification
 
-            # Get URLs of previous images
             adhar_image_url = profile_document.adhar_image.url if profile_document.adhar_image else None
             pan_image_url = profile_document.pan_image.url if profile_document.pan_image else None
 
@@ -245,7 +218,7 @@ def Profile(request):
                 'pan_card': profile_document.pan_card,
                 'adhar_image_url': adhar_image_url,
                 'pan_image_url': pan_image_url,
-                'verification_status': profileVerification, 
+                'verification_status': profileVerification,
             }
             return render(request, 'Profile.html', context)
 
@@ -258,25 +231,13 @@ def Profile(request):
         return render(request, 'username.html', {'error': 'User not authenticated'})
 
 
-
-    
-# def uploadProfilePhoto(request):
-#     if request.method == 'POST':
-#         profile_image = request.FILES.get('profile_image')
-#         vendor = Vendor.objects.get(user=request.user)
-#         vendor.profile_image = profile_image
-#         vendor.save()
-#         return redirect(Profile)
-#     else:
-#         return render(request, 'uploadProfilePhoto.html')
-
 @login_required
 def EstablishmentDetails(request):
     if request.user.is_authenticated:
         try:
             vendor = Vendor.objects.get(user=request.user)
             bussiness_profile, _ = BussinessDetails.objects.get_or_create(vendor=vendor)
-            
+
             context = {
                 'first_name': request.user.first_name.capitalize(),
                 'last_name': request.user.last_name.capitalize(),
@@ -288,16 +249,13 @@ def EstablishmentDetails(request):
                 'Bpan_number': bussiness_profile.Bpan_number,
                 'MSME_number': bussiness_profile.MSME_number,
                 'Contact_number': bussiness_profile.Contact_number,
-                'Gumasta_number' : bussiness_profile.Gumasta_number,
-                'Busness_email' : bussiness_profile.Busness_email,
-                'VCname' : bussiness_profile.VCname,
-                'VCmobile' : bussiness_profile.VCmobile,
-                'VCaddress' : bussiness_profile.VCaddress,
-                
+                'Gumasta_number': bussiness_profile.Gumasta_number,
+                'Busness_email': bussiness_profile.Busness_email,
+                'VCname': bussiness_profile.VCname,
+                'VCmobile': bussiness_profile.VCmobile,
+                'VCaddress': bussiness_profile.VCaddress,
             }
             if request.method == 'POST':
-                # Handle form submission
-                # Retrieve form data
                 gst_number = request.POST.get('gst_number')
                 Bpan_number = request.POST.get('Bpan_number')
                 MSME_number = request.POST.get('MSME_number')
@@ -314,7 +272,6 @@ def EstablishmentDetails(request):
                 VCmobile = request.POST.get('VCmobile')
                 VCaddress = request.POST.get('VCaddress')
 
-                # Update fields with form data
                 bussiness_profile.gst_number = gst_number
                 bussiness_profile.Bpan_number = Bpan_number
                 bussiness_profile.MSME_number = MSME_number
@@ -325,7 +282,6 @@ def EstablishmentDetails(request):
                 bussiness_profile.VCmobile = VCmobile
                 bussiness_profile.VCaddress = VCaddress
 
-                # Handle file uploads
                 if Bpan_image:
                     bussiness_profile.Bpan_image = Bpan_image
                 if gst_image:
@@ -359,7 +315,6 @@ def Bank_Details(request):
             vendor = Vendor.objects.get(user=request.user)
             bank_details, created = Bank.objects.get_or_create(vendor=vendor)
 
-            # Define available payout dates
             preffered_payout_date = [
                 ('05', '05'),
                 ('15', '15'),
@@ -376,7 +331,6 @@ def Bank_Details(request):
                 micr_code = request.POST.get('micr_code')
                 bank_name = request.POST.get('bank_name')
 
-                # Get the selected payout dates
                 preffered_payout_date = request.POST.getlist('preffered_payout_date')
 
                 if account_number1 != account_number2:
@@ -389,7 +343,7 @@ def Bank_Details(request):
                 bank_details.ifs_code = ifs_code
                 bank_details.micr_code = micr_code
                 bank_details.bank_name = bank_name
-                bank_details.preffered_payout_date = ','.join(preffered_payout_date)  # Serialize the list of selected dates
+                bank_details.preffered_payout_date = ','.join(preffered_payout_date)
                 bank_details.save()
 
                 return redirect(Bank_Details)
@@ -415,11 +369,9 @@ def Bank_Details(request):
     else:
         return render(request, 'username.html', {'error': 'User not authenticated'})
 
-
-
 def forgot_password(request):
     if request.method == 'POST':
-        username = request.POST.get('username')  # Extract username from the form data
+        username = request.POST.get('username')
         user = User.objects.filter(username=username).first()
         if user:
             return redirect('reset_password', username=username)
@@ -443,12 +395,6 @@ def reset_password(request, username):
             messages.error(request, 'Passwords do not match.')
     return render(request, 'reset_password.html')
 
-# def VendorCommission(request) :
-#     vendorCommission = request.POST.get('vendorCommission')
-#     vendor = Vendor.objects.get(user=request.user)
-#     vendor_commission , created = VendorCommission.objects.get_or_create(vendor = vendor)
-#     vendor_commission.save()
-#     return render(request,'VendorCommission.html')
 def adminDashBoard(request):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == 'POST':
@@ -519,14 +465,10 @@ def adminDashBoard(request):
 
 def vendor_candidates(request, vendor_code):
     try:
-        # Fetch the vendor object using the vendor_code
         vendor = Vendor.objects.get(refer_code=vendor_code)
         candidates = Candidate.objects.filter(refer_code=vendor_code)
         total_candidates = candidates.count()
-        
-        # Get the name of the superuser
         superuser_name = request.user.username.capitalize()
-        
 
         vendor_name = vendor.user.first_name.capitalize()
         vendor_last_name = vendor.user.last_name.capitalize()
@@ -546,15 +488,12 @@ def candidateDashboard(request):
     superuser_name = request.user.username.capitalize()
     employee_id = None
 
-    # Get the employee ID of the user if available
     if request.user.is_authenticated:
         try:
             employee_id = request.user.employee.employee_id
         except AttributeError:
-            # Handle the case where the employee ID is not available for the user
             pass
 
-    # Handling filter queries
     if request.method == 'GET':
         contact_filter = request.GET.get('contact', '')
         contact_by_filter = request.GET.get('contact_by', '')
@@ -566,7 +505,6 @@ def candidateDashboard(request):
         job_preference_filter = request.GET.get('job_preference', '')
         status_filter = request.GET.get('status', '')
 
-        # Applying filters to the queryset
         if contact_filter:
             candidates = candidates.filter(Contact__icontains=contact_filter)
         if contact_by_filter:
@@ -586,19 +524,15 @@ def candidateDashboard(request):
         if status_filter:
             candidates = candidates.filter(status__icontains=status_filter)
 
-    # Handling candidate deletion
     if request.method == 'POST':
         candidate_id = request.POST.get('candidate_id')
         try:
             candidate_to_delete = Candidate.objects.get(pk=candidate_id)
             candidate_to_delete.delete()
-            # Redirect to the same page after deletion
             return HttpResponseRedirect(reverse(candidateDashboard))
         except ObjectDoesNotExist:
-            # Candidate with the provided ID does not exist
             pass
         except Exception as e:
-            # Handle other exceptions if necessary
             pass
 
     return render(request, 'candidateDashboard.html', {
@@ -608,43 +542,29 @@ def candidateDashboard(request):
         'employee_id': employee_id,
     })
 
-
-
 @login_required
 def EmployeeDashboard(request):
     try:
-        # Get the name of the user
         user_name = request.user.username.capitalize()
-
-        # Retrieve vendors and other data
         username_query = request.GET.get('username', '')
         vendors = Vendor.objects.filter(user__username__icontains=username_query)
-        
-        # Calculate total commission of all candidates
         total_candidate_commission = Candidate.objects.aggregate(total_commission=Sum('commission'))['total_commission']
         username = request.user.username
-        
-        # Calculate total commission of all vendors
         total_vendor_commission = Vendor.objects.aggregate(total_commission_received=Sum('total_commission_received'))['total_commission_received']
-        
         users = User.objects.filter(is_superuser=False)
         user_data = []
-        
-        # Initialize variables with default values
         document_id = None
         bussiness_id = None
         bank_id = None
-        
         for user in users:
-            profile = None  # Initialize profile to None
+            profile = None
             try:
                 profile = Vendor.objects.get(user=user)
-                document_id = profile.profiledocument.id  # Assuming ProfileDocument is related to Vendor
-                bussiness_id = profile.bussinessdetails.id  # Assuming BussinessDetails is related to Vendor
-                bank_id = profile.bank.id  # Assuming Bank is related to Vendor
+                document_id = profile.profiledocument.id
+                bussiness_id = profile.bussinessdetails.id
+                bank_id = profile.bank.id
             except ObjectDoesNotExist:
-                pass  # Do nothing if profile does not exist
-
+                pass
             if profile:
                 user_data.append({
                     'user': user,
@@ -672,7 +592,6 @@ def Employeecandidate(request):
     total_candidates_all = candidates.count()
     superuser_name = request.user.username.capitalize()
 
-    # Handling search query
     search_query = request.GET.get('search_query')
     if search_query:
         candidates = candidates.filter(
@@ -687,14 +606,10 @@ def Employeecandidate(request):
 
 def Employee_vendorecandidate(request, vendor_code):
     try:
-        # Fetch the vendor object using the vendor_code
         vendor = Vendor.objects.get(refer_code=vendor_code)
         candidates = Candidate.objects.filter(refer_code=vendor_code)
         total_candidates = candidates.count()
-        
-        # Get the name of the superuser
         superuser_name = request.user.username.capitalize()
-        
 
         vendor_name = vendor.user.first_name.capitalize()
         vendor_last_name = vendor.user.last_name.capitalize()
@@ -705,15 +620,14 @@ def Employee_vendorecandidate(request, vendor_code):
     
 def employee_login(request):
     if request.method == 'POST':
-        employee_id = request.POST['employee_id']  # Assuming employee ID is entered in the login form
+        employee_id = request.POST['employee_id']
         password = request.POST['password']
         
-        # Authenticate user using employee ID
         user = authenticate(request, username=employee_id, password=password)
         
         if user is not None:
             login(request, user)
-            return redirect(EmployeeDashboard)  # Redirect to employee dashboard after successful login
+            return redirect(EmployeeDashboard)
         else:
             error_message = "Invalid employee ID or password. Please try again."
             return render(request, 'employee_login.html', {'error_message': error_message})
@@ -722,7 +636,6 @@ def employee_login(request):
 
 def employee_signup(request):
     if request.method == 'POST':
-        # Extract user data from the form
         email = request.POST.get('email')
         mobile_number = request.POST.get('mobile_number')
         password1 = request.POST.get('password1')
@@ -733,30 +646,23 @@ def employee_signup(request):
             messages.error(request, 'All fields are required')
             return render(request, 'employee_signup.html')
 
-        # Validate passwords
         if password1 != password2:
             messages.error(request, 'Passwords do not match')
             return render(request, 'employee_signup.html')
 
-        # Check if employee ID already exists
         if User.objects.filter(username=employee_id).exists():
             messages.error(request, 'Employee ID is already taken')
             return render(request, 'employee_signup.html')
 
-        # Create the user object
         user = User.objects.create_user(username=employee_id, email=email, password=password1)
         user.save()
 
-        # Create the employee object
         employee = Employee.objects.create(user=user, mobile_number=mobile_number, employee_id=employee_id)
 
-        # Log in the user after signup
         login(request, user)
 
-        # Redirect to the dashboard or any other page
         return redirect(employee_login)
     
-    # Render the signup page for GET requests
     return render(request, 'employee_signup.html')
 def employee_logout(request):
     logout(request)
@@ -764,7 +670,6 @@ def employee_logout(request):
 @login_required
 def EmployeeDetails(request):
     try:
-        # Fetch all employee data
         employees = Employee.objects.all()
         
         context = {
@@ -779,19 +684,10 @@ def EmployeeDetails(request):
 
 
 def AdminVendorDetails(request, vendor_id):
-    # Retrieve the vendor object by its ID or return a 404 error if not found
     vendor = get_object_or_404(Vendor, id=vendor_id)
-    
-    # Retrieve bank details of the vendor
     bank_details = Bank.objects.filter(vendor=vendor).first()
-    
-    # Retrieve profile document of the vendor
     profile_document = ProfileDocument.objects.filter(vendor=vendor).first()
-    
-    # Retrieve business details of the vendor
     business_details = BussinessDetails.objects.filter(vendor=vendor).first()
-    
-    # Get URLs of previous images
     adhar_image_url = profile_document.adhar_image.url if profile_document and profile_document.adhar_image else None
     pan_image_url = profile_document.pan_image.url if profile_document and profile_document.pan_image else None
     bpan_image_url = business_details.Bpan_image.url if business_details and business_details.Bpan_image else None
@@ -803,7 +699,6 @@ def AdminVendorDetails(request, vendor_id):
     bank_document_url = bank_details.bank_document.url if bank_details and bank_details.bank_document else None
     
     if request.method == 'POST':
-        # Handle form submission and update vendor details based on the submitted form data
         vendor.user.first_name = request.POST.get('first_name', '')
         vendor.user.last_name = request.POST.get('last_name', '')
         vendor.mobile_number = request.POST.get('mobile_number', '')
@@ -814,7 +709,6 @@ def AdminVendorDetails(request, vendor_id):
         vendor.profile_verification = request.POST.get('profile_verification', '')
         vendor.save()
         
-        # Update bank details if bank_details exists
         if bank_details:
             bank_details.account_holder_name = request.POST.get('account_holder_name', '')
             bank_details.account_number = request.POST.get('account_number', '')
@@ -823,23 +717,19 @@ def AdminVendorDetails(request, vendor_id):
             bank_details.bank_name = request.POST.get('bank_name', '')
             bank_details.save()
         
-        # Update profile document details if profile_document exists
         if profile_document:
             profile_document.adhar_card = request.POST.get('adhar_card', '')
             profile_document.pan_card = request.POST.get('pan_card', '')
             profile_document.save()
         
-        # Update business details if business_details exists
         if business_details:
             business_details.gst_number = request.POST.get('gst_number', '')
             business_details.msme_number = request.POST.get('msme_number', '')
             business_details.gumasta_number = request.POST.get('gumasta_number', '')
             business_details.save()
         
-        # Redirect to a success page or any other appropriate page
-        return redirect('AdminVendorDetails', vendor_id=vendor_id)  # Redirect back to the same page
+        return redirect('AdminVendorDetails', vendor_id=vendor_id)
     
-    # Pass the vendor details and image URLs to the template for rendering the form
     return render(request, 'AdminVendorDetails.html', {
         'vendor': vendor,
         'bank_details': bank_details,
