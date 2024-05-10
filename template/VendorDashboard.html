@@ -504,49 +504,26 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
         var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
         var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage; // WhatsApp deep link
         
-        window.location.href = deepLink;
+        window.open(deepLink, "_blank");
     }
 </script>
 <script>
     function copyReferralLink() {
-        // Get the referral link element
         var referralLink = document.getElementById("referralLink");
-
-        // Create a temporary input element
         var tempInput = document.createElement("input");
-
-        // Set the value of the input to the referral link
         tempInput.value = referralLink.href;
-
-        // Append the input element to the document body
         document.body.appendChild(tempInput);
-
-        // Select the text inside the input element
         tempInput.select();
-
-        // Copy the selected text to the clipboard
         document.execCommand("copy");
-
-        // Remove the temporary input element
         document.body.removeChild(tempInput);
-
-        // Show a message or perform any other action to indicate that the link has been copied
         alert("Link copied to clipboard!");
     }
 </script>
 <script>
-    // Function to share a message on Telegram
     function shareOnTelegram() {
-        // Replace "Your message here" with your actual message
         var message = "Your message here";
-
-        // Replace "Your referral link here" with your actual referral link
         var referralLink = "{{ referral_link }}";
-
-        // Construct the Telegram share URL
         var shareUrl = "https://telegram.me/share/url?url=" + encodeURIComponent(referralLink) + "&text=" + encodeURIComponent(message);
-
-        // Open the Telegram share URL in a new tab
         window.open(shareUrl, "_blank");
     }
 </script>
@@ -555,66 +532,40 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
     function shareReferralLink() {
         var referralLink = "{{ referral_link }}";
         var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
-        var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage; // WhatsApp deep link
-
-        // Open the WhatsApp link in a new tab
+        var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage;
         window.open(deepLink, "_blank");
     }
 </script>
 
-
 <script>
-    // Function to handle sharing as a message
     function shareInstagramLink() {
-        var referralLink = "{{ referral_link }}"; // Replace with your actual referral link
-
-        // Construct the Instagram deep link for sending a direct message
+        var referralLink = "{{ referral_link }}";
         var deepLink = "https://www.instagram.com/direct/new/?url=" + encodeURIComponent(referralLink);
-
-        // Open the Instagram link in a new tab
         window.open(deepLink, "_blank");
     }
 </script>
 
 <script>
-    // Function to handle sharing as a message on LinkedIn
     function shareAsMessageOnLinkedIn() {
-        var referralLink = "Your referral link here"; // Replace with your actual referral link
-
-        // Construct the LinkedIn share URL
+        var referralLink = "Your referral link here";
         var shareUrl = "https://www.linkedin.com/shareArticle?url=" + encodeURIComponent(referralLink);
-
-        // Open the LinkedIn share URL in a new tab
         window.open(shareUrl, "_blank");
     }
 </script>
 
-
 <script>
-    // Function to handle sharing via Messenger
     function shareViaMessenger() {
-        var referralLink = "{{ referral_link }}"; // Replace with your actual referral link
-
-        // Construct the Facebook Messenger share URL
+        var referralLink = "{{ referral_link }}";
         var shareUrl = "https://www.facebook.com/dialog/send?link=" + encodeURIComponent(referralLink);
-
-        // Open the Facebook Messenger share URL in a new tab
         window.open(shareUrl, "_blank");
     }
 </script>
 
 <script>
-    // Function to handle sharing via SMS
     function shareViaSMS() {
-        var referralLink = "{{ referral_link }}"; // Replace with your actual referral link
-
-        // Construct the SMS message with the referral link
+        var referralLink = "{{ referral_link }}";
         var message = "Check out this referral link: " + referralLink;
-
-        // Construct the SMS URI
         var smsUri = "sms:?body=" + encodeURIComponent(message);
-
-        // Open the SMS app with the pre-filled message
         window.location.href = smsUri;
     }
 </script>
