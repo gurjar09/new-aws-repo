@@ -337,7 +337,7 @@ def Bank_Details(request):
                     return render(request, 'password.html', {'error': 'Account numbers do not match'})
 
                 bank_details.bank_document = bank_document
-                # bank_details.account_type = account_type
+                bank_details.account_type = account_type
                 bank_details.account_holder_name = account_holder_name.capitalize()
                 bank_details.account_number1 = account_number1 if account_number1 else None
                 bank_details.ifs_code = ifs_code
