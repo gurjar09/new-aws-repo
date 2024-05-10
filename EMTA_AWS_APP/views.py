@@ -193,7 +193,7 @@ def Profile(request):
                 mobile_number = request.POST.get('mobile_number')
                 address = request.POST.get('address')
                 date_of_birth = request.POST.get('date_of_birth')
-                Bussiness_year = request.pOST.get('Bussiness_year')
+                
 
                 # Update User model fields
                 user = request.user
@@ -206,7 +206,7 @@ def Profile(request):
                 vendor.mobile_number = mobile_number
                 vendor.address = address
                 vendor.date_of_birth = date_of_birth
-                vendor.Bussiness_year = Bussiness_year
+                
                 vendor.save()
 
                 # Handle profile document update
@@ -214,9 +214,11 @@ def Profile(request):
                 pan_card = request.POST.get('pan_card')
                 adhar_image = request.FILES.get('adhar_image')
                 pan_image = request.FILES.get('pan_image')
+                Bussiness_year = request.POST.get('Bussiness_year')
 
                 profile_document.adhar_card = adhar_card
                 profile_document.pan_card = pan_card
+                profile_document.Bussiness_year = Bussiness_year
                 if adhar_image:
                     profile_document.adhar_image = adhar_image
                 if pan_image:

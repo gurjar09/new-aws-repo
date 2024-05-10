@@ -13,7 +13,7 @@ class Vendor(models.Model):
     refer_code = models.CharField(max_length=10, unique=True)
     date_of_birth = models.TextField(max_length=10)
     profile_image = models.FileField(upload_to='profile/')
-    Bussiness_year = models.CharField(max_length=12)
+    
     CommissionReceived = [
         ('Yes', 'Yes'),
         ('No', 'No'),
@@ -82,6 +82,7 @@ class ProfileDocument(models.Model) :
     pan_card = models.CharField(max_length=15)
     adhar_image = models.FileField(upload_to='adhar/')
     pan_image = models.FileField(upload_to='pan/')
+    Bussiness_year = models.CharField(max_length=12)
 
 class BussinessDetails(models.Model) :
     vendor = models.OneToOneField(Vendor, on_delete=models.CASCADE)
