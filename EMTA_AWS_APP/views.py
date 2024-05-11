@@ -66,6 +66,7 @@ def candidateform(request):
 
         candidate = Candidate.objects.create(
             first_name=first_name,
+            last_name=last_name,
             qualification=qualification,
             mobile_number=mobile_number,
             email=email,

@@ -224,7 +224,7 @@
                                         <div class="col">
                                             <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
                                             <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
-                                            <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}" id="referralLink">{{ referral_link }} <a onclick="copyReferralLink()" class="brand-logo logo">
+                                            <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}" id="referralLink" target="_blank">{{ referral_link }} <a onclick="copyReferralLink()" class="brand-logo logo">
                                                 <i class="fas fa-copy"></i>
                                             </a></a></p>
                                            
@@ -303,9 +303,7 @@
                             <table id="candidateTable" class="table table-borderless table-striped table-earning">
                                 <thead class="thead-bold font-size-16">
                                     <tr>
-                                        <!-- <th scope="col">SR <br>
-                                            <input type="text" class="form-control filter-input" data-filter="contact-by-filter" placeholder="Filter Contact By">
-                                        </th> -->
+                                        
                                         <th scope="col" style="font-size: 20px;">
                                             Contact <br>
                                             <select class="form-control filter-input" data-filter="contact-filter">
@@ -314,10 +312,7 @@
                                                 <option value="No">No</option>
                                             </select>
                                         </th>
-                                        <!-- <th scope="col">
-                                            Contact By <br>
-                                            <input type="text" class="form-control filter-input" data-filter="contact-by-filter" placeholder="Filter Contact By">
-                                        </th> -->
+                                        
                 
                                         <th scope="col" style="font-size: 20px;">
                                             Name <br>
