@@ -12,7 +12,6 @@ class Vendor(models.Model):
     address = models.CharField(max_length=100)
     refer_code = models.CharField(max_length=10, unique=True)
     date_of_birth = models.TextField(max_length=10)
-    profile_image = models.FileField(upload_to='profile/')
     
     CommissionReceived = [
         ('Yes', 'Yes'),
