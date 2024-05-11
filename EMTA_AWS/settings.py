@@ -27,7 +27,13 @@ SECRET_KEY = 'django-insecure-k3pyzib&+c=rr#+$ga5&n5g_!kr&0m1=nu19%br-^u()&ngt-q
 DEBUG = True
 
 # ALLOWED_HOSTS = ['emtavms.com', 'https://emtavms.com',,'*']
-ALLOWED_HOSTS = ['emtavms.com', 'www.emtavms.com', 'subdomain.emtavms.com','3.25.106.135','*']
+ALLOWED_HOSTS = [
+    'emtavms.com',
+    'www.emtavms.com',
+    'subdomain.emtavms.com',
+    '3.25.106.135',
+]
+
 
 
 
