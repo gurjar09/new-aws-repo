@@ -98,7 +98,7 @@ def CandidateDetails(request, candidate_id):
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.save()
-        return redirect(CandidateDetails, candidate_id=candidate_id)
+        return redirect(candidateDashboard)
     return render(request, 'CandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
 
 def VendorLogin(request):
@@ -764,8 +764,6 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.save()
-        return redirect(EmployeeCandidateDetails, candidate_id=candidate_id)
+        return redirect(EmployeeCandidateDetails )
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
-
-
 
