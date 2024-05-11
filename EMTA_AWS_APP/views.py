@@ -17,6 +17,40 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 
+def index(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        mobile_number = request.POST.get('mobile_number')
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        refer_code = username
+
+        if not username:
+            messages.error(request, 'Username must be set')
+            return render(request, 'VendorSignup.html')
+
+        if password1 != password2:
+            messages.error(request, 'Passwords do not match')
+            return render(request, 'VendorSignup.html')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username is already taken')
+            return render(request, 'VendorSignup.html')
+
+        user = User.objects.create_user(username=username, email=email, password=password1)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
+        vendor = Vendor.objects.create(user=user, mobile_number=mobile_number, refer_code=refer_code)
+
+        return redirect(VendorLogin)
+
+    return render(request, 'index.html')
+
 
 @login_required
 def VendorDashboard(request):
@@ -121,40 +155,6 @@ def VendorLogin(request):
             return render(request, 'VendorLogin.html', {'error_message': error_message})
     else:
         return render(request, 'VendorLogin.html')
-
-def index(request):
-    if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        mobile_number = request.POST.get('mobile_number')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        refer_code = username
-
-        if not username:
-            messages.error(request, 'Username must be set')
-            return render(request, 'VendorSignup.html')
-
-        if password1 != password2:
-            messages.error(request, 'Passwords do not match')
-            return render(request, 'VendorSignup.html')
-
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'Username is already taken')
-            return render(request, 'VendorSignup.html')
-
-        user = User.objects.create_user(username=username, email=email, password=password1)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.save()
-
-        vendor = Vendor.objects.create(user=user, mobile_number=mobile_number, refer_code=refer_code)
-
-        return redirect(VendorLogin)
-
-    return render(request, 'index.html')
 
 def VendorLogout(request):
     logout(request)

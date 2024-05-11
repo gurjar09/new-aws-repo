@@ -6,9 +6,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', index, name='index'),  
+    path('VendorSignup/', index, name='index'),
     path('VendorDashboard/', VendorDashboard, name='VendorDashboard'),
     path('VendorLogin/', VendorLogin, name='VendorLogin'),
-    path('VendorSignup/', index, name='VendorSignup'),
     path('candidateform/', candidateform, name='candidateform'),
     path('candidate/details/<int:candidate_id>/', CandidateDetails, name='candidate_details'),
     path('VendorLogout/', VendorLogout, name='VendorLogout'),
