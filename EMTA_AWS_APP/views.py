@@ -122,7 +122,7 @@ def VendorLogin(request):
     else:
         return render(request, 'VendorLogin.html')
 
-def VendorSignup(request):
+def index(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')

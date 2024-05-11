@@ -5,10 +5,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', VendorSignup, name='VendorSignup'),  
+    path('', index, name='VendorSignup'),  
     path('VendorDashboard/', VendorDashboard, name='VendorDashboard'),
     path('VendorLogin/', VendorLogin, name='VendorLogin'),
-    path('VendorSignup/', VendorSignup, name='VendorSignup'),
+    path('VendorSignup/', index, name='VendorSignup'),
     path('candidateform/', candidateform, name='candidateform'),
     path('candidate/details/<int:candidate_id>/', CandidateDetails, name='candidate_details'),
     path('VendorLogout/', VendorLogout, name='VendorLogout'),
