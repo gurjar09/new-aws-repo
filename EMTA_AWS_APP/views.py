@@ -154,7 +154,7 @@ def VendorSignup(request):
 
         return redirect(VendorLogin)
 
-    return render(request, 'VendorSignup.html')
+    return render(request, 'index.html')
 
 def VendorLogout(request):
     logout(request)
