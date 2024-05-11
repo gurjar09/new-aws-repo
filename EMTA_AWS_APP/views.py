@@ -49,7 +49,7 @@ def index(request):
 
         return redirect(VendorLogin)
 
-    return render(request, 'index.html')
+    return render(request, '/templates/index.html')
 
 
 @login_required
