@@ -251,21 +251,20 @@
                                     {% for candidate in candidates %}
                                     <tr>
                                         <!-- <td>{{ forloop.counter }}</td> -->
-                                        <td data-filter="contact-filter" style="color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">{{ candidate.Contact }}</td>
-                                        <td data-filter="contact-by-filter">{{ candidate.Contact_by }}</td>
-                                        <td data-filter="refer-code-filter">{{ candidate.refer_code }}</td>
-                                        <td data-filter="name-filter">{{ candidate.first_name }}&nbsp;{{ candidate.last_name }}</td>
-                                        <td data-filter="mobile-filter">{{ candidate.mobile_number }}</td>
-                                        <td data-filter="email-filter">{{ candidate.email }}</td>
-                                        <td data-filter="location-filter">{{ candidate.location }}</td>
-                                        <td data-filter="job-preference-filter">{{ candidate.sector }}</td>
-                                        <td data-filter="status-filter" style="color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">{{ candidate.status }}</td>
+                                        <td data-filter="contact-filter" style=" font-size:15px; {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">{{ candidate.Contact }}</td>
+                                        <td data-filter="contact-by-filter" style="font-size: 15px;">{{ candidate.Contact_by }}</td>
+                                        <td data-filter="refer-code-filter" style="font-size: 15px;">{{ candidate.refer_code }}</td>
+                                        <td data-filter="name-filter" style="font-size: 15px;">{{ candidate.first_name }}&nbsp;{{ candidate.last_name }}</td>
+                                        <td data-filter="mobile-filter" style="font-size: 15px;">{{ candidate.mobile_number }}</td>
+                                        <td data-filter="email-filter" style="font-size: 15px;">{{ candidate.email }}</td>
+                                        <td data-filter="location-filter" style="font-size: 15px;">{{ candidate.location }}</td>
+                                        <td data-filter="job-preference-filter" style="font-size: 15px;">{{ candidate.sector }}</td>
+                                        <td data-filter="status-filter" style="font-size:15px; {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">{{ candidate.status }}</td>
                                         <td><button type="button" class="btn btn-success" onclick="redirectToDetails('{{ candidate.id }}')">View</button></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
-                            
                         </div>
                     </div>
                 </div>
