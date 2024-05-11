@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', index, name='VendorSignup'),  
+    path('', index, name='index'),  
     path('VendorDashboard/', VendorDashboard, name='VendorDashboard'),
     path('VendorLogin/', VendorLogin, name='VendorLogin'),
     path('VendorSignup/', index, name='VendorSignup'),
