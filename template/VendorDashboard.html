@@ -9,6 +9,10 @@
         www.EMTA Placement.com
     </title>
     <!-- Favicon -->
+    <link rel="stylesheet" href="/static/css/chatbot.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="/static/pics/EMTA.jpeg" rel="icon" type="image/png">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -104,7 +108,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'VendorLogout' %}">
+                        <a class="nav-link" href="{% url 'VendorLogout' %}" target="_blank">
                             Logout
                         </a>
                     </li>
@@ -140,6 +144,18 @@
             </div>
         </nav>
         <!-- End Navbar -->
+        <button id="chatbot-toggle-btn"><img src="/static/pics/botchat-removebg-preview.png" alt="buttonpng" height="40" width="40" /></button>
+    <div class="chatbot-popup" id="chatbot-popup">
+        <div class="chat-header">
+            <span>EMTA Chatbot</span>
+            <button id="close-btn">&times;</button>
+        </div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
         <!-- Header -->
         <div class="header bg-gradient-info pb-8 pt-5 pt-md-8">
             <div class="container-fluid">
@@ -366,6 +382,8 @@
             </div>
         </div>
     </div>
+   
+    <script src="/static/js/chatbot.js"></script>
     <!--   Core   -->
     <script src="/static/assets/js/plugins/jquery/dist/jquery.min.js"></script>
     <script src="/static/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
