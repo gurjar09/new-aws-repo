@@ -10,7 +10,12 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+from whitenoise import WhiteNoise  # Import WhiteNoise
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'EMTA_AWS.settings')
 
-application = get_wsgi_application()
+# Get the WSGI application
+django_application = get_wsgi_application()
+
+# Wrap the Django application with WhiteNoise
+application = WhiteNoise(django_application)
