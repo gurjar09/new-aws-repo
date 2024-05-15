@@ -33,4 +33,4 @@ urlpatterns = [
     path('admin/vendor/<int:vendor_id>/details/', AdminVendorDetails, name='admin_vendor_details'),
     path('EmployeeCandidateDetails/<int:candidate_id>/', EmployeeCandidateDetails, name='EmployeeCandidateDetails'),
     path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_ROOT, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
