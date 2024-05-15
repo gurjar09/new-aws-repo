@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +22,7 @@
             <p style="color: red;">{{ error_message }}</p>
             {% endif %}
             <div class="top">
-                <span>Don't have an account? <a href="{% url 'VendorSignup' %}">SignUp</a></span>
+                <span>Don't have an account? <a href="{% url 'index' %}">SignUp</a></span>
                 <header>Login</header>
             </div>
 
