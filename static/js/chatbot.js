@@ -6,7 +6,8 @@ const responses = {
     "bye": "Goodbye! Have a great day!",
     "default": "I'm sorry, I didn't understand that. Want to connect with expert?",
     "expert": "Great! Please wait a moment while we connect you with an expert.",
-    "no": "Okay, if you change your mind just let me know!"
+    "no": "Okay, if you change your mind just let me know!",
+    "initial": "How can I help you?"
 };
 
 document.getElementById('chatbot-toggle-btn').addEventListener('click', toggleChatbot);
@@ -20,7 +21,16 @@ document.getElementById('user-input').addEventListener('keypress', function(e) {
 
 function toggleChatbot() {
     const chatbotPopup = document.getElementById('chatbot-popup');
-    chatbotPopup.style.display = chatbotPopup.style.display === 'none' ? 'block' : 'none';
+    if (chatbotPopup.style.display === 'none') {
+        chatbotPopup.style.display = 'block';
+        sendInitialMessage();
+    } else {
+        chatbotPopup.style.display = 'none';
+    }
+}
+
+function sendInitialMessage() {
+    appendMessage('bot', responses["initial"]);
 }
 
 function sendMessage() {
