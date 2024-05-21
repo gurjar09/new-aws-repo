@@ -13,8 +13,8 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
+}   
+/* dfs */
 .wrapper{
     display: flex;
     justify-content: center;
