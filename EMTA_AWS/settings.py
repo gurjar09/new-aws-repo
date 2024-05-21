@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k3pyzib&+c=rr#+$ga5&n5g_!kr&0m1=nu19%br-^u()&ngt-q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['emtavms.com', 'https://emtavms.com',,'*']
 ALLOWED_HOSTS = ['*']
