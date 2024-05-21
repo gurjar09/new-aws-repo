@@ -255,13 +255,14 @@
                     
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-last-name">Aadhar Image</label>
-                        <input type="file" id="input-last-name" class="form-control form-control-alternative"
-                        name="adhar_image"
-                        placeholder="Aadhar Image" value="{{ adhar_image }}" >
+                          <label class="form-control-label" for="input-last-name">Aadhar Image</label>
+                          <input type="file" id="input-last-name" class="form-control form-control-alternative" name="adhar_image" placeholder="Aadhar Image" value="{{ adhar_image }}">
+                          {% if adhar_image %}
+                              <p>{{ adhar_image.name }}</p> <!-- Display file name if uploaded -->
+                          {% endif %}
                       </div>
-                    </div>
                   </div>
+                  
                   <div class="row">
                     
                     <div class="col-lg-6">
