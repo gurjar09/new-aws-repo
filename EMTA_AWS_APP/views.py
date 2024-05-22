@@ -133,6 +133,7 @@ def candidateform(request):
             sector=sector,
             location=location,
             refer_code=refer_code,
+            resume = resume
         )
 
         return redirect(CandidateSuccess, candidate_id=candidate.id)
