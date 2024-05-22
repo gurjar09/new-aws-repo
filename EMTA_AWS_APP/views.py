@@ -107,32 +107,14 @@ def VendorDashboard(request):
     }
     return render(request, 'VendorDashboard.html', context)
 
-from PIL import Image
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
-
-def compress_image(image):
-    img = Image.open(image)
-    # Define the desired dimensions for the image
-    desired_width = 800
-    desired_height = 600
-    # Resize the image while maintaining the aspect ratio
-    img.thumbnail((desired_width, desired_height))
-    # Create a BytesIO object to store the compressed image
-    output_buffer = BytesIO()
-    # Save the compressed image to the BytesIO object
-    img.save(output_buffer, format='JPEG', quality=70)
-    # Create a new InMemoryUploadedFile object with the compressed image
-    return InMemoryUploadedFile(output_buffer, None, 'compressed.jpg', 'image/jpeg', output_buffer.tell(), None)
-
 def candidateform(request):
     if request.method == 'POST':
-        # Retrieve form data
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         qualification = request.POST.get('qualification')
         mobile_number = request.POST.get('mobile_number')
         email = request.POST.get('email')
+        resume = request.FILES.get('resume')
         sector = request.POST.get('sector')
         location = request.POST.get('location')
         refer_code = request.POST.get('refer_code', '')
@@ -141,14 +123,7 @@ def candidateform(request):
         Contact = request.POST.get('Contact')
         status = request.POST.get('status')
         Contact_by = request.POST.get('Contact_by')
-        resume = request.FILES.get('resume')
 
-        # Compress the uploaded resume
-        compressed_resume = None
-        if resume:
-            compressed_resume = compress_image(resume)
-
-        # Create candidate object with compressed resume
         candidate = Candidate.objects.create(
             first_name=first_name,
             last_name=last_name,
@@ -158,7 +133,7 @@ def candidateform(request):
             sector=sector,
             location=location,
             refer_code=refer_code,
-            resume=compressed_resume  # Use the compressed resume
+            resume = resume
         )
 
         return redirect(CandidateSuccess, candidate_id=candidate.id)
@@ -167,7 +142,6 @@ def candidateform(request):
         refer_code = request.GET.get('ref', '')
         initial_data = {'refer_code': refer_code}
         return render(request, 'candidateform.html', {'initial_data': initial_data})
-
 
 def CandidateDetails(request, candidate_id):
     candidate = get_object_or_404(Candidate, id=candidate_id)
