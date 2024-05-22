@@ -82,13 +82,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'EVMS_EMTA_DATABASE',
+        'NAME': 'EMTAVMS2024',
 
-        'USER': 'EVMS',
+        'USER': 'postgres',
 
         'PASSWORD': 'Emta0505',
 
-        'HOST': 'database-1.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
+        'HOST': 'database-3.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
 
         'PORT': '5432',
     }
