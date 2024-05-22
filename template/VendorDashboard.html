@@ -25,23 +25,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="/static/css/sizeoflink.css">
     <style>
-        #showQrButton {
+        #toggleQrButton {
             display: inline-block;
             padding: 10px 20px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             color: white;
-            background-color: #1195EF;
+            background-color: #1172EF;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-align: center;
             transition: background-color 0.3s;
+            margin-bottom: 5px;
+            
         }
 
-        /* #showQrButton:hover {
-            background-color: #45a049;
-        } */
+        #toggleQrButton:hover {
+            background-color: #1172EF;
+        }
 
         #qrCodeContainer {
             display: none;
@@ -53,27 +55,6 @@
         #qrCodeImage {
             width: 200px; /* Adjust the width as needed */
             height: 200px; /* Adjust the height as needed */
-        }
-
-        #closeQrButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 16px;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #closeQrButton:hover {
-            background-color: #e53935;
         }
     </style>
 </head>
@@ -286,13 +267,13 @@
                                                     </a></a></p>
 
                                         </div>
-                                        <button id="showQrButton"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">
-                                            <path d="M2 2h2v2H2z"/>
-                                            <path d="M6 0v6H0V0zM5 1H1v4h4zM4 12H2v2h2z"/>
-                                            <path d="M6 10v6H0v-6zm-5 1v4h4v-4zm11-9h2v2h-2z"/>
-                                            <path d="M10 0v6h6V0zm5 1v4h-4V1zM8 1V0h1v2H8v2H7V1zm0 5V4h1v2zM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8zm0 0v1H2V8H1v1H0V7h3v1zm10 1h-1V7h1zm-1 0h-1v2h2v-1h-1zm-4 0h2v1h-1v1h-1zm2 3v-1h-1v1h-1v1H9v1h3v-2zm0 0h3v1h-2v1h-1zm-4-1v1h1v-2H7v1z"/>
-                                            <path d="M7 12h1v3h4v1H7zm9 2v2h-3v-1h2v-1z"/>
-                                          </svg></button>
+                                        <button id="toggleQrButton">Show QR</button>
+    <div id="qrCodeContainer">
+        {% if qr_code_url %}
+            <p>QR Code:</p>
+            <img id="qrCodeImage" src="{{ qr_code_url }}" alt="QR Code">
+        {% endif %}
+    </div>
     <div id="qrCodeContainer">
         {% if qr_code_url %}
             <button id="closeQrButton">&times;</button>
@@ -461,68 +442,54 @@
             </div>
         </div>
     </div>
-
-    <!-- <script src="/static/js/chatbot.js"></script> -->
-
     <script src="/static/assets/js/plugins/jquery/dist/jquery.min.js"></script>
     <script src="/static/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <script src="/static/assets/js/plugins/chart.js/dist/Chart.min.js"></script>
     <script src="/static/assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
-    <!--   Argon JS   -->
     <script src="/static/assets/js/argon-dashboard.min.js?v=1.1.2"></script>
-    <!--   Demo JS   -->
     <script src="/static/assets/js/demo.min.js"></script>
-
-
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Include DataTables CSS -->
+    
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
-
-    <!-- Include DataTables JavaScript -->
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function () {
             $('.filter-input').on('keyup', function () {
                 var locationFilter = $('#location-filter').val().toLowerCase();
-
-                // Filter the table rows based on the location filter
                 $('#candidateTable tbody tr').filter(function () {
                     $(this).toggle($(this).find('td[data-filter="location-filter"]').text().toLowerCase().indexOf(locationFilter) > -1);
                 });
             });
         });
     </script>
-
+    
     <script>
         $(document).ready(function () {
             $('#candidateTable').DataTable({
-                "searching": true,  // Enable searching
-                "paging": true,     // Enable pagination
-                "ordering": true,   // Enable sorting
-                // Make search case insensitive
+                "searching": true,
+                "paging": true,
+                "ordering": true,
                 "language": {
                     "search": "_INPUT_",
                     "searchPlaceholder": "Search...",
                 },
                 "columnDefs": [
-                    { "searchable": true, "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }  // Indexes of columns to search
+                    { "searchable": true, "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }
                 ]
             });
         });
     </script>
-
+    
     <script>
-        // Function to filter table rows
         function filterTable() {
             var filters = {};
             document.querySelectorAll(".filter-input").forEach(function (input) {
                 filters[input.dataset.filter] = input.value.trim().toUpperCase();
             });
-
+    
             var rows = document.querySelectorAll("#candidateTable tbody tr");
             rows.forEach(function (row) {
                 var displayRow = true;
@@ -539,13 +506,12 @@
                 row.style.display = displayRow ? "" : "none";
             });
         }
-
-        // Add event listeners to filter input fields
+    
         document.querySelectorAll(".filter-input").forEach(function (input) {
             input.addEventListener("change", filterTable);
         });
     </script>
-
+    
     <script>
         function redirectToDetails(candidateId) {
             window.location.href = '/candidate/details/' + candidateId + '/';
@@ -553,35 +519,27 @@
     </script>
     <script>
         function filterTable() {
-            // Get search input element
             var searchInput = document.getElementById('searchInput');
-            // Convert search input value to lowercase
             var searchText = searchInput.value.toLowerCase();
-            // Get table rows
             var rows = document.querySelectorAll('#candidateTable tbody tr');
-
-            // Loop through each table row
+    
             rows.forEach(function (row) {
-                // Get table data cells in the row
                 var cells = row.querySelectorAll('td');
                 var found = false;
-
-                // Loop through each cell in the row
+    
                 cells.forEach(function (cell) {
-                    // Check if the cell text contains the search text
                     if (cell.textContent.toLowerCase().indexOf(searchText) > -1) {
                         found = true;
                     }
                 });
-
-                // Show or hide the row based on search result
+    
                 row.style.display = found ? '' : 'none';
             });
         }
-
-        // Add event listener to search input for filtering
+    
         document.getElementById('searchInput').addEventListener('input', filterTable);
     </script>
+    
 
     <script>
 
@@ -670,14 +628,17 @@
 
 
 <script>
-    document.getElementById('showQrButton').addEventListener('click', function() {
+    document.getElementById('toggleQrButton').addEventListener('click', function() {
         var qrCodeContainer = document.getElementById('qrCodeContainer');
-        qrCodeContainer.style.display = 'block';
-    });
+        var toggleQrButton = document.getElementById('toggleQrButton');
 
-    document.getElementById('closeQrButton').addEventListener('click', function() {
-        var qrCodeContainer = document.getElementById('qrCodeContainer');
-        qrCodeContainer.style.display = 'none';
+        if (qrCodeContainer.style.display === 'none' || qrCodeContainer.style.display === '') {
+            qrCodeContainer.style.display = 'block';
+            toggleQrButton.textContent = 'Close QR';
+        } else {
+            qrCodeContainer.style.display = 'none';
+            toggleQrButton.textContent = 'Show QR';
+        }
     });
 </script>
 
