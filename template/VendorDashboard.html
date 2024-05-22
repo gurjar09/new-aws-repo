@@ -47,11 +47,33 @@
             display: none;
             margin-top: 20px;
             text-align: center;
+            position: relative; /* For positioning the close button */
         }
 
         #qrCodeImage {
             width: 200px; /* Adjust the width as needed */
             height: 200px; /* Adjust the height as needed */
+        }
+
+        #closeQrButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #closeQrButton:hover {
+            background-color: #e53935;
         }
     </style>
 </head>
@@ -167,8 +189,7 @@
                                     <img alt="Image placeholder" src="/static/pics/theme/team-4-800x800.jpg">
                                 </span> -->
                                 <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Welcome,&nbsp;{{ user.first_name
-                                        }}&nbsp; {{ user.last_name }}</span>
+                                    <span class="mb-0 text-sm  font-weight-bold">Welcome,&nbsp;{{ user.first_name}}&nbsp; {{ user.last_name }}</span>
                                 </div>
                             </div>
                         </a>
@@ -205,8 +226,7 @@
                                             {% if shop_name %}
                                             <span class="h2 font-weight-bold mb-0">{{ shop_name }}</span>
                                             {% else %}
-                                            <span class="h2 font-weight-bold mb-0">{{ user.first_name }} &nbsp; {{
-                                                user.last_name }}</span>
+                                            <span class="h2 font-weight-bold mb-0">{{ user.first_name }} &nbsp; {{user.last_name }}</span>
                                             {% endif %}
 
                                         </div>
@@ -267,12 +287,13 @@
 
                                         </div>
                                         <button id="showQrButton">Show QR Code</button>
-                                        <div id="qrCodeContainer">
-                                            {% if qr_code_url %}
-                                            <p>QR Code:</p>
-                                            <img id="qrCodeImage" src="{{ qr_code_url }}" alt="QR Code">
-                                            {% endif %}
-                                        </div>
+    <div id="qrCodeContainer">
+        {% if qr_code_url %}
+            <button id="closeQrButton">&times;</button>
+            <p>QR Code:</p>
+            <img id="qrCodeImage" src="{{ qr_code_url }}" alt="QR Code">
+        {% endif %}
+    </div>
                                         <div class="col-auto">
                                             <button class="btn btn-success btn-sm" onclick="shareReferralLink()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -646,6 +667,11 @@
     document.getElementById('showQrButton').addEventListener('click', function() {
         var qrCodeContainer = document.getElementById('qrCodeContainer');
         qrCodeContainer.style.display = 'block';
+    });
+
+    document.getElementById('closeQrButton').addEventListener('click', function() {
+        var qrCodeContainer = document.getElementById('qrCodeContainer');
+        qrCodeContainer.style.display = 'none';
     });
 </script>
 
