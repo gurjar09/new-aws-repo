@@ -15,6 +15,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import qrcode
+from django.core.files.base import ContentFile
+from io import BytesIO
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.db.models import Sum
+from .models import Vendor, Candidate
 
 
 def index(request):
@@ -62,8 +69,26 @@ def VendorDashboard(request):
     referral_link = request.build_absolute_uri('/candidateform/?ref={}'.format(vendor.refer_code))
     candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
     num_candidates = candidates.count()
-
     total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission']
+
+    # Generate QR code
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(referral_link)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill='black', back_color='white')
+    buffer = BytesIO()
+    img.save(buffer, format='PNG')
+    qr_code_file = ContentFile(buffer.getvalue(), name=f'{vendor.user.username}_qr.png')
+
+    # Save QR code to vendor
+    vendor.qr_code.save(qr_code_file.name, qr_code_file)
+    vendor.save()
 
     if request.method == 'POST' and request.FILES.get('profile_picture'):
         profile_picture = request.FILES['profile_picture']
@@ -78,6 +103,7 @@ def VendorDashboard(request):
         'num_candidates': num_candidates,
         'total_commission': total_commission,
         'referral_link': referral_link,
+        'qr_code_url': vendor.qr_code.url if vendor.qr_code else None,
     }
     return render(request, 'VendorDashboard.html', context)
 

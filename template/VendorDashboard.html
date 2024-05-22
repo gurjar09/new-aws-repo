@@ -229,6 +229,10 @@
                                             </a></a></p>
                                            
                                         </div>
+                                        {% if qr_code_url %}
+                                        <p>QR Code:</p>
+                                        <img src="{{ qr_code_url }}" alt="QR Code">
+                                    {% endif %}
                                         <div class="col-auto">
                                             <button class="btn btn-success btn-sm" onclick="shareReferralLink()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
