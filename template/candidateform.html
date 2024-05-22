@@ -64,9 +64,11 @@
       </div>
       <p>Resume</p>
       <div class="input-box">
-        <input type="file" class="input-field" name="resume" placeholder="Resume" >
-        <i class="bx bx-lock-mobile"></i>
+          <input type="file" class="input-field" name="resume" id="resume" placeholder="Resume">
+          <i class="bx bx-lock-mobile"></i>
       </div>
+      <div id="resumeError" style="display: none; color: red;">Please upload a valid file.</div>
+      
       <a href="signup">
         <div class="input-box">
           <input type="submit" class="submit"  value="Register">
@@ -77,6 +79,23 @@
 
 
   </div>
+  <script>
+    document.getElementById('resume').addEventListener('change', function() {
+    var fileInput = this;
+    var filePath = fileInput.value;
+
+    if (!filePath) {
+        // No file selected, hide error message
+        document.getElementById('resumeError').style.display = 'none';
+        return true;
+    }
+    
+    // No file extension restriction, no need for validation
+    // Hide error message
+    document.getElementById('resumeError').style.display = 'none';
+});
+
+  </script>
 
 </body>
 
