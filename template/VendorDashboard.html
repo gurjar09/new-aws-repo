@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +11,9 @@
     <!-- <link rel="stylesheet" href="/static/css/chatbot.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link href="/static/pics/EMTA.jpeg" rel="icon" type="image/png">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -23,6 +24,12 @@
     <link href="/static/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="/static/css/sizeoflink.css">
+    <style>
+        #qrCodeContainer {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body class="">
@@ -40,8 +47,8 @@
             <!-- User -->
             <ul class="nav align-items-center d-md-none">
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-link-icon" href="{% url 'profile_details' %}" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link nav-link-icon" href="{% url 'profile_details' %}" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="ni ni-bell-55"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
@@ -52,10 +59,10 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>
-                
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="{% url 'profile_details' %}" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
+                    <a class="nav-link" href="{% url 'profile_details' %}" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         <div class="media align-items-center">
                             <span class="avatar avatar-sm rounded-circle">
                                 <img src="/static/pics/theme/team-1-800x800.jpg" alt="Image placeholder">
@@ -68,23 +75,24 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Collapse header -->
                 <div class="navbar-collapse-header d-md-none">
-                  <div class="row">
-                    <div class="col-6 collapse-brand">
-                      <a href="{% url 'VendorDashboard' %}">
-                        <img src="/static/pics/EMTALOGO.png">
-                      </a>
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="{% url 'VendorDashboard' %}">
+                                <img src="/static/pics/EMTALOGO.png">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse"
+                                data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false"
+                                aria-label="Toggle sidenav">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-6 collapse-close">
-                      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main"
-                        aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
-                        <span></span>
-                        <span></span>
-                      </button>
-                    </div>
-                  </div>
                 </div>
                 <!-- Form -->
-                
+
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item active">
@@ -113,8 +121,8 @@
                         </a>
                     </li>
                 </ul>
-                
-              </div>
+
+            </div>
         </div>
     </nav>
     <div class="main-content">
@@ -135,7 +143,8 @@
                                     <img alt="Image placeholder" src="/static/pics/theme/team-4-800x800.jpg">
                                 </span> -->
                                 <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Welcome,&nbsp;{{ user.first_name }}&nbsp; {{ user.last_name }}</span>
+                                    <span class="mb-0 text-sm  font-weight-bold">Welcome,&nbsp;{{ user.first_name
+                                        }}&nbsp; {{ user.last_name }}</span>
                                 </div>
                             </div>
                         </a>
@@ -167,16 +176,18 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="card-title text-uppercase text-muted mb-0">Vendor / Business Name</h5>
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Vendor / Business Name
+                                            </h5>
                                             {% if shop_name %}
-                                                <span class="h2 font-weight-bold mb-0">{{ shop_name }}</span>
+                                            <span class="h2 font-weight-bold mb-0">{{ shop_name }}</span>
                                             {% else %}
-                                                <span class="h2 font-weight-bold mb-0">{{ user.first_name }} &nbsp; {{ user.last_name }}</span>
+                                            <span class="h2 font-weight-bold mb-0">{{ user.first_name }} &nbsp; {{
+                                                user.last_name }}</span>
                                             {% endif %}
-                                            
+
                                         </div>
                                         <div class="col-auto">
-                                            
+
                                         </div>
                                     </div>
 
@@ -193,7 +204,7 @@
                                             <span class="h2 font-weight-bold mb-0">{{num_candidates}}</span>
                                         </div>
                                         <div class="col-auto">
-                                            
+
                                         </div>
                                     </div>
 
@@ -210,7 +221,7 @@
                                             <span class="h2 font-weight-bold mb-0">{{ total_commission }}</span>
                                         </div>
                                         <div class="col-auto">
-                                            
+
                                         </div>
                                     </div>
 
@@ -224,15 +235,20 @@
                                         <div class="col">
                                             <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
                                             <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
-                                            <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}" id="referralLink" target="_blank">{{ referral_link }} <a onclick="copyReferralLink()" class="brand-logo logo">
-                                                <i class="fas fa-copy"></i>
-                                            </a></a></p>
-                                           
+                                            <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}"
+                                                    id="referralLink" target="_blank">{{ referral_link }} <a
+                                                        onclick="copyReferralLink()" class="brand-logo logo">
+                                                        <i class="fas fa-copy"></i>
+                                                    </a></a></p>
+
                                         </div>
-                                        {% if qr_code_url %}
-                                        <p>QR Code:</p>
-                                        <img src="{{ qr_code_url }}" alt="QR Code">
-                                    {% endif %}
+                                        <button id="showQrButton">Show QR Code</button>
+                                        <div id="qrCodeContainer">
+                                            {% if qr_code_url %}
+                                            <p>QR Code:</p>
+                                            <img id="qrCodeImage" src="{{ qr_code_url }}" alt="QR Code">
+                                            {% endif %}
+                                        </div>
                                         <div class="col-auto">
                                             <button class="btn btn-success btn-sm" onclick="shareReferralLink()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -283,8 +299,8 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -307,7 +323,7 @@
                             <table id="candidateTable" class="table table-borderless table-striped table-earning">
                                 <thead class="thead-bold font-size-16">
                                     <tr>
-                                        
+
                                         <th scope="col" style="font-size: 20px;">
                                             Contact <br>
                                             <select class="form-control filter-input" data-filter="contact-filter">
@@ -316,27 +332,32 @@
                                                 <option value="No">No</option>
                                             </select>
                                         </th>
-                                        
-                
+
+
                                         <th scope="col" style="font-size: 20px;">
                                             Name <br>
-                                            <input type="text" class="form-control filter-input" data-filter="name-filter" placeholder="Filter Name">
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="name-filter" placeholder="Filter Name">
                                         </th>
                                         <th scope="col" style="font-size: 20px;">
                                             Mobile <br>
-                                            <input type="text" class="form-control filter-input" data-filter="mobile-filter" placeholder="Filter Mobile">
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="mobile-filter" placeholder="Filter Mobile">
                                         </th>
                                         <th scope="col" style="font-size: 20px;">
                                             Email <br>
-                                            <input type="text" class="form-control filter-input" data-filter="email-filter" placeholder="Filter Email">
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="email-filter" placeholder="Filter Email">
                                         </th>
                                         <th scope="col" style="font-size: 20px;">
                                             Location <br>
-                                            <input type="text" class="form-control filter-input" data-filter="location-filter" placeholder="Filter Location">
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="location-filter" placeholder="Filter Location">
                                         </th>
                                         <th scope="col" style="font-size: 20px;">
                                             Job Preference <br>
-                                            <input type="text" class="form-control filter-input" data-filter="job-preference-filter" placeholder="Filter Job Preference">
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="job-preference-filter" placeholder="Filter Job Preference">
                                         </th>
                                         <th scope="col" style="font-size: 20px;">
                                             Status <br>
@@ -350,24 +371,34 @@
                                         </th>
                                         <th scope="col" style="font-size: 20px;">
                                             Commission <br>
-                                            <input type="text" class="form-control filter-input" data-filter="location-filter" placeholder="Filter Location">
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="location-filter" placeholder="Filter Location">
                                         </th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for candidate in candidates %}
                                     <tr>
                                         <!-- <td>{{ forloop.counter }}</td> -->
-                                        <td data-filter="contact-filter"  style="font-size: 15px; color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">{{ candidate.Contact }}</td>
+                                        <td data-filter="contact-filter"
+                                            style="font-size: 15px; color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">
+                                            {{ candidate.Contact }}</td>
                                         <!-- <td data-filter="contact-by-filter">{{ candidate.Contact_by }}</td> -->
-                                        
-                                        <td data-filter="name-filter" style="font-size: 15px;">{{ candidate.first_name }}&nbsp;{{ candidate.last_name }}</td>
-                                        <td data-filter="mobile-filter" style="font-size: 15px;">{{ candidate.mobile_number }}</td>
-                                        <td data-filter="email-filter" style="font-size: 15px;">{{ candidate.email }}</td>
-                                        <td data-filter="location-filter" style="font-size: 15px;">{{ candidate.location }}</td>
-                                        <td data-filter="job-preference-filter" style="font-size: 15px;">{{ candidate.sector }}</td>
-                                        <td data-filter="status-filter"  style="font-size: 15px; color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">{{ candidate.status }}</td>
+
+                                        <td data-filter="name-filter" style="font-size: 15px;">{{ candidate.first_name
+                                            }}&nbsp;{{ candidate.last_name }}</td>
+                                        <td data-filter="mobile-filter" style="font-size: 15px;">{{
+                                            candidate.mobile_number }}</td>
+                                        <td data-filter="email-filter" style="font-size: 15px;">{{ candidate.email }}
+                                        </td>
+                                        <td data-filter="location-filter" style="font-size: 15px;">{{ candidate.location
+                                            }}</td>
+                                        <td data-filter="job-preference-filter" style="font-size: 15px;">{{
+                                            candidate.sector }}</td>
+                                        <td data-filter="status-filter"
+                                            style="font-size: 15px; color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">
+                                            {{ candidate.status }}</td>
                                         <td style="font-size: 15px;">{{ candidate.commission }}</td>
                                     </tr>
                                     {% endfor %}
@@ -379,12 +410,12 @@
             </div>
         </div>
     </div>
-   
+
     <!-- <script src="/static/js/chatbot.js"></script> -->
-  
+
     <script src="/static/assets/js/plugins/jquery/dist/jquery.min.js"></script>
     <script src="/static/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
- 
+
     <script src="/static/assets/js/plugins/chart.js/dist/Chart.min.js"></script>
     <script src="/static/assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
     <!--   Argon JS   -->
@@ -392,58 +423,59 @@
     <!--   Demo JS   -->
     <script src="/static/assets/js/demo.min.js"></script>
 
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Include DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
-    
+
     <!-- Include DataTables JavaScript -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.filter-input').on('keyup', function() {
+        $(document).ready(function () {
+            $('.filter-input').on('keyup', function () {
                 var locationFilter = $('#location-filter').val().toLowerCase();
-    
+
                 // Filter the table rows based on the location filter
-                $('#candidateTable tbody tr').filter(function() {
+                $('#candidateTable tbody tr').filter(function () {
                     $(this).toggle($(this).find('td[data-filter="location-filter"]').text().toLowerCase().indexOf(locationFilter) > -1);
                 });
             });
         });
     </script>
-    
+
     <script>
-    $(document).ready(function() {
-        $('#candidateTable').DataTable({
-            "searching": true,  // Enable searching
-            "paging": true,     // Enable pagination
-            "ordering": true,   // Enable sorting
-            // Make search case insensitive
-            "language": {
-                "search": "_INPUT_",
-                "searchPlaceholder": "Search...",
-            },
-            "columnDefs": [
-                { "searchable": true, "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }  // Indexes of columns to search
-            ]
+        $(document).ready(function () {
+            $('#candidateTable').DataTable({
+                "searching": true,  // Enable searching
+                "paging": true,     // Enable pagination
+                "ordering": true,   // Enable sorting
+                // Make search case insensitive
+                "language": {
+                    "search": "_INPUT_",
+                    "searchPlaceholder": "Search...",
+                },
+                "columnDefs": [
+                    { "searchable": true, "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }  // Indexes of columns to search
+                ]
+            });
         });
-    });
     </script>
 
     <script>
         // Function to filter table rows
         function filterTable() {
             var filters = {};
-            document.querySelectorAll(".filter-input").forEach(function(input) {
+            document.querySelectorAll(".filter-input").forEach(function (input) {
                 filters[input.dataset.filter] = input.value.trim().toUpperCase();
             });
-    
+
             var rows = document.querySelectorAll("#candidateTable tbody tr");
-            rows.forEach(function(row) {
+            rows.forEach(function (row) {
                 var displayRow = true;
-                Object.keys(filters).forEach(function(key) {
+                Object.keys(filters).forEach(function (key) {
                     var filterValue = filters[key];
                     if (filterValue) {
                         var cell = row.querySelector("td[data-filter='" + key + "']");
@@ -456,9 +488,9 @@
                 row.style.display = displayRow ? "" : "none";
             });
         }
-    
+
         // Add event listeners to filter input fields
-        document.querySelectorAll(".filter-input").forEach(function(input) {
+        document.querySelectorAll(".filter-input").forEach(function (input) {
             input.addEventListener("change", filterTable);
         });
     </script>
@@ -470,34 +502,34 @@
     </script>
     <script>
         function filterTable() {
-    // Get search input element
-    var searchInput = document.getElementById('searchInput');
-    // Convert search input value to lowercase
-    var searchText = searchInput.value.toLowerCase();
-    // Get table rows
-    var rows = document.querySelectorAll('#candidateTable tbody tr');
+            // Get search input element
+            var searchInput = document.getElementById('searchInput');
+            // Convert search input value to lowercase
+            var searchText = searchInput.value.toLowerCase();
+            // Get table rows
+            var rows = document.querySelectorAll('#candidateTable tbody tr');
 
-    // Loop through each table row
-    rows.forEach(function(row) {
-        // Get table data cells in the row
-        var cells = row.querySelectorAll('td');
-        var found = false;
+            // Loop through each table row
+            rows.forEach(function (row) {
+                // Get table data cells in the row
+                var cells = row.querySelectorAll('td');
+                var found = false;
 
-        // Loop through each cell in the row
-        cells.forEach(function(cell) {
-            // Check if the cell text contains the search text
-            if (cell.textContent.toLowerCase().indexOf(searchText) > -1) {
-                found = true;
-            }
-        });
+                // Loop through each cell in the row
+                cells.forEach(function (cell) {
+                    // Check if the cell text contains the search text
+                    if (cell.textContent.toLowerCase().indexOf(searchText) > -1) {
+                        found = true;
+                    }
+                });
 
-        // Show or hide the row based on search result
-        row.style.display = found ? '' : 'none';
-    });
-}
+                // Show or hide the row based on search result
+                row.style.display = found ? '' : 'none';
+            });
+        }
 
-// Add event listener to search input for filtering
-document.getElementById('searchInput').addEventListener('input', filterTable);
+        // Add event listener to search input for filtering
+        document.getElementById('searchInput').addEventListener('input', filterTable);
     </script>
 
     <script>
@@ -513,80 +545,85 @@ document.getElementById('searchInput').addEventListener('input', filterTable);
 
 
 
-<script>
-    function shareReferralLink() {
-        var referralLink = "{{ referral_link }}";
-        var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
-        var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage; // WhatsApp deep link
-        
-        window.open(deepLink, "_blank");
-    }
-</script>
-<script>
-    function copyReferralLink() {
-        var referralLink = document.getElementById("referralLink");
-        var tempInput = document.createElement("input");
-        tempInput.value = referralLink.href;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-        alert("Link copied to clipboard!");
-    }
-</script>
-<script>
-    function shareOnTelegram() {
-        var message = "Your message here";
-        var referralLink = "{{ referral_link }}";
-        var shareUrl = "https://telegram.me/share/url?url=" + encodeURIComponent(referralLink) + "&text=" + encodeURIComponent(message);
-        window.open(shareUrl, "_blank");
-    }
-</script>
+    <script>
+        function shareReferralLink() {
+            var referralLink = "{{ referral_link }}";
+            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
+            var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage; // WhatsApp deep link
+
+            window.open(deepLink, "_blank");
+        }
+    </script>
+    <script>
+        function copyReferralLink() {
+            var referralLink = document.getElementById("referralLink");
+            var tempInput = document.createElement("input");
+            tempInput.value = referralLink.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Link copied to clipboard!");
+        }
+    </script>
+    <script>
+        function shareOnTelegram() {
+            var message = "Your message here";
+            var referralLink = "{{ referral_link }}";
+            var shareUrl = "https://telegram.me/share/url?url=" + encodeURIComponent(referralLink) + "&text=" + encodeURIComponent(message);
+            window.open(shareUrl, "_blank");
+        }
+    </script>
+
+    <script>
+        function shareReferralLink() {
+            var referralLink = "{{ referral_link }}";
+            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
+            var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage;
+            window.open(deepLink, "_blank");
+        }
+    </script>
+
+    <script>
+        function shareInstagramLink() {
+            var referralLink = "{{ referral_link }}";
+            var deepLink = "https://www.instagram.com/direct/new/?url=" + encodeURIComponent(referralLink);
+            window.open(deepLink, "_blank");
+        }
+    </script>
+
+    <script>
+        function shareAsMessageOnLinkedIn() {
+            var referralLink = "Your referral link here";
+            var shareUrl = "https://www.linkedin.com/shareArticle?url=" + encodeURIComponent(referralLink);
+            window.open(shareUrl, "_blank");
+        }
+    </script>
+
+    <script>
+        function shareViaMessenger() {
+            var referralLink = "{{ referral_link }}";
+            var shareUrl = "https://www.facebook.com/dialog/send?link=" + encodeURIComponent(referralLink);
+            window.open(shareUrl, "_blank");
+        }
+    </script>
+
+    <script>
+        function shareViaSMS() {
+            var referralLink = "{{ referral_link }}";
+            var message = "Check out this referral link: " + referralLink;
+            var smsUri = "sms:?body=" + encodeURIComponent(message);
+            window.location.href = smsUri;
+        }
+    </script>
+
 
 <script>
-    function shareReferralLink() {
-        var referralLink = "{{ referral_link }}";
-        var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
-        var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage;
-        window.open(deepLink, "_blank");
-    }
+    document.getElementById('showQrButton').addEventListener('click', function() {
+        var qrCodeContainer = document.getElementById('qrCodeContainer');
+        qrCodeContainer.style.display = 'block';
+    });
 </script>
-
-<script>
-    function shareInstagramLink() {
-        var referralLink = "{{ referral_link }}";
-        var deepLink = "https://www.instagram.com/direct/new/?url=" + encodeURIComponent(referralLink);
-        window.open(deepLink, "_blank");
-    }
-</script>
-
-<script>
-    function shareAsMessageOnLinkedIn() {
-        var referralLink = "Your referral link here";
-        var shareUrl = "https://www.linkedin.com/shareArticle?url=" + encodeURIComponent(referralLink);
-        window.open(shareUrl, "_blank");
-    }
-</script>
-
-<script>
-    function shareViaMessenger() {
-        var referralLink = "{{ referral_link }}";
-        var shareUrl = "https://www.facebook.com/dialog/send?link=" + encodeURIComponent(referralLink);
-        window.open(shareUrl, "_blank");
-    }
-</script>
-
-<script>
-    function shareViaSMS() {
-        var referralLink = "{{ referral_link }}";
-        var message = "Check out this referral link: " + referralLink;
-        var smsUri = "sms:?body=" + encodeURIComponent(message);
-        window.location.href = smsUri;
-    }
-</script>
-
-
-
 
 </body>
 

@@ -75,8 +75,8 @@ def VendorDashboard(request):
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=2,
-        border=2,
+        box_size=10,
+        border=4,
     )
     qr.add_data(referral_link)
     qr.make(fit=True)
