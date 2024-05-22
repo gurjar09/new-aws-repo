@@ -12,6 +12,7 @@ class Vendor(models.Model):
     address = models.CharField(max_length=100)
     refer_code = models.CharField(max_length=10, unique=True)
     date_of_birth = models.TextField(max_length=10)
+    qr_code = models.ImageField(upload_to='qr_codes/', null=True, blank=True)
     
     CommissionReceived = [
         ('Yes', 'Yes'),
