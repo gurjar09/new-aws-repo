@@ -418,16 +418,13 @@
                                             {{ candidate.Contact }}</td>
                                         <!-- <td data-filter="contact-by-filter">{{ candidate.Contact_by }}</td> -->
 
-                                        <td data-filter="name-filter" style="font-size: 15px;">{{ candidate.first_name
-                                            }}&nbsp;{{ candidate.last_name }}</td>
+                                        <td data-filter="name-filter" style="font-size: 15px;">{{ candidate.first_name}}&nbsp;{{ candidate.last_name }}</td>
                                         <td data-filter="mobile-filter" style="font-size: 15px;">{{
                                             candidate.mobile_number }}</td>
                                         <td data-filter="email-filter" style="font-size: 15px;">{{ candidate.email }}
                                         </td>
-                                        <td data-filter="location-filter" style="font-size: 15px;">{{ candidate.location
-                                            }}</td>
-                                        <td data-filter="job-preference-filter" style="font-size: 15px;">{{
-                                            candidate.sector }}</td>
+                                        <td data-filter="location-filter" style="font-size: 15px;">{{ candidate.location}}</td>
+                                        <td data-filter="job-preference-filter" style="font-size: 15px;">{{candidate.sector }}</td>
                                         <td data-filter="status-filter"
                                             style="font-size: 15px; color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">
                                             {{ candidate.status }}</td>
