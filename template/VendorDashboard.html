@@ -24,39 +24,7 @@
     <link href="/static/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="/static/css/sizeoflink.css">
-    <style>
-        #toggleQrButton {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: white;
-            background-color: #1172EF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s;
-            margin-bottom: 5px;
-            
-        }
-
-        #toggleQrButton:hover {
-            background-color: #1172EF;
-        }
-
-        #qrCodeContainer {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-            position: relative; /* For positioning the close button */
-        }
-
-        #qrCodeImage {
-            width: 200px; /* Adjust the width as needed */
-            height: 200px; /* Adjust the height as needed */
-        }
-    </style>
+  
 </head>
 
 <body class="">
@@ -265,22 +233,22 @@
                                                         onclick="copyReferralLink()" class="brand-logo logo">
                                                         <i class="fas fa-copy"></i>
                                                     </a></a></p>
-
+                                                    <div class="col">
+                                                        <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
+                                                        <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
+                                                        <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}"
+                                                                id="referralLink" target="_blank">{{ referral_link }} <a
+                                                                    onclick="copyReferralLink()" class="brand-logo logo">
+                                                                    <i class="fas fa-copy"></i>
+                                                                </a></a></p>
+                                                        {% if qr_code_url %}
+                                                            <p>Scan the QR code below to use your referral link:</p>
+                                                            <img src="{{ qr_code_url }}" alt="QR Code">
+                                                        {% endif %}
+                                                    </div>
+                                                    
                                         </div>
-                                        <button id="toggleQrButton">Show QR</button>
-    <div id="qrCodeContainer">
-        {% if qr_code_url %}
-            <p>QR Code:</p>
-            <img id="qrCodeImage" src="{{ qr_code_url }}" alt="QR Code">
-        {% endif %}
-    </div>
-    <div id="qrCodeContainer">
-        {% if qr_code_url %}
-            <button id="closeQrButton">&times;</button>
-            <p>QR Code:</p>
-            <img id="qrCodeImage" src="{{ qr_code_url }}" alt="QR Code">
-        {% endif %}
-    </div>
+                                       
                                         <div class="col-auto">
                                             <button class="btn btn-success btn-sm" onclick="shareReferralLink()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -623,20 +591,7 @@
     </script>
 
 
-<script>
-    document.getElementById('toggleQrButton').addEventListener('click', function() {
-        var qrCodeContainer = document.getElementById('qrCodeContainer');
-        var toggleQrButton = document.getElementById('toggleQrButton');
 
-        if (qrCodeContainer.style.display === 'none' || qrCodeContainer.style.display === '') {
-            qrCodeContainer.style.display = 'block';
-            toggleQrButton.textContent = 'Close QR';
-        } else {
-            qrCodeContainer.style.display = 'none';
-            toggleQrButton.textContent = 'Show QR';
-        }
-    });
-</script>
 
 </body>
 
