@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k3pyzib&+c=rr#+$ga5&n5g_!kr&0m1=nu19%br-^u()&ngt-q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['emtavms.com', 'https://emtavms.com',,'*']
 ALLOWED_HOSTS = ['*']
@@ -125,21 +125,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-# STATICFILES_DIRS = ( 
-#         os.path.join(BASE_DIR, 'static'),
-# )
-
 STATIC_URL = '/static/'
-
-if DEBUG:
-
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-else:
-
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_DIRS = ( 
+        os.path.join(BASE_DIR, 'static'),
+)
 
 
 MEDIA_URL = '/media/'
