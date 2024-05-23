@@ -792,7 +792,7 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.save()
-        return redirect(EmployeeCandidateDetails )
+        return redirect(Employeecandidate)
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
 
 def sitemap(request) :
