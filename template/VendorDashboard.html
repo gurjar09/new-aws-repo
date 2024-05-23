@@ -225,10 +225,8 @@
                                     <div class="row">
                                         <div class="col">
                                             <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
-                                            <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
-                                            
+                                            <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>                                            
                                                     <div class="col">
-                                                        <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
                                                         <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}"
                                                                 id="referralLink" target="_blank">{{ referral_link }} <a
                                                                     onclick="copyReferralLink()" class="brand-logo logo">
@@ -238,8 +236,7 @@
                                                             <img src="{{ qr_code_url }}" alt="QR Code" style="width: 100px; height: 100px;">
                                                         {% endif %}
                                                     </div>
-                                                    
-                                        </div>
+                                                 </div>
                                        
                                         <div class="col-auto">
                                             <button class="btn btn-success btn-sm" onclick="shareReferralLink()">
