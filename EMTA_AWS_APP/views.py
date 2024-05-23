@@ -795,3 +795,5 @@ def EmployeeCandidateDetails(request, candidate_id):
         return redirect(EmployeeCandidateDetails )
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
 
+def sitemap(request) :
+    return render(request,'sitemap.xml')
