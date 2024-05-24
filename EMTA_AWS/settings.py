@@ -22,7 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-k3pyzib&+c=rr#+$ga5&n5g_!kr&0m1=nu19%br-^u()&ngt-q'
-OTP_API = 'Key3db5dc0d-1994-11ef-8b60-0200cd936042'
+
+# settings.py
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,13 +86,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'EMTAVMS2024',
+        'NAME': 'EMTAVMS_2024',
 
         'USER': 'postgres',
 
         'PASSWORD': 'Emta0505',
 
-        'HOST': 'database-3.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
+        'HOST': 'database-4.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
 
         'PORT': '5432',
     }

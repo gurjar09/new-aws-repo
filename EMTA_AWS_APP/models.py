@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
 from django.contrib.auth import get_user_model
-
+from django.conf import settings
 
 
 class Vendor(models.Model):
@@ -136,6 +136,6 @@ class Employee(models.Model):
         return self.user.username
     
 class UserOTP(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     otp_secret = models.CharField(max_length=6)
     timestamp = models.DateTimeField(auto_now_add=True)

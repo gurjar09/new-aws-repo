@@ -18,7 +18,8 @@ urlpatterns = [
     path('EstablishmentDetails/', EstablishmentDetails, name='establishment_details'),
     path('Bank_Details/', Bank_Details, name='bank_details'),
     path('forgot_password/', forgot_password, name='forgot_password'),
-    path('reset_password/<str:username>/', reset_password, name='reset_password'),
+    path('verify_otp_for_password_reset/', verify_otp_for_password_reset, name='verify_otp_for_password_reset'),
+    path('reset_password/', reset_password, name='reset_password'),
     path('adminDashboard/', adminDashBoard, name='admin_dashboard'),
     path('vendor/<str:vendor_code>/candidates/', vendor_candidates, name='vendor_candidates'),
     path('candidateDashboard/', candidateDashboard, name='candidate_dashboard'),
@@ -35,6 +36,6 @@ urlpatterns = [
     path('EmployeeCandidateDetails/<int:candidate_id>/', EmployeeCandidateDetails, name='EmployeeCandidateDetails'),
     path('sitemap',sitemap),
     path('robots',robots),
-    path('verify-otp/', verify_otp, name='verify_otp'),
+    path('verify-otp/',verify_otp, name='verify_otp'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -3,14 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, render, redirect
 from .urls import *
 from .models import *
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
-from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.utils import timezone
-from decimal import Decimal
-from django.db.models import Sum, ExpressionWrapper, IntegerField
+from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -21,26 +18,19 @@ from io import BytesIO
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.db.models import Sum
-from .models import Vendor, Candidate
-
-# views.py
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.models import User
-from .models import Vendor, UserOTP
 import random
 import requests
 
 # 2Factor configuration
-TWO_FACTOR_API_KEY = 'your_2factor_api_key'
+TWO_FACTOR_API_KEY = '3db5dc0d-1994-11ef-8b60-0200cd936042'
 
 def send_otp_via_sms(mobile_number, otp):
-    url = f'https://2factor.in/API/V1/{settings.OTP_API}/SMS/{mobile_number}/{otp}'
+    url = f'https://2factor.in/API/V1/{TWO_FACTOR_API_KEY}/SMS/{mobile_number}/{otp}'
     response = requests.get(url)
     return response.status_code == 200
 
 def generate_otp():
-    return str(random.randint(100000, 999999))
+    return str(random.randint(1000, 9999))
 
 def index(request):
     if request.method == 'POST':
@@ -55,11 +45,11 @@ def index(request):
 
         if not username:
             messages.error(request, 'Username must be set')
-            return render(request, 'VendorSignup.html')
+            return render(request, 'index.html')
 
         if password1 != password2:
             messages.error(request, 'Passwords do not match')
-            return render(request, 'VendorSignup.html')
+            return render(request, 'index.html')
 
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken')
@@ -67,6 +57,10 @@ def index(request):
 
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email is already taken')
+            return render(request, 'index.html')
+        
+        if User.objects.filter(mobile_number=mobile_number).exists():
+            messages.error(request, 'Mobile Number is already taken')
             return render(request, 'index.html')
 
         user = User.objects.create_user(username=username, email=email, password=password1)
@@ -83,7 +77,7 @@ def index(request):
 
         if send_otp_via_sms(mobile_number, otp):
             messages.success(request, 'Registration successful! An OTP has been sent to your mobile number. Please verify it.')
-            request.session['username'] = username  # Store the username in the session for later use
+            request.session['username'] = username  
             return redirect(verify_otp)
         else:
             messages.error(request, 'Failed to send OTP. Please try again.')
@@ -458,30 +452,52 @@ def Bank_Details(request):
     else:
         return render(request, 'username.html', {'error': 'User not authenticated'})
 
+
 def forgot_password(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        user = User.objects.filter(username=username).first()
+        mobile_number = request.POST.get('mobile_number')
+        user = User.objects.filter(vendor__mobile_number=mobile_number).first()
         if user:
-            return redirect('reset_password', username=username)
+            otp = generate_otp()
+            request.session['reset_mobile_number'] = mobile_number
+            request.session['reset_otp'] = otp
+            if send_otp_via_sms(mobile_number, otp):
+                return redirect(verify_otp_for_password_reset)
+            else:
+                messages.error(request, 'Failed to send OTP. Please try again.')
+                return redirect(forgot_password)
         else:
-            messages.error(request, 'User with this username does not exist')
-            return redirect('forgot_password')
+            messages.error(request, 'User with this mobile number does not exist')
+            return redirect(forgot_password)
     else:
         return render(request, 'forgot_password.html')
 
-def reset_password(request, username):
-    user = User.objects.filter(username=username).first()
+def verify_otp_for_password_reset(request):
     if request.method == 'POST':
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        if password1 == password2:
-            user.set_password(password1)
-            user.save()
-            messages.success(request, 'Password reset successfully.')
-            return redirect(VendorLogin)
+        otp_entered = request.POST.get('otp')
+        if otp_entered == request.session.get('reset_otp'):
+            return redirect(reset_password)
         else:
-            messages.error(request, 'Passwords do not match.')
+            messages.error(request, 'Invalid OTP. Please try again.')
+            return render(request, 'verify_otp_for_password_reset.html')
+    return render(request, 'otp_for_forgot_password.html')
+
+def reset_password(request):
+    if request.method == 'POST':
+        mobile_number = request.session.get('reset_mobile_number')
+        user = User.objects.filter(vendor__mobile_number=mobile_number).first()
+        if user:
+            password1 = request.POST.get('password1')
+            password2 = request.POST.get('password2')
+            if password1 == password2:
+                user.set_password(password1)
+                user.save()
+                messages.success(request, 'Password reset successfully.')
+                return redirect(VendorLogin)
+            else:
+                messages.error(request, 'Passwords do not match.')
+        else:
+            messages.error(request, 'User with this mobile number does not exist')
     return render(request, 'reset_password.html')
 
 def adminDashBoard(request):
