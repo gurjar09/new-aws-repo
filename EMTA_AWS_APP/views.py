@@ -23,6 +23,24 @@ from django.shortcuts import render
 from django.db.models import Sum
 from .models import Vendor, Candidate
 
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import Vendor, UserOTP
+import random
+import requests
+
+# 2Factor configuration
+TWO_FACTOR_API_KEY = 'your_2factor_api_key'
+
+def send_otp_via_sms(mobile_number, otp):
+    url = f'https://2factor.in/API/V1/{settings.OTP_API}/SMS/{mobile_number}/{otp}'
+    response = requests.get(url)
+    return response.status_code == 200
+
+def generate_otp():
+    return str(random.randint(100000, 999999))
 
 def index(request):
     if request.method == 'POST':
@@ -45,7 +63,11 @@ def index(request):
 
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken')
-            return render(request, 'VendorSignup.html')
+            return render(request, 'index.html')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email is already taken')
+            return render(request, 'index.html')
 
         user = User.objects.create_user(username=username, email=email, password=password1)
         user.first_name = first_name
@@ -54,9 +76,45 @@ def index(request):
 
         vendor = Vendor.objects.create(user=user, mobile_number=mobile_number, refer_code=refer_code)
 
-        return redirect(VendorLogin)
+        otp = generate_otp()
+        user_otp, created = UserOTP.objects.get_or_create(user=user)
+        user_otp.otp_secret = otp
+        user_otp.save()
+
+        if send_otp_via_sms(mobile_number, otp):
+            messages.success(request, 'Registration successful! An OTP has been sent to your mobile number. Please verify it.')
+            request.session['username'] = username  # Store the username in the session for later use
+            return redirect(verify_otp)
+        else:
+            messages.error(request, 'Failed to send OTP. Please try again.')
+            user.delete()
+            return render(request, 'index.html')
 
     return render(request, 'index.html')
+
+def verify_otp(request):
+    if request.method == 'POST':
+        otp = request.POST.get('otp')
+        username = request.session.get('username')
+        if not username:
+            messages.error(request, 'Session expired. Please register again.')
+            return redirect(index)
+
+        try:
+            user = User.objects.get(username=username)
+            user_otp = UserOTP.objects.get(user=user)
+        except (User.DoesNotExist, UserOTP.DoesNotExist):
+            messages.error(request, 'OTP validation failed. Please request a new OTP.')
+            return redirect(index)
+
+        if user_otp.otp_secret == otp:
+            messages.success(request, 'OTP verified successfully.')
+            return redirect(VendorLogin)  # Replace with your secure area view
+        else:
+            messages.error(request, 'Invalid OTP. Please try again.')
+            return render(request, 'verify_otp.html')
+
+    return render(request, 'verify_otp.html')
 
 
 @login_required
