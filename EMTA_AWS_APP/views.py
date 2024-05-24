@@ -59,9 +59,6 @@ def index(request):
             messages.error(request, 'Email is already taken')
             return render(request, 'index.html')
         
-        if User.objects.filter(mobile_number=mobile_number).exists():
-            messages.error(request, 'Mobile Number is already taken')
-            return render(request, 'index.html')
 
         user = User.objects.create_user(username=username, email=email, password=password1)
         user.first_name = first_name
