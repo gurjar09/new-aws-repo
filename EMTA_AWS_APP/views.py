@@ -476,7 +476,7 @@ def verify_otp_for_password_reset(request):
             return redirect(reset_password)
         else:
             messages.error(request, 'Invalid OTP. Please try again.')
-            return render(request, 'verify_otp_for_password_reset.html')
+            return render(request, 'otp_for_forgot_password.html')
     return render(request, 'otp_for_forgot_password.html')
 
 def reset_password(request):
