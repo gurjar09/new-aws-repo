@@ -228,9 +228,10 @@
                                             <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
                                             <div class="col">
                                                 <p class="sizeoflink">Your referral link: 
-                                                    <a href="{{ referral_link }}" id="referralLink" target="_blank">{{ referral_link }}</a>
-                                                    <a onclick="copyReferralLink()" class="brand-logo logo">
-                                                        <i class="fas fa-copy"></i>
+                                                    <a href="{{ referral_link }}" id="referralLink" target="_blank">{{ referral_link }} 
+                                                        <a onclick="copyReferralLink()" class="brand-logo logo">
+                                                            <i class="fas fa-copy"></i>
+                                                        </a>
                                                     </a>
                                                 </p>
                                                 {% if qr_code_url %}
@@ -238,8 +239,9 @@
                                                 {% endif %}
                                             </div>
                                         </div>
+                                    
                                         <div class="col-auto">
-                                            <button class="btn btn-success btn-sm" onclick="shareQRAndLink()">
+                                            <button class="btn btn-success btn-sm" onclick="shareQRImage()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
                                                     <path d="M13.5 1a2.5 2.5 0 1 0-1.97 4.13L5.94 7.911a2.5 2.5 0 1 0 0 .179l5.59 2.77A2.5 2.5 0 1 0 13.5 15a2.5 2.5 0 0 0-1.97-4.13L5.94 8.089a2.5 2.5 0 0 0 0-.179l5.59-2.77A2.5 2.5 0 0 0 13.5 1z"/>
                                                 </svg>
@@ -469,114 +471,33 @@
 
 
 
-    <!-- <script>
-        function shareReferralLink() {
-            var referralLink = "{{ referral_link }}";
-            var qrCodeUrl = "{{ qr_code_url }}";
-            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink + qrCodeUrl);
-            var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage; // WhatsApp deep link
-
-            window.open(deepLink, "_blank");
-        }
-    </script>
-    <script>
-        function copyReferralLink() {
-            var referralLink = document.getElementById("referralLink");
-            var tempInput = document.createElement("input");
-            tempInput.value = referralLink.href;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-            alert("Link copied to clipboard!");
-        }
-    </script>
-    <script>
-        function shareOnTelegram() {
-            var message = "Your message here";
-            var referralLink = "{{ referral_link }}";
-            var qrCodeUrl = "{{ qr_code_url }}";
-            var shareUrl = "https://telegram.me/share/url?url=" + encodeURIComponent(referralLink) + "&text=" + encodeURIComponent(message);
-            window.open(shareUrl, "_blank");
-        }
-    </script>
-
-    <script>
-        function shareReferralLink() {
-            var referralLink = "{{ referral_link }}";
-            var qrCodeUrl = "{{ qr_code_url }}";
-            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink + qrCodeUrl);
-            var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage;
-            window.open(deepLink, "_blank");
-        }
-    </script>
-
-    <script>
-        function shareInstagramLink() {
-            var referralLink = "{{ referral_link }}";
-            var qrCodeUrl = "{{ qr_code_url }}";
-            var deepLink = "https://www.instagram.com/direct/new/?url=" + encodeURIComponent(referralLink + qrCodeUrl);
-            window.open(deepLink, "_blank");
-        }
-    </script>
-
-    <script>
-        function shareAsMessageOnLinkedIn() {
-            var referralLink = "Your referral link here";
-            var qrCodeUrl = "{{ qr_code_url }}";
-            var shareUrl = "https://www.linkedin.com/shareArticle?url=" + encodeURIComponent(referralLink + qrCodeUrl);
-            window.open(shareUrl, "_blank");
-        }
-    </script>
-
-    <script>
-        function shareViaMessenger() {
-            var referralLink = "{{ referral_link }}";
-            var qrCodeUrl = "{{ qr_code_url }}";
-            var shareUrl = "https://www.facebook.com/dialog/send?link=" + encodeURIComponent(referralLink + qrCodeUrl);
-            window.open(shareUrl, "_blank");
-        }
-    </script>
-
-    <script>
-        function shareViaSMS() {
-            var referralLink = "{{ referral_link }}";
-            var qrCodeUrl = "{{ qr_code_url }}";
-            var message = "Check out this referral link: " + referralLink + qrCodeUrl;
-            var smsUri = "sms:?body=" + encodeURIComponent(message);
-            window.location.href = smsUri;
-        }
-    </script> -->
-
-
 <script>
-   function shareQRAndLink() {
+    function shareQRImage() {
     const qrCodeImage = document.getElementById('qrCodeImage');
-    const referralLink = document.getElementById('referralLink').href;
-    const shareText = `Scan this QR code or click the referral link to join: ${referralLink}`;
 
-    if (navigator.canShare && navigator.canShare({ files: [new File([], 'dummy')] })) {
+    // Ensure the Web Share API is supported
+    if (navigator.canShare && navigator.canShare({ files: [qrCodeImage.src] })) {
         fetch(qrCodeImage.src)
-            .then(response => response.blob())
+            .then(res => res.blob())
             .then(blob => {
                 const file = new File([blob], 'qr-code.png', { type: blob.type });
-                
                 navigator.share({
-                    title: 'QR Code and Referral Link',
-                    text: shareText,
+                    title: 'QR Code',
+                    text: 'Scan this QR code for the referral link.',
                     files: [file]
                 })
                 .then(() => console.log('Successful share'))
-                .catch(error => console.error('Error sharing', error));
+                .catch(error => console.log('Error sharing', error));
             })
-            .catch(error => console.error('Error fetching the QR code image', error));
+            .catch(error => console.log('Error fetching the QR code image', error));
     } else {
         alert('Your browser does not support the Web Share API. Please copy the link manually.');
     }
 }
 
-
 </script>
+
+
 
 </body>
 
