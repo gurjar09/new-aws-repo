@@ -227,7 +227,7 @@
                                             <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
                                             <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>                                            
                                                     <div class="col">
-                                                        <p class="sizeoflink">Your referral link: <a href="{{ referral_link }}"
+                                                        <p class="sizeoflink">Share thsi QR / Link with Candidate to Generate Lead : <a href="{{ referral_link }}"
                                                                 id="referralLink" target="_blank">{{ referral_link }} <a
                                                                     onclick="copyReferralLink()" class="brand-logo logo">
                                                                     <i class="fas fa-copy"></i>
@@ -510,7 +510,8 @@
     <script>
         function shareReferralLink() {
             var referralLink = "{{ referral_link }}";
-            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
+            var qrCodeUrl = "{{ qr_code_url }}";
+            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink + qrCodeUrl);
             var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage; // WhatsApp deep link
 
             window.open(deepLink, "_blank");
@@ -532,6 +533,7 @@
         function shareOnTelegram() {
             var message = "Your message here";
             var referralLink = "{{ referral_link }}";
+            var qrCodeUrl = "{{ qr_code_url }}";
             var shareUrl = "https://telegram.me/share/url?url=" + encodeURIComponent(referralLink) + "&text=" + encodeURIComponent(message);
             window.open(shareUrl, "_blank");
         }
@@ -540,7 +542,8 @@
     <script>
         function shareReferralLink() {
             var referralLink = "{{ referral_link }}";
-            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink);
+            var qrCodeUrl = "{{ qr_code_url }}";
+            var encodedMessage = encodeURIComponent("Check out this referral link: " + referralLink + qrCodeUrl);
             var deepLink = "https://api.whatsapp.com/send?text=" + encodedMessage;
             window.open(deepLink, "_blank");
         }
@@ -549,7 +552,8 @@
     <script>
         function shareInstagramLink() {
             var referralLink = "{{ referral_link }}";
-            var deepLink = "https://www.instagram.com/direct/new/?url=" + encodeURIComponent(referralLink);
+            var qrCodeUrl = "{{ qr_code_url }}";
+            var deepLink = "https://www.instagram.com/direct/new/?url=" + encodeURIComponent(referralLink + qrCodeUrl);
             window.open(deepLink, "_blank");
         }
     </script>
@@ -557,7 +561,8 @@
     <script>
         function shareAsMessageOnLinkedIn() {
             var referralLink = "Your referral link here";
-            var shareUrl = "https://www.linkedin.com/shareArticle?url=" + encodeURIComponent(referralLink);
+            var qrCodeUrl = "{{ qr_code_url }}";
+            var shareUrl = "https://www.linkedin.com/shareArticle?url=" + encodeURIComponent(referralLink + qrCodeUrl);
             window.open(shareUrl, "_blank");
         }
     </script>
@@ -565,7 +570,8 @@
     <script>
         function shareViaMessenger() {
             var referralLink = "{{ referral_link }}";
-            var shareUrl = "https://www.facebook.com/dialog/send?link=" + encodeURIComponent(referralLink);
+            var qrCodeUrl = "{{ qr_code_url }}";
+            var shareUrl = "https://www.facebook.com/dialog/send?link=" + encodeURIComponent(referralLink + qrCodeUrl);
             window.open(shareUrl, "_blank");
         }
     </script>
@@ -573,7 +579,8 @@
     <script>
         function shareViaSMS() {
             var referralLink = "{{ referral_link }}";
-            var message = "Check out this referral link: " + referralLink;
+            var qrCodeUrl = "{{ qr_code_url }}";
+            var message = "Check out this referral link: " + referralLink + qrCodeUrl;
             var smsUri = "sms:?body=" + encodeURIComponent(message);
             window.location.href = smsUri;
         }
