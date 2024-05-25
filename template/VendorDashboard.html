@@ -291,10 +291,9 @@
                                             <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
                                             <div class="col">
                                                 <p class="sizeoflink">Your referral link: 
-                                                    <a href="{{ referral_link }}" id="referralLink" target="_blank">{{ referral_link }} 
-                                                        <a onclick="copyReferralLink()" class="brand-logo logo">
-                                                            <i class="fas fa-copy"></i>
-                                                        </a>
+                                                    <a href="{{ referral_link }}" id="referralLink" target="_blank">{{ referral_link }}</a> 
+                                                    <a onclick="copyReferralLink()" class="brand-logo logo">
+                                                        <i class="fas fa-copy"></i>
                                                     </a>
                                                 </p>
                                                 {% if qr_code_url %}
@@ -302,15 +301,17 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                    
                                         <div class="col-auto">
-                                            <button class="btn btn-success btn-sm" onclick="shareReferral()">
+                                            <button class="btn btn-success btn-sm" onclick="shareQRAndLink()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
                                                     <path d="M13.5 1a2.5 2.5 0 1 0-1.97 4.13L5.94 7.911a2.5 2.5 0 1 0 0 .179l5.59 2.77A2.5 2.5 0 1 0 13.5 15a2.5 2.5 0 0 0-1.97-4.13L5.94 8.089a2.5 2.5 0 0 0 0-.179l5.59-2.77A2.5 2.5 0 0 0 13.5 1z"/>
                                                 </svg>
                                             </button>
                                         </div>
                                     </div>
+                                    
+                                    
+                                        
                                     
                                 </div>
                             </div>
@@ -614,14 +615,14 @@
     </script> -->
 
 
-<script>function shareReferral() {
+<script>function shareQRAndLink() {
     const qrCodeImage = document.getElementById('qrCodeImage');
     const referralLink = document.getElementById('referralLink').href;
 
-    // Ensure the Web Share API is supported
+    // Check if the browser supports the Web Share API
     if (navigator.canShare && navigator.canShare({ files: [new File([], 'dummy')] })) {
         fetch(qrCodeImage.src)
-            .then(res => res.blob())
+            .then(response => response.blob())
             .then(blob => {
                 const file = new File([blob], 'qr-code.png', { type: blob.type });
                 navigator.share({
@@ -630,13 +631,14 @@
                     files: [file]
                 })
                 .then(() => console.log('Successful share'))
-                .catch(error => console.log('Error sharing', error));
+                .catch(error => console.error('Error sharing', error));
             })
-            .catch(error => console.log('Error fetching the QR code image', error));
+            .catch(error => console.error('Error fetching the QR code image', error));
     } else {
         alert('Your browser does not support the Web Share API. Please copy the link manually.');
     }
 }
+
 </script>
 
 </body>
