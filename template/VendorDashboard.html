@@ -617,7 +617,7 @@
 
 <script>function shareQRAndLink() {
     const qrCodeImage = document.getElementById('qrCodeImage');
-    const referralLink = document.getElementById('referralLink').href;
+    const referralLink = {{referral_link}}
 
     // Check if the browser supports the Web Share API
     if (navigator.canShare && navigator.canShare({ files: [new File([], 'dummy')] })) {
@@ -627,7 +627,7 @@
                 const file = new File([blob], 'qr-code.png', { type: blob.type });
                 navigator.share({
                     title: 'QR Code and Referral Link',
-                    text: `Scan this QR code or click the referral link to join: ${referralLink}`,
+                    text: 'Scan this QR code or click the referral link to join: ' + referralLink,,
                     files: [file]
                 })
                 .then(() => console.log('Successful share'))
