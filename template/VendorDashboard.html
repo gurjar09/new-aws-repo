@@ -553,6 +553,7 @@
    function shareQRAndLink() {
     const qrCodeImage = document.getElementById('qrCodeImage');
     const referralLink = document.getElementById('referralLink').href;
+    const shareText = `Scan this QR code or click the referral link to join: ${referralLink}`;
 
     // Check if the browser supports the Web Share API
     if (navigator.canShare && navigator.canShare({ files: [new File([], 'dummy')] })) {
@@ -562,7 +563,7 @@
                 const file = new File([blob], 'qr-code.png', { type: blob.type });
                 navigator.share({
                     title: 'QR Code and Referral Link',
-                    text: `Scan this QR code or click the referral link to join: ${referralLink}`,
+                    text: shareText,
                     files: [file]
                 })
                 .then(() => console.log('Successful share'))
@@ -573,6 +574,7 @@
         alert('Your browser does not support the Web Share API. Please copy the link manually.');
     }
 }
+
 
 
 </script>
