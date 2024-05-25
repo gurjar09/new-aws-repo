@@ -617,7 +617,7 @@
 
 <script>function shareQRAndLink() {
     const qrCodeImage = document.getElementById('qrCodeImage');
-    const referralLink = {{referral_link}}
+    const referralLink = "{{ referral_link }}"
 
     // Check if the browser supports the Web Share API
     if (navigator.canShare && navigator.canShare({ files: [new File([], 'dummy')] })) {
