@@ -42,6 +42,10 @@
                     <input type="submit" class="submit" value="Reset Password">
                 </div>
             </a>
+            <form method="POST" action="{% url 'resend_otp' %}">
+                {% csrf_token %}
+                <button type="submit">Resend OTP</button>
+            </form>
         </form>
     </div>
 </body>

@@ -108,6 +108,31 @@ def verify_otp(request):
     return render(request, 'verify_otp.html')
 
 
+def resend_otp(request):
+    username = request.session.get('username')
+    if not username:
+        messages.error(request, 'Session expired. Please register again.')
+        return redirect(index)
+
+    try:
+        user = User.objects.get(username=username)
+        vendor = Vendor.objects.get(user=user)
+        user_otp, created = UserOTP.objects.get_or_create(user=user)
+    except (User.DoesNotExist, Vendor.DoesNotExist, UserOTP.DoesNotExist):
+        messages.error(request, 'Unable to resend OTP. Please register again.')
+        return redirect(index)
+
+    otp = generate_otp()
+    user_otp.otp_secret = otp
+    user_otp.save()
+
+    if send_otp_via_sms(vendor.mobile_number, otp):
+        messages.success(request, 'A new OTP has been sent to your mobile number.')
+    else:
+        messages.error(request, 'Failed to send OTP. Please try again.')
+
+    return redirect(verify_otp)
+
 @login_required
 def VendorDashboard(request):
     try:
