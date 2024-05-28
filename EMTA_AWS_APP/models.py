@@ -135,7 +135,7 @@ class Employee(models.Model):
     def __str__(self):
         return self.user.username
     
-class OTP(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    otp = models.CharField(max_length=6)
-    created_at = models.DateTimeField(auto_now_add=True)
+class UserOTP(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    otp_secret = models.CharField(max_length=6)
+    timestamp = models.DateTimeField(auto_now_add=True)

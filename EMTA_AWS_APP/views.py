@@ -22,27 +22,11 @@ import random
 import requests
 
 # 2Factor configuration
-# TWO_FACTOR_API_KEY = '4ae01fe2-1cb9-11ef-8b60-0200cd936042'
-# import random
-# import requests
-# from django.conf import settings
-# from django.contrib import messages
-# from django.contrib.auth.models import User
-# from django.shortcuts import render, redirect
-
+TWO_FACTOR_API_KEY = '3db5dc0d-1994-11ef-8b60-0200cd936042'
 
 def send_otp_via_sms(mobile_number, otp):
-    url = "https://www.fast2sms.com/dev/bulkV2"
-    querystring = {
-        "authorization": settings.FAST2SMS_API_KEY,
-        "variables_values": otp,
-        "route": "otp",
-        "numbers": mobile_number
-    }
-    headers = {
-        'cache-control': "no-cache"
-    }
-    response = requests.request("GET", url, headers=headers, params=querystring)
+    url = f'https://2factor.in/API/V1/{TWO_FACTOR_API_KEY}/SMS/{mobile_number}/{otp}'
+    response = requests.get(url)
     return response.status_code == 200
 
 def generate_otp():
@@ -74,6 +58,7 @@ def index(request):
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email is already taken')
             return render(request, 'index.html')
+        
 
         user = User.objects.create_user(username=username, email=email, password=password1)
         user.first_name = first_name
@@ -83,7 +68,7 @@ def index(request):
         vendor = Vendor.objects.create(user=user, mobile_number=mobile_number, refer_code=refer_code)
 
         otp = generate_otp()
-        user_otp, created = OTP.objects.get_or_create(user=user)
+        user_otp, created = UserOTP.objects.get_or_create(user=user)
         user_otp.otp_secret = otp
         user_otp.save()
 
@@ -108,19 +93,20 @@ def verify_otp(request):
 
         try:
             user = User.objects.get(username=username)
-            user_otp = OTP.objects.get(user=user)
-        except (User.DoesNotExist, OTP.DoesNotExist):
+            user_otp = UserOTP.objects.get(user=user)
+        except (User.DoesNotExist, UserOTP.DoesNotExist):
             messages.error(request, 'OTP validation failed. Please request a new OTP.')
             return redirect(index)
 
         if user_otp.otp_secret == otp:
             messages.success(request, 'OTP verified successfully.')
-            return redirect('VendorLogin')  # Replace with your secure area view
+            return redirect(VendorLogin)  # Replace with your secure area view
         else:
             messages.error(request, 'Invalid OTP. Please try again.')
             return render(request, 'verify_otp.html')
 
     return render(request, 'verify_otp.html')
+
 
 def resend_otp(request):
     username = request.session.get('username')
@@ -131,8 +117,8 @@ def resend_otp(request):
     try:
         user = User.objects.get(username=username)
         vendor = Vendor.objects.get(user=user)
-        user_otp, created = OTP.objects.get_or_create(user=user)
-    except (User.DoesNotExist, Vendor.DoesNotExist, OTP.DoesNotExist):
+        user_otp, created = UserOTP.objects.get_or_create(user=user)
+    except (User.DoesNotExist, Vendor.DoesNotExist, UserOTP.DoesNotExist):
         messages.error(request, 'Unable to resend OTP. Please register again.')
         return redirect(index)
 
