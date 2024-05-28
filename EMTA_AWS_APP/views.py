@@ -83,7 +83,7 @@ def index(request):
         vendor = Vendor.objects.create(user=user, mobile_number=mobile_number, refer_code=refer_code)
 
         otp = generate_otp()
-        user_otp, created = UserOTP.objects.get_or_create(user=user)
+        user_otp, created = OTP.objects.get_or_create(user=user)
         user_otp.otp_secret = otp
         user_otp.save()
 
@@ -108,8 +108,8 @@ def verify_otp(request):
 
         try:
             user = User.objects.get(username=username)
-            user_otp = UserOTP.objects.get(user=user)
-        except (User.DoesNotExist, UserOTP.DoesNotExist):
+            user_otp = OTP.objects.get(user=user)
+        except (User.DoesNotExist, OTP.DoesNotExist):
             messages.error(request, 'OTP validation failed. Please request a new OTP.')
             return redirect(index)
 
@@ -131,8 +131,8 @@ def resend_otp(request):
     try:
         user = User.objects.get(username=username)
         vendor = Vendor.objects.get(user=user)
-        user_otp, created = UserOTP.objects.get_or_create(user=user)
-    except (User.DoesNotExist, Vendor.DoesNotExist, UserOTP.DoesNotExist):
+        user_otp, created = OTP.objects.get_or_create(user=user)
+    except (User.DoesNotExist, Vendor.DoesNotExist, OTP.DoesNotExist):
         messages.error(request, 'Unable to resend OTP. Please register again.')
         return redirect(index)
 
