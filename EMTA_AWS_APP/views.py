@@ -23,13 +23,13 @@ import requests
 
 # 2Factor configuration
 # TWO_FACTOR_API_KEY = '4ae01fe2-1cb9-11ef-8b60-0200cd936042'
-import random
-import requests
-from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from .models import Vendor, UserOTP
+# import random
+# import requests
+# from django.conf import settings
+# from django.contrib import messages
+# from django.contrib.auth.models import User
+# from django.shortcuts import render, redirect
+
 
 def send_otp_via_sms(mobile_number, otp):
     url = "https://www.fast2sms.com/dev/bulkV2"
