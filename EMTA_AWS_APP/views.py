@@ -22,7 +22,7 @@ import random
 import requests
 
 # 2Factor configuration
-TWO_FACTOR_API_KEY = '3db5dc0d-1994-11ef-8b60-0200cd936042'
+TWO_FACTOR_API_KEY = '4ae01fe2-1cb9-11ef-8b60-0200cd936042'
 
 def send_otp_via_sms(mobile_number, otp):
     url = f'https://2factor.in/API/V1/{TWO_FACTOR_API_KEY}/SMS/{mobile_number}/{otp}'
