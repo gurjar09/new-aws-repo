@@ -2,133 +2,1200 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sign up as a vendor on our platform to showcase your products and reach a wider audience. Join now to start selling online">
-  <meta name="keywords" content="login in sign up,
-  vendor login,
-  job search sites,
-  job opportunities,
-  application for employment,
-  jobs hiring near me,
-  vendor portal login,
-  jobs near me,
-  earnmoney,
-  employment opportunities,
-  vacancies near me,
-  job websites,
-  jobs in my area,
-  job apps">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-    rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/VendorLogin.css">
-    <link href="/static/pics/EMTA.jpeg" rel="icon" type="image/png">
-    
-  <title>Vendor Signup</title>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MJFNQ63T');</script>
-  <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTFDG9QB74"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Always force latest IE rendering engine -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  gtag('config', 'G-RTFDG9QB74');
-</script>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="DESCRIPTION">
+    <meta name="keywords" content="KEYWORDS">
+    <meta name="author" content="AUTHOR NAME">
+
+    <!-- TITLE -->
+    <title>www.emta.co.in</title>
+
+    <!-- FAVICON -->
+    <link href="logo.png" rel="icon">
+
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- FONT-AWESOME -->
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <!-- OWL CAROUSEL -->
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="css/owl.theme.default.min.css" rel="stylesheet">
+
+    <!-- LIGHTBOX -->
+    <link rel=" stylesheet" href="css/lightbox.css">
+
+    <!--Style CSS file-->
+    <link rel=" stylesheet" href="css/style.css">
+
+
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJFNQ63T"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <div class="wrapper">
 
-    <form method="POST" class="register-container" id="register" enctype="multipart/form-data" onsubmit="popup()">
+    <!-- ====== Preloader ======  -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!-- ======End Preloader ======  -->
 
-      {% csrf_token %}
-      <div class="top">
-        <span>Have an account? <a href="{% url 'VendorLogin' %}">Login</a></span>
-        <header>Sign Up</header>
-      </div>
-      {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-        <li>
-          <p style="color: red;">{{ message }}</p>
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      <span id="passwordError" class="error" style="color: red;"></span><br>
-      <div class="two-forms">
-        <div class="input-box">
-          <input type="text" class="input-field" name="first_name" placeholder="Firstname" autocapitalize="words"
-            required>
-          <i class="bx bx-lock-mobile"></i>
+    <!-- ======START NAVGITION ======  -->
+    <!-- Top Bar  -->
+    <div class="top-bar">
+        <div class="container">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <i class="fa fa-envelope"></i> <span>Hremta@gmail.com</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fa fa-phone"></i> <span>+91 9589504277</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fa fa-clock-o"></i> <span>Open Hours: Mon - Sat 10am-7pm</span>
+                </li>
+            </ul>
         </div>
-        <div class="input-box">
-          <input type="text" class="input-field" name="last_name" placeholder="Lastname" autocapitalize="words">
-          <i class="bx bx-lock-mobile"></i>
+    </div>
+    <!-- Top Bar  -->
+    <!-- Menu -->
+    <div class="main-menu">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <!-- logo -->
+                <a class="navbar-brand" href="#home">
+                    <img src="logo.jpg" alt="header-Logo" class="logo"></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
+                    <span class="icon-bar"><i class="fa fa-bars fa-2x"></i></span>
+                </button>
+                <!--End of Resposive Toggle icon-->
+
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <!--Main menu navigation list-->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home" data-scroll-nav="0">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about" data-scroll-nav="1">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services" data-scroll-nav="2">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#portfolio" data-scroll-nav="3">Project</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact" data-scroll-nav="5">Contact</a>
+                        </li>
+                    </ul>
+                    <!--End of Main menu navigation list-->
+                </div>
+                <!--End of resposive collapse class-->
+            </nav>
         </div>
-      </div>
-      <div class="input-box">
-        <input type="text" class="input-field" name="username" placeholder="Enter a Username (ex.EMTA0001)"
-          autocomplete="off" pattern="[EMTA]{4}[0-9]{4}" title="User Name Must Contain Prefix EMTA And Numbers 0001... ">
-        <i class="bx bx-lock-mobile"></i>
-      </div>
-      <div class="input-box">
-        <input type="tel" class="input-field" name="mobile_number" placeholder="Mobile Number" required
-          pattern="[0-9]{10}">
-        <i class="bx bx-lock-mobile"></i>
-      </div>
-      <div class="input-box">
-        <input type="email" class="input-field" name="email" placeholder="Email" required>          
-        <i class="bx bx-lock-mobile"></i>
-      </div>
-      <div class="input-box">
-        <input type="text" class="input-field" name="password1" id="password1" placeholder="Create Password (Ex@123)"
-          autocomplete="off" title="Password must be at least 5 characters long" required
-          pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])(?!^[0-9]*$).{5,}$">
-        <i class="bx bx-lock-mobile"></i>
-      </div>
-      <div class="input-box">
-        <input type="password" class="input-field" name="password2" id="password2" placeholder="Confirm Password" required>
-        <i class="bx bx-lock-mobile"></i>
-      </div>
-      
-      <div class="input-box">
-        <input type="submit" class="submit"  value="Register">
-      </div>
-    </form>
-  </div>
+    </div>
+    <!-- Menu -->
+    <!-- ====== END NAVGITION ======  -->
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function () {
-        $('#register').on('submit', function (event) {
-            var password1 = $('#password1').val();
-            var password2 = $('#password2').val();
+    <!-- =======START HEADER=========== -->
+    <header class="home" id="home" data-scroll-index="0">
+        <div class="container">
+            <div class="row">
 
-            if (password1 !== password2) {
-                $('#passwordError').text('Passwords do not match');
-                event.preventDefault(); // Prevent form submission
-            }
-        });
-    });
-  </script>
-  <script>
+                <div class="col-lg-7 home-content mt-md-5 mt-sm-5">
+                    <h3 class="heading-tertiary mt-3 mb-3">
+                        EMTA - IT
+                    </h3>
+                    <h1 class="heading-primary mb-3">
+                        We Are Creative Designer &#38; Developer
+                    </h1>
 
-  </script>
+                    <p class="mb-5">
+                        We craft unique designs and develop tailored solutions for your needs. Our creativity meets
+                        technical expertise for exceptional results</p>
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+    <!-- ====== END HEADER ======  -->
+
+    <!-- Scroll to Top -->
+    <div id="scroll-to-top"><i class="fa fa-arrow-up fa-fw"></i></div>
+
+    <!-- ======  START CHOOSE-US ====== -->
+    <section class="choose-us padding">
+        <div class="container">
+            <div class="row">
+
+                <!-- START CHOOSE US LEFT -->
+                <div class="col-lg-5 col-md-12 mx-auto">
+
+                    <!-- START CHOOSE-US SECTION TITLE -->
+                    <div class="choose-us_title">
+                        <h2 class="heading-primary mb-5">Why Choose Us</h2>
+                        <p class="mb-5">When you choose us for your needs, you're choosing expertise and
+                            reliability. Our team of skilled professionals delivers tailored solutions, ensuring
+                            top-notch quality for every project. With clear communication, flexibility, and
+                            cost-effectiveness, we aim for client satisfaction and long-term partnerships, providing
+                            innovative solutions and becoming your trusted choice for all your freelancing endeavors.
+                        </p>
+                        <p class="mb-5">
+                            With a commitment to excellence and a focus on your specific requirements, we strive to
+                            exceed expectations and deliver results that propel your projects forward. From clear
+                            communication to flexible approaches, our goal is to make your freelancing experience
+                            seamless and successful, ensuring that you receive the best possible service every time you
+                            choose us.</p>
+                    </div>
+                    <!-- END CHOOSE-US SECTION TITLE -->
+                </div>
+                <!-- END CHOOSE US LEFT -->
+
+                <!-- START CHOOSE US RIGHT -->
+                <div class="col-lg-7 col-md-12 mx-auto">
+                    <div class="text-center row">
+                        <!-- START CHOOSE ITEM -->
+                        <div class="col-lg-6 col-md-6 col-sm-6 mx-auto">
+                            <div class="choose-item">
+                                <i class="icon fa fa-paint-brush fa-2x"></i>
+                                <h5>Strategy &#38; <br>Research</h5>
+                                <p>
+                                    Data-driven strategy and research for impactful project outcomes.</p>
+                            </div>
+                        </div>
+                        <!-- END CHOOSE ITEM -->
+
+                        <!-- START CHOOSE ITEM -->
+                        <div class="col-lg-6 col-md-6 col-sm-6 mx-auto">
+                            <div class="choose-item">
+                                <i class="icon fa fa-desktop fa-2x"></i>
+                                <h5>Design &#38;<br>Developement</h5>
+                                <p> Creative design and development tailored to your project's unique needs. </p>
+                            </div>
+                        </div>
+                        <!-- END CHOOSE ITEM -->
+
+                        <!-- START CHOOSE ITEM -->
+                        <div class="col-lg-6 col-md-6 col-sm-6 mx-auto">
+                            <div class="choose-item">
+                                <i class="icon fa fa-diamond fa-2x"></i>
+                                <h5>Management &#38;<br>Marketing</h5>
+                                <p>Effective management and strategic marketing to boost your business success.</p>
+                            </div>
+                        </div>
+                        <!-- END CHOOSE ITEM -->
+
+                        <!-- START CHOOSE ITEM -->
+                        <div class="col-lg-6 col-md-6 col-sm-6 mx-auto">
+                            <div class="choose-item">
+                                <i class="icon fa fa-check-circle fa-2x"></i>
+                                <h5>Analysing &#38;<br>Checking</h5>
+                                <p>
+                                    Thorough analysis and meticulous checking for optimal project performance.</p>
+                            </div>
+                        </div>
+                        <!-- END CHOOSE ITEM -->
+                    </div>
+                </div>
+                <!-- END CHOOSE US RIGHT -->
+            </div>
+        </div>
+    </section>
+    <!-- ======  END CHOOSE-US ====== -->
+
+    <!-- ====== START ABOUT ======  -->
+    <section class="about padding" id="about" data-scroll-index="1">
+        <div class="container">
+            <div class="row">
+
+                <!-- START ABOUT PICTURE -->
+                <div class="col-lg-6 mt-lg-5">
+                    <img src="img/about.png" alt="about-picture" />
+                </div>
+                <!-- END ABOUT PICTURE -->
+
+                <!-- START ABOUT CONTENT -->
+                <div class="col-lg-6 mt-md-5 mt-sm-5 about-content">
+                    <h2 class="heading-primary mb-5">
+                        About Us
+                    </h2>
+                    <h3 class="heading-tertiary mt-3 mb-4">
+                        Who We Are
+                    </h3>
+                    <p class="mb-3">
+                        Elite Manpower and Training Academy (EMTA - IT), founded in 2020 by visionaries Niki Bose and
+                        Abhijeet Raghuwanshi, is a trailblazer in BFSI training and job placement. With a mission to
+                        transform conventional placement processes, EMTA is devoted to closing the knowledge gap between
+                        academia and business needs..</p>
+                    <p class="mb-5">
+                        The academy has grown over time into a full facility that provides
+                        training, career progression programs, and industry-aligned direct job placement services. EMTA
+                        has expanded beyond its original concentration on BFSI because its placement sectors now cover a
+                        variety of businesses like confectionery, BPO, hospitality, e-commerce, IT, pharmaceuticals, and
+                        more
+                    </p>
+                    <a href="#0" class="button btn-hover btn-fill mt-5">Read More &rarr;</a>
+                </div>
+                <!-- END ABOUT CONTENT -->
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END ABOUT======  -->
+
+    <!-- ====== START SERVICES ======  -->
+    <section class="services padding" id="services" data-scroll-index="2">
+        <div class="container">
+
+            <!-- START SERVICES SECTION TITLE -->
+            <div class="services_title text-center">
+                <h2 class="heading-primary text-center mb-5">Our Services</h2>
+                <p class="mb-5">Our services encompass a wide range of solutions tailored to you. From design and
+                    development to strategy and marketing, we have you covered.</p>
+            </div>
+            <!-- END SERVICES SECTION TITLE -->
+
+            <div class="service-carousel owl-carousel">
+                <!-- START SINGLE SERVICES -->
+
+                <!-- END SINGLE SERVICES -->
+
+                <!-- START SINGLE SERVICES -->
+                <div class="single-service">
+                    <div class="img">
+                        <div id="service-list">
+                            <span class="fa-stack fa-5x has-badge" data-count="01">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-code fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="service-hover">
+                        <h5>Web Designing</h5>
+                        <p>Transform your online presence with our cutting-edge web design services. Our team crafts
+                            visually stunning and user-friendly websites that captivate and convert</p>
+                    </div>
+                </div>
+
+                <div class="single-service">
+                    <div class="img">
+                        <div id="service-list">
+                            <span class="fa-stack fa-5x has-badge" data-count="01">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-codepen fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="service-hover">
+                        <h5>Web Developement</h5>
+                        <p>Build robust and scalable web solutions with our expert web development services. Our team
+                            delivers high-performance websites tailored to meet your business needs</p>
+                    </div>
+                </div>
+
+                <div class="single-service">
+                    <div class="img">
+                        <div id="service-list">
+                            <span class="fa-stack fa-5x has-badge" data-count="03">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-file-code-o fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="service-hover">
+                        <h5>Python+Django Website</h5>
+                        <p>Leverage the power of Python and Django for your website with our specialized development
+                            services. Our team creates secure, scalable, and efficient web applications tailored </p>
+                    </div>
+                </div>
+
+                <div class="single-service">
+                    <div class="img">
+                        <div id="service-list">
+                            <span class="fa-stack fa-5x has-badge" data-count="04">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-search fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="service-hover">
+                        <h5>SEO</h5>
+                        <p>Boost your online visibility and drive organic traffic with our expert SEO services. Our team
+                            uses proven strategies to enhance your search engine rankings and grow your business</p>
+                    </div>
+                </div>
+
+                <div class="single-service">
+                    <div class="img">
+                        <div id="service-list">
+                            <span class="fa-stack fa-5x has-badge" data-count="05">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-sitemap fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="service-hover">
+                        <h5>Digital Marketing</h5>
+                        <p>Amplify your brand's reach with our comprehensive digital marketing services. Our team
+                            delivers targeted campaigns that drive engagement, conversions, and growth</p>
+                    </div>
+                </div>
+
+                <div class="single-service">
+                    <div class="img">
+                        <div id="service-list">
+                            <span class="fa-stack fa-5x has-badge" data-count="06">
+                                <i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-wordpress fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="service-hover">
+                        <h5>Word-Press website</h5>
+                        <p>Create a stunning and fully functional WordPress website with our expert design and
+                            development services. Our team delivers custom solutions tailored to your brand's unique
+                            needs</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END SERVICES ======  -->
+
+    <!-- ====== START SKILLS ======  -->
+    <section class="skills padding">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- START SKILLS LEFT SIDE -->
+                <div class="col-lg-5 mx-auto skills-left">
+                    <h2 class="heading-secondary mb-5">Our<span>Skills</span></h2>
+                    <p>Empowering your projects with expert skills and innovative solutions. Discover top-tier
+                        freelancers to bring your vision to life.</p>
+                    <div class="content">
+                        <div class="skill">
+
+                            <!-- HTML // CSS3 -->
+                            <div class="progress-item">
+                                <h6>Web Design</h6>
+                                <div class="skills-progress">
+                                    <span data-value="100%"></span>
+                                </div>
+                            </div>
+
+                            <!-- JQUERY //JAVA SCRIPT -->
+                            <div class="progress-item">
+                                <h6>SEO</h6>
+                                <div class="skills-progress">
+                                    <span data-value="100%"></span>
+                                </div>
+                            </div>
+
+                            <!-- WORDPRESS -->
+                            <div class="progress-item">
+                                <h6>Web Developement</h6>
+                                <div class="skills-progress">
+                                    <span data-value="100%"></span>
+                                </div>
+                            </div>
+
+                            <!-- BOOTSTRAP -->
+                            <div class="progress-item">
+                                <h6>Digital Marketing</h6>
+                                <div class="skills-progress">
+                                    <span data-value="100%"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END SKILLS LEFT SIDE -->
+
+                <!-- START SKILLS RIGHT SIDE -->
+                <div class="col-lg-7 mx-auto skills-right">
+
+                </div>
+                <!-- END SKILLS RIGHT SIDE -->
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END SKILLS ======  -->
+
+    <!-- ====== START PORTFOLIO ======  -->
+    <section class="portfolio padding" id="portfolio" data-scroll-index="3">
+        <div class="container-fluid">
+
+            <!-- START PORTFOLIO SECTION TITLE -->
+            <div class="port-title text-center">
+                <h2 class="heading-primary mb-5">Recent Works</h2>
+                <p class="mb-5">We provide high standard clean website for your business solutions</p>
+            </div>
+            <!-- END PORTFOLIO SECTION TITLE -->
+
+
+            <!--START PORTFOLIO FILTER BUTTONS -->
+            <nav>
+                <ul class="simplefilter filter-port">
+
+                    <li class="button" data-filter="2">Web Developement</li>
+                    <li class="active button" data-filter="all"> <i class="fa fa-th-large"></i></li>
+                    <li class="button" data-filter="3">Digital Marketing</li>
+
+                </ul>
+            </nav>
+            <!-- END PORTFOLIO FILTER BUTTONS -->
+
+            <div class="row">
+                <!--START PORTFOLIO CONTENT -->
+                <div class="filtr-container">
+
+                    <!-- PORTFOLIO FILTER ITEM-->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 filtr-item" data-category="3">
+                        <div class="port-caption">
+                            <!-- PORTFOLIO IMAGE -->
+                            <img src="project/emta-project.png" alt="portfolio-01" />
+                            <!-- PORTFOLIO TITLE -->
+                            <div class="overlay">
+                                <div class="view-more">
+                                    <a href="project/emta-project.png" data-lightbox="mygallery"
+                                        data-title="This is a caption for this photo">
+                                        <i class="fa fa-plus fa-lg fa-fw"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PORTFOLIO FILTER ITEM-->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 filtr-item" data-category="2">
+                        <div class="port-caption">
+                            <!-- PORTFOLIO IMAGE -->
+                            <img src="project/Evms-project.png" alt="portfolio-02" />
+                            <!-- PORTFOLIO TITLE -->
+                            <div class="overlay">
+                                <div class="view-more">
+                                    <a href="project/Evms-project.png" data-lightbox="mygallery"
+                                        data-title="This is a caption for this photo">
+                                        <i class="fa fa-plus fa-lg fa-fw"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PORTFOLIO FILTER ITEM-->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 filtr-item" data-category="2">
+                        <div class="port-caption">
+                            <!-- PORTFOLIO IMAGE -->
+                            <img src="project/p&r-Project.png" alt="portfolio-03" />
+                            <!-- PORTFOLIO TITLE -->
+                            <div class="overlay">
+                                <div class="view-more">
+                                    <a href="project/p&r-Project.png" data-lightbox="mygallery"
+                                        data-title="This is a caption for this photo">
+                                        <i class="fa fa-plus fa-lg fa-fw"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--END PORTFOLIO CONTENT -->
+            </div>
+        </div>
+    </section>
+    <!-- ====== END PORTFOLIO ======  -->
+
+    <!-- ====== START COUNTS ======  -->
+    <section class="counts">
+        <div class="container">
+
+            <div class="row">
+                <!-- START COUNTS ITEM -->
+                <div class="col-lg-3 col-md-6 col-sm-6 mx-auto">
+                    <div class="counter text-center">
+                        <div class="counting-icon">
+                            <i class="fa fa-code fa-2x"></i>
+                        </div>
+                        <!-- NUMBER -->
+                        <span class="count" data-from="0" data-to="53">53</span>
+                        <!-- TITLE -->
+                        <h4>Our Customers</h4>
+                    </div>
+                </div>
+                <!-- END COUNTS ITEM -->
+
+                <!-- START COUNTS ITEM -->
+                <div class="col-lg-3 col-md-6 col-sm-6 mx-auto">
+                    <div class="counter text-center">
+                        <div class="counting-icon">
+                            <i class="fa fa-coffee fa-2x"></i>
+                        </div>
+                        <!-- NUMBER -->
+                        <span class="count" data-from="0" data-to="32">32</span>
+                        <!-- TITLE -->
+                        <h4>happy clients</h4>
+                    </div>
+                </div>
+                <!-- END COUNTS ITEM -->
+
+                <!-- START COUNTS ITEM -->
+                <div class="col-lg-3 col-md-6 col-sm-6 mx-auto">
+                    <div class="counter text-center">
+                        <div class="counting-icon">
+                            <i class="fa fa-lightbulb-o fa-2x"></i>
+                        </div>
+                        <!-- NUMBER -->
+                        <span class="count" data-from="0" data-to="32">32</span>
+                        <!-- TITLE -->
+                        <h4>Project Completed</h4>
+                    </div>
+                </div>
+                <!-- END COUNTS ITEM -->
+
+                <!-- START COUNTS ITEM -->
+                <div class="col-lg-3 col-md-6 col-sm-6 mx-auto">
+                    <div class="counter text-center">
+                        <div class="counting-icon">
+                            <i class="fa fa-trophy fa-2x"></i>
+                        </div>
+                        <!-- NUMBER -->
+                        <span class="count" data-from="0" data-to="21">21</span>
+                        <!-- TITLE -->
+                        <h4>delivered</h4>
+                    </div>
+                </div>
+                <!-- END COUNTS ITEM -->
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END COUNTS ======  -->
+
+    <!-- ====== START TEAM======  -->
+    <section class="team padding">
+        <div class="container">
+
+            <!-- START TEAM SECTION TITLE -->
+            <div class="text-center">
+                <h2 class="heading-primary mb-5">Our Team </h2>
+                <p class="mb-5">Meet our team of dedicated professionals, each bringing a wealth of expertise and
+                    creativity to your projects. Together, we turn your ideas into reality with precision and passion.
+                </p>
+            </div>
+            <!-- END TEAM SECTION TITLE -->
+
+            <div class="row mt-30">
+
+                <!-- START TEAM INFO -->
+                <div class="col-lg-4 col-md-6 col-sm-6 mx-auto">
+                    <div class="team-info">
+                        <img src="team/team-sagar.jpg" alt="team-photo" />
+                        <div class="view-content">
+                            <h3 class="title">Sagar Gurjar</h3>
+                            <span class="post">Full-Stack Developer</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="#0"><i class="fa fa-facebook fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-twitter fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-instagram fa-fw"></i></a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- END TEAM INFO -->
+
+                <!-- START TEAM INFO -->
+                <div class="col-lg-4 col-md-6 col-sm-6 mx-auto">
+                    <div class="team-info">
+                        <img src="team/team-abhijeet.png" alt="team-photo" />
+                        <div class="view-content">
+                            <h3 class="title">Abhijeet Raghuwanshi</h3>
+                            <span class="post">Managing Director</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="#0"><i class="fa fa-facebook fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-twitter fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-instagram fa-fw"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END TEAM INFO -->
+
+                <!-- START TEAM INFO -->
+                <div class="col-lg-4 col-md-6 col-sm-6 mx-auto">
+                    <div class="team-info">
+                        <img src="team/WhatsApp Image 2024-06-19 at 17.48.55_f45a8dd3.jpg" alt="team-photo" />
+                        <div class="view-content">
+                            <h3 class="title">Manish phulre</h3>
+                            <span class="post">Digital Marketing Executive</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="#0"><i class="fa fa-facebook fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-twitter fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-instagram fa-fw"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END TEAM INFO -->
+            </div>
+        </div>
+    </section>
+    <!-- ====== END TEAM ======  -->
+
+    <!-- ====== START TESTIMONIALS======  -->
+    <section class="test padding">
+        <div class="container">
+            <div class="row">
+
+                <!-- START TESTIMONIALS SECTION TITLE -->
+                <div class="test-title text-center">
+                    <h2 class="heading-primary mb-5">Customer Review</h2>
+                    <p class="mb-5">Customer reviews are essential for businesses as they offer valuable insights from
+                        users, influencing potential customers' decisions based on authentic feedback. Positive reviews
+                        build credibility and attract new customers, while constructive criticism helps businesses
+                        improve their products or services</p>
+                </div>
+                <!-- END TEST TESTIMONIALS SECTION TITLE -->
+
+                <div class="col-1g-6 col-md-6 col-sm-10 mx-auto">
+                    <div class="testimonials text-center">
+                        <div class="owl-carousel owl-theme">
+
+                            <!-- START TESTIMONIAL -->
+                            <div class="testimo">
+                                <div class="client-area">
+                                    <div class="img">
+                                        <div class="author">
+                                            <img src="customer/customer-1.png" alt="testimonial-picture" />
+                                        </div>
+                                    </div>
+                                    <h6>Namrata Gupta</h6>
+                                    <span>CEO</span>
+                                </div>
+                                <p>" Working with EMTA - IT was a game-changer for our digital marketing strategy.
+                                    Their expertise and dedication significantly boosted our online presence, leading to
+                                    a noticeable increase in traffic and conversions. "</p>
+                            </div>
+                            <!-- END TESTIMONIAL -->
+
+                            <!-- START TESTIMONIAL -->
+                            <div class="testimo">
+                                <div class="client-area">
+                                    <div class="img">
+                                        <div class="author">
+                                            <img src="customer/customer-2.png" alt="testimonial-picture" />
+                                        </div>
+                                    </div>
+                                    <h6>Pooja Sahu</h6>
+                                    <span>Project Manager</span>
+                                </div>
+                                <p>" I was impressed by the professionalism and attention to detail shown by EMTA - IT.
+                                    They
+                                    delivered a sleek and functional website that perfectly captured our
+                                    brand identity. Highly recommended! "</p>
+                            </div>
+                            <!-- END TESTIMONIAL -->
+
+                            <!-- START TESTIMONIAL -->
+                            <div class="testimo">
+                                <div class="client-area">
+                                    <div class="img">
+                                        <div class="author">
+                                            <img src="customer/customer-3.png" alt="testimonial-picture" />
+                                        </div>
+                                    </div>
+                                    <h6>Sandeep Verma</h6>
+                                    <span>Head Opration Executive</span>
+                                </div>
+                                <p>" The customer service at EMTA -IT is outstanding. They were responsive to our
+                                    needs and went above and beyond to ensure our satisfaction. A pleasure to work with"
+                                </p>
+                            </div>
+                            <!-- END TESTIMONIAL -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- START TESTIMONIAL PICTURE -->
+                <div class="col-1g-6 col-md-6 mx-auto">
+                    <img src="img/testimonial.png" class="test-image" alt="testimonial-picture" />
+                </div>
+                <!-- END TESTIMONIAL PICTURE -->
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END TESTIMONIALS======  -->
+
+    <!-- ====== START PRICES ======  -->
+    <section class="price padding">
+        <div class="container">
+
+            <!-- START PRICE SECTION TITLE -->
+            <div class="text-center">
+                <h2 class="heading-primary mb-5">Pricing Plan</h2>
+                <p class="mb-5">Our pricing plans are flexible and designed to suit various budgets. Choose from our
+                    competitive packages to find the perfect fit for your project needs.</p>
+            </div>
+            <!-- END PRICE SECTION TITLE -->
+
+            <!-- START PRICE TABLE -->
+
+            <div class="row">
+
+                <!-- START PRICE LIST -->
+                <div class="offset-lg-2 col-lg-8 offset-lg-2 mx-auto">
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="type">
+                                    <h4>Word-Press </h4>
+                                </div>
+
+                                <div class="value">
+                                    <h3><span>₹</span>4999</h3>
+                                    <span class="per">/ Start</span>
+                                </div>
+
+                                <div class="features">
+                                    <ul>
+                                        <li>3 Month Hosting</li>
+                                        <li>1 Domain (1 Year)</li>
+                                        <li>SSL (1 Year )</li>
+                                        <li>Enhanced Security</li>
+                                        <li>200 GB NVMe Storage</li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card ">
+                                <div class="type">
+                                    <h4>SEO</h4>
+                                </div>
+
+                                <div class="value">
+                                    <h3><span>₹</span>7499</h3>
+                                    <span class="per">/ Start</span>
+                                </div>
+
+                                <div class="features">
+                                    <ul>
+                                        <li>On Page SEO</li>
+                                        <li>Off Page SEO</li>
+                                        <li>Technical</li>
+                                        <li>SEO Tools</li>
+                                        <li>Unlimited Support</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 ">
+                            <div class="card">
+                                <div class="type">
+                                    <h4>Social Media Marketing</h4>
+                                </div>
+
+                                <div class="value">
+                                    <h3><span>₹</span>2999</h3>
+                                    <span class="per">/ Start</span>
+                                </div>
+
+                                <div class="features">
+                                    <ul>
+                                        <li>Google Ads</li>
+                                        <li>Meta Ads</li>
+                                        <li>Facebook Marketing</li>
+                                        <li>Linkedin</li>
+                                        <li>And Other social media platform</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="type">
+                                    <h4>Python</h4>
+                                </div>
+
+                                <div class="value">
+                                    <h3><span>₹</span>9899</h3>
+                                    <span class="per">/ Start</span>
+                                </div>
+
+                                <div class="features">
+                                    <ul>
+                                        <li>Python</li>
+                                        <li>Django (FrameWork)</li>
+                                        <li>Data Base (Postgresql)</li>
+                                        <li>Enhanced Security</li>
+                                        <li>1 Year Hosting(AWS)</li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END PRICE LIST -->
+
+                </div>
+            </div>
+            <!-- END PRICE TABLE -->
+
+        </div>
+    </section>
+    <!-- ====== END PRICES ======  -->
+
+    <!-- ====== START OFFER ======  -->
+    <section class="offer padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-6 col-md-12">
+                    <img src="img/team-nikii.png" class="offer-image" alt="offer-picture" />
+                </div>
+
+                <!-- START OFFER SECTION TEXT -->
+                <div class="col-lg-6 col-md-12 mt-md-5 mt-sm-5 mx-auto">
+                    <h2 class="heading-tertiary mb-5">We offer best services for you</h2>
+                    <p class="mb-3"> At EMTA , we pride ourselves on delivering the best services to our
+                        valued clients. With a commitment to excellence and customer satisfaction, we tailor our
+                        solutions to meet your specific requirements</p>
+                    <p class="mb-5">
+                        Whether you're seeking web design,
+                        digital marketing, or consulting services, our team of experts is dedicated to delivering
+                        results that exceed expectations. We combine creativity with technical expertise to craft
+                        innovative solutions that propel your business forward in today's competitive landscape.
+                    </p>
+
+                </div>
+                <!-- END OFFER SECTION TEXT -->
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END OFFER ======  -->
+
+
+    <!-- ====== END BLOG ======  -->
+
+    <!-- ====== START CONTACT ======  -->
+    <section class="contact padding" id="contact" data-scroll-index="5">
+        <div class="container">
+
+            <!-- START CONTACT SECTION TITLE -->
+            <div class="text-center">
+                <h2 class="heading-primary mb-5"><span> Get In <span>Touch</span></h2>
+                <p class="mb-5">You can get in touch with me right here! Whether you have questions, need advice, or
+                    just want to chat, feel free to continue our conversation. What's on your mind?</p>
+            </div>
+            <!-- END CONTACT SECTION TITLE -->
+
+
+            <div class="row">
+
+                <!-- START FAQ -->
+                <div class="col-lg-6 mt-lg-5">
+                    <div id="accordion" class="accordion">
+                        <h2 class="heading-tertiary mb-5">Do you have any Question about</h2>
+                        <div class="card mb-0">
+                            <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                                <a class="card-title heading-secondary">
+                                    How to start a website?
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+                                <p>
+                                    Starting a website begins with defining your purpose and choosing a domain name that
+                                    reflects it. Once you've registered your domain and selected a suitable web hosting
+                                    provider, you can set up your website using platforms like WordPress for flexibility
+                                    or website builders for simplicity. Customize the design to align with your brand,
+                                    selecting themes and adjusting layouts as needed. Focus on creating compelling
+                                    content that engages your audience and fulfills your website's objectives. Ensure
+                                    your website is user-friendly, optimized for mobile devices, and includes essential
+                                    pages such as about, contact, and services/products. Regularly update and maintain
+                                    your site to keep content fresh and ensure smooth functionality, helping to achieve
+                                    your online goals effectively
+                                </p>
+                            </div>
+                            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseTwo">
+                                <a class="card-title heading-secondary">
+                                    Why is SEO important?
+                                </a>
+                            </div>
+                            <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                                <p>SEO, or Search Engine Optimization, is crucial for several reasons. Firstly, it helps
+                                    improve the visibility of your website in search engine results pages (SERPs),
+                                    making it easier for potential customers to find you when searching for relevant
+                                    products, services, or information. By optimizing your website's content and
+                                    structure according to SEO best practices, you increase your chances of ranking
+                                    higher in search engines like Google, driving more organic (unpaid) traffic to your
+                                    site. This increased visibility can lead to more leads, conversions, and sales, as
+                                    users are more likely to click on websites that appear at the top of search results.
+                                    Furthermore, SEO helps build credibility and trust with your audience, as high
+                                    rankings imply authority and relevance within your industry. Overall, investing in
+                                    SEO ensures long-term benefits by consistently attracting qualified traffic and
+                                    improving the overall user experience on your website.
+                                </p>
+                            </div>
+                            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseThree">
+                                <a class="card-title heading-secondary">
+                                    What is Digital Marketing?
+                                </a>
+                            </div>
+                            <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                <p>Digital marketing refers to the use of digital channels, platforms, and technologies
+                                    to promote products, services, brands, or businesses to reach and engage with
+                                    potential customers. Unlike traditional marketing, which relies on offline channels
+                                    like print ads or TV commercials, digital marketing leverages the internet and
+                                    electronic devices such as computers, smartphones, and tablets.
+                                </p>
+                            </div>
+                            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseFour">
+                                <a class="card-title heading-secondary">
+                                    How to work page builder?
+                                </a>
+                            </div>
+                            <div id="collapseFour" class="collapse" data-parent="#accordion">
+                                <p>
+                                    Using a page builder simplifies web page creation by eliminating the need for
+                                    extensive coding knowledge. Choose a platform like WordPress plugins or standalone
+                                    services such as Wix or Squarespace. Start with a template or a blank canvas, then
+                                    use drag-and-drop functionality to place elements like text, images, and buttons.
+                                    Customize each element easily by adjusting settings for text, colors, and sizes.
+                                    This user-friendly approach allows for quick and efficient creation of responsive
+                                    and visually appealing web pages tailored to your needs.
+                                </p>
+                            </div>
+                            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseFive">
+                                <a class="card-title heading-secondary">
+                                    What is the goal of your visit?
+                                </a>
+                            </div>
+                            <div id="collapseFive" class="collapse" data-parent="#accordion">
+                                <p>my goal is to provide helpful and informative responses to your questions and
+                                    inquiries. Whether you're seeking information, assistance with a topic, or simply
+                                    engaging in conversation, I'm here to assist and contribute positively to our
+                                    interaction. If you have specific topics or questions in mind, feel free to ask, and
+                                    I'll do my best to provide accurate and useful information!
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END FAQ -->
+
+                <!-- START CONTACT FORM -->
+                <div class="contact-form col-lg-6 text-center">
+                    <form class="form" id="contact-form" method="post" action="contact.php">
+                        <div class="messages"></div>
+                        <div class="controls">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input id="form_name" type="text" name="name" placeholder="Name *"
+                                            required="required">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input id="form_email" type="email" name="email" placeholder="Email *"
+                                            required="required">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input id="form_subject" type="text" name="subject" placeholder="Subject">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea id="form_message" name="message" placeholder="Message" rows="4"
+                                            required="required"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button type="submit" class="button">Send Message</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- END CONTACT FORM -->
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END CONTACT ======  -->
+
+    <!-- ====== START CONTACT DETAILS ======  -->
+    <section class="contact-details">
+        <div class="container">
+
+            <!-- START INFO-->
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-8 mx-auto">
+                    <div class="contact-info">
+                        <i class="fa fa-map fa-fw"></i>
+                        <div class="contact-info_text">
+                            <h5>Address:</h5>
+                            <p>155 First Floor Mangal City Mall,<br>Vijay Nagar, Indore - 452010</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-8 mx-auto">
+                    <div class="contact-info">
+                        <i class="fa fa-phone fa-fw"></i>
+                        <div class="contact-info_text">
+                            <h5>Mobile:</h5>
+                            <p>+91 9589504277</p>
+                            <p>+91 9589504277</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-8 mx-auto">
+                    <div class="contact-info">
+                        <i class="fa fa-envelope fa-fw"></i>
+                        <div class="contact-info_text">
+                            <h5>Email:</h5>
+                            <p>Hremta@gmail.com</p>
+                            <p>Hremta@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-8 mx-auto">
+                    <div class="contact-info">
+                        <i class="fa fa-refresh fa-fw"></i>
+                        <div class="contact-info_text">
+                            <h5>Timing:</h5>
+                            <p> Mon - Sat </p>
+                            <p>10am - 7pm</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END INFO -->
+
+        </div>
+    </section>
+    <!-- ====== END CONTACT DETAILS ======  -->
+
+
+
+
+
+    <!-- ====== START FOOTER BOTTOM======  -->
+    <section class="footer-bottom">
+        <div class="container">
+            <div class="row">
+
+                <div class="offset-md-3 col-md-6 offset-md-3">
+
+                    <!-- START SOCIAL ICONS -->
+                    <div class="social-links">
+                        <ul>
+                            <li><a href="#0"><i class="fa fa-facebook fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-twitter fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-linkedin fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-pinterest-p fa-fw"></i></a></li>
+                            <li><a href="#0"><i class="fa fa-instagram fa-fw"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- END SOCIAL ICONS -->
+
+                    <!-- START RIGHTS -->
+                    <div class="copyright">
+                        <h5>&copy; EMTA&#44; All Rights Reserved &#10072; Designed by <a href="https://emta.co.in/"
+                                target="_blank" class="text-primary">EMTA</a>
+                        </h5>
+                    </div>
+                    <!-- END RIGHTS -->
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ====== END FOOTER BOTTOM======  -->
+
+    <!-- ====== JS ======  -->
+    <!--jquery-3.3.1 js-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+
+    <!-- popper js -->
+    <script src="js/popper.min.js"></script>
+
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- scrollIt js -->
+    <script src="js/scrollIt.min.js"></script>
+
+    <!-- countTo js -->
+    <script src="js/jquery.countTo.js"></script>
+
+    <!-- filter js -->
+    <script src="js/jquery.filterizr.min.js"></script>
+
+    <!-- waypoints js -->
+    <script src="js/waypoints.min.js"></script>
+
+    <!-- owl carousel js -->
+    <script src="js/owl.carousel.min.js"></script>
+
+    <!-- validator js -->
+    <script src="js/validator.js"></script>
+
+    <!-- maps js -->
+    <script src="js/gmaps.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+    <script src="js/map.js"></script>
+
+    <!-- coustom js -->
+    <script src="js/main.js"></script>
+
+    <!-- lightbox js -->
+    <script src="js/lightbox.js"></script>
+
+
 </body>
 
 </html>
