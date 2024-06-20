@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign up as a vendor on our platform to showcase your products and reach a wider audience. Join now to start selling online">
+  <meta name="keywords" content="login in sign up,
+  vendor login,
+  job search sites,
+  job opportunities,
+  application for employment,
+  jobs hiring near me,
+  vendor portal login,
+  jobs near me,
+  earnmoney,
+  employment opportunities,
+  vacancies near me,
+  job websites,
+  jobs in my area,
+  job apps">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/VendorLogin.css">
+    <link href="/static/pics/EMTA.jpeg" rel="icon" type="image/png">
+
+  <title>Vendor Signup</title>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MJFNQ63T');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTFDG9QB74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RTFDG9QB74');
+</script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJFNQ63T"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="wrapper">
+
+    <form method="POST" class="register-container" id="register" enctype="multipart/form-data" onsubmit="popup()">
+
+      {% csrf_token %}
+      <div class="top">
+        <span>Have an account? <a href="{% url 'VendorLogin' %}">Login</a></span>
+        <header>Sign Up</header>
+      </div>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li>
+          <p style="color: red;">{{ message }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <span id="passwordError" class="error" style="color: red;"></span><br>
+      <div class="two-forms">
+        <div class="input-box">
+          <input type="text" class="input-field" name="first_name" placeholder="Firstname" autocapitalize="words"
+            required>
+          <i class="bx bx-lock-mobile"></i>
+        </div>
+        <div class="input-box">
+          <input type="text" class="input-field" name="last_name" placeholder="Lastname" autocapitalize="words">
+          <i class="bx bx-lock-mobile"></i>
+        </div>
+      </div>
+      <div class="input-box">
+        <input type="text" class="input-field" name="username" placeholder="Enter a Username (ex.EMTA0001)"
+          autocomplete="off" pattern="[EMTA]{4}[0-9]{4}" title="User Name Must Contain Prefix EMTA And Numbers 0001... ">
+        <i class="bx bx-lock-mobile"></i>
+      </div>
+      <div class="input-box">
+        <input type="tel" class="input-field" name="mobile_number" placeholder="Mobile Number" required
+          pattern="[0-9]{10}">
+        <i class="bx bx-lock-mobile"></i>
+      </div>
+      <div class="input-box">
+        <input type="email" class="input-field" name="email" placeholder="Email" required>          
+        <i class="bx bx-lock-mobile"></i>
+      </div>
+      <div class="input-box">
+        <input type="text" class="input-field" name="password1" id="password1" placeholder="Create Password (Ex@123)"
+          autocomplete="off" title="Password must be at least 5 characters long" required
+          pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[@$!%*?&])(?!^[0-9]*$).{5,}$">
+        <i class="bx bx-lock-mobile"></i>
+      </div>
+      <div class="input-box">
+        <input type="password" class="input-field" name="password2" id="password2" placeholder="Confirm Password" required>
+        <i class="bx bx-lock-mobile"></i>
+      </div>
+
+      <div class="input-box">
+        <input type="submit" class="submit"  value="Register">
+      </div>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        $('#register').on('submit', function (event) {
+            var password1 = $('#password1').val();
+            var password2 = $('#password2').val();
+
+            if (password1 !== password2) {
+                $('#passwordError').text('Passwords do not match');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+  </script>
+  <script>
+
+  </script>
