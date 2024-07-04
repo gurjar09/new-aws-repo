@@ -73,6 +73,8 @@ class Candidate(models.Model):
     location = models.CharField(max_length=50)
     totalCommission = models.CharField(max_length=10)
     Contact_by = models.CharField(max_length=50,default='None')
+    Remark = models.CharField(max_length=200)
+
     
     
     

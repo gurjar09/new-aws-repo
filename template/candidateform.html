@@ -1,37 +1,61 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/VendorLogin.css">
-  <title>www.EMTA Placement.com</title>
-  <link href="/static/pics/EMTA.jpeg" rel="icon" type="image/png">
+  <title>Candidate Registration Form</title>
+  <!-- Import Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <style>
+    .register-container {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      position: relative;
+    }
+    .register-container header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .input-field i {
+      top: 0;
+    }
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 100px; /* Adjust the width as needed */
+    }
+    .button-container {
+      text-align: center;
+    }
+    .custom-btn {
+      background-color: #f8f6f2; /* Change to your desired color */
+      color: rgb(136, 133, 133);
+    }
+  </style>
 </head>
-
 <body>
-  <div class="wrapper">
-
+  <div class="container">
+    <img src="/static/pics/EMTALOGO.png" alt="Logo" class="logo">
     <form method="POST" class="register-container" id="register" enctype="multipart/form-data">
       {% csrf_token %}
-      <div class="top">
-        <header>Candidate Form</header>
-      </div>
 
-      <div class="input-box">
-        <input type="text" class="input-field" name="first_name" placeholder="First Name" required>
-        <i class="bx bx-lock-mobile"></i>
+      <div class="top">
+        <header><h4>Candidate Form</h4></header>
       </div>
-      <div class="input-box">
-        <input type="text" class="input-field" name="last_name" placeholder="Last Name" >
-        <i class="bx bx-lock-mobile"></i>
+      <p style="font-size: 20px;">Join us for a bright future! Register on this form to secure your placement in top companies.</p>
+      <div class="input-field">
+        <input type="text" name="first_name" id="first_name" required>
+        <label for="first_name">First Name</label>
       </div>
-      <div class="input-box">
-        <select class="input-field" name="qualification" required>
+      <div class="input-field">
+        <input type="text" name="last_name" id="last_name">
+        <label for="last_name">Last Name</label>
+      </div>
+      <div class="input-field">
+        <select name="qualification" required>
           <option value="" disabled selected>Select your highest qualification</option>
           <option value="Secondary School">Secondary School</option>
           <option value="Higher Secondary School">Higher Secondary School</option>
@@ -39,64 +63,78 @@
           <option value="Post-Graduate">Post-Graduate</option>
           <option value="Ph.D.">Ph.D.</option>
         </select>
-        <i class="bx bx-lock-mobile"></i>
+        <label>Qualification</label>
       </div>
-      
-      <div class="input-box">
-        <input type="text" class="input-field" name="sector" placeholder="Sector Preference" required>
-        <i class="bx bx-lock-mobile"></i>
+      <div class="input-field">
+        <input type="text" name="sector" id="sector">
+        <label for="sector">Sector Preference</label>
       </div>
-      <div class="input-box">
-        <input type="tel" class="input-field" name="mobile_number" placeholder="Mobile Number" required>
-        <i class="bx bx-lock-mobile"></i>
+      <div class="input-field">
+        <input type="tel" name="mobile_number" id="mobile_number" required pattern="[0-9]{10}">
+        <label for="mobile_number">Mobile Number</label>
       </div>
-      <div class="input-box">
-        <input type="email" class="input-field" name="email" placeholder="Email" required>
-        <i class="bx bx-lock-mobile"></i>
+      <div class="input-field">
+        <input type="email" name="email" id="email" required>
+        <label for="email">Email</label>
       </div>
-      <div class="input-box">
-        <input type="text" class="input-field" name="location" placeholder="Enter Your Location" required>
-        <i class="bx bx-lock-mobile"></i>
+      <div class="input-field">
+        <input type="text" name="location" id="location" required>
+        <label for="location">Enter Your Location</label>
       </div>
-      <div class="input-box">
-        <input type="text" class="input-field"name="refer_code" value="{{ initial_data.refer_code }}" placeholder="Enter Refer Code">
-        <i class="bx bx-lock-mobile"></i>
+      <div class="input-field">
+        <input type="text" name="refer_code" id="refer_code" value="{{ initial_data.refer_code }}">
+        <label for="refer_code">Enter Refer Code</label>
       </div>
-      <p>Resume</p>
-      <div class="input-box">
-          <input type="file" class="input-field" name="resume" id="resume" placeholder="Resume">
-          <i class="bx bx-lock-mobile"></i>
+      <div class="file-field input-field">
+        <div class="btn custom-btn">
+          <span>Upload Resume</span>
+          <input type="file" name="resume" id="resume">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Upload your resume">
+        </div>
       </div>
       <div id="resumeError" style="display: none; color: red;">Please upload a valid file.</div>
-      
-      <a href="signup">
-        <div class="input-box">
-          <input type="submit" class="submit"  value="Register">
-        </div>
-      </a>
-      
+      <div class="input-field">
+        <label>
+          <input type="checkbox" id="terms" required />
+          <span>I agree to the <a class="modal-trigger" href="#termsModal">terms and conditions</a></span>
+        </label>
+      </div><br><br>
+      <div class="button-container">
+        <button type="submit" class="btn waves-effect waves-light">Register Now</button>
+      </div>
     </form>
-
-
   </div>
+
+  <!-- Terms and Conditions Modal -->
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <h4>Terms and Conditions</h4>
+      <p>Here you can write the terms and conditions...</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+  <!-- Import Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
-    document.getElementById('resume').addEventListener('change', function() {
-    var fileInput = this;
-    var filePath = fileInput.value;
+    document.addEventListener('DOMContentLoaded', function() {
+      M.AutoInit();
 
-    if (!filePath) {
-        // No file selected, hide error message
-        document.getElementById('resumeError').style.display = 'none';
-        return true;
-    }
-    
-    // No file extension restriction, no need for validation
-    // Hide error message
-    document.getElementById('resumeError').style.display = 'none';
-});
-
+      const form = document.getElementById('register');
+      form.addEventListener('submit', function(event) {
+        const termsCheckbox = document.getElementById('terms');
+        if (!termsCheckbox.checked) {
+          event.preventDefault();
+          alert('You must agree to the terms and conditions before submitting the form.');
+        }
+      });
+    });
   </script>
-
 </body>
-
 </html>
+
+

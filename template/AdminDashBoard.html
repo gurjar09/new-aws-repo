@@ -207,14 +207,17 @@
                         <div class="table-responsive">
                             <table class="table table-borderless table-striped table-earning">
                                 <thead class="thead-danger">
-                                    <th scope="col" style="font-size: 20px;">Vendor Code</th>
-                                    <th scope="col" style="font-size: 20px;">Name</th>
-                                    <th scope="col" style="font-size: 20px;">Mobile</th>
-                                    <th scope="col" style="font-size: 20px;">Email</th>
-                                    <th scope="col" style="font-size: 20px;">Bussiness</th>
-                                    <th scope="col" style="font-size: 20px;">Date</th>
-                                    <th scope="col" style="font-size: 20px;">Remove</th>
-                                    <th scope="col" style="font-size: 20px;">Details</th>
+                                    <tr>
+                                        <th scope="col" style="font-size: 20px;">Vendor Code</th>
+                                        <th scope="col" style="font-size: 20px;">Name</th>
+                                        <th scope="col" style="font-size: 20px;">Mobile</th>
+                                        <th scope="col" style="font-size: 20px;">Email</th>
+                                        <th scope="col" style="font-size: 20px;">Business</th>
+                                        <th scope="col" style="font-size: 20px;">Date</th>
+                                        <th scope="col" style="font-size: 20px;">Commission</th>
+                                        <th scope="col" style="font-size: 20px;">Remove</th>
+                                        <th scope="col" style="font-size: 20px;">Details</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     {% for data in user_data %}
@@ -225,6 +228,7 @@
                                         <td>{{ data.user.email }}</td>
                                         <td>{{ data.shop_name }}</td>
                                         <td>{{ data.user.date_joined }}</td>
+                                        <td>{{ data.total_commission }}</td>
                                         <td>
                                             <form method="post">
                                                 {% csrf_token %}
@@ -235,13 +239,12 @@
                                         <td>
                                             <button type="button" class="btn btn-success" onclick="showVendorDetails({{ data.vendor_id }})">View Details</button>
                                         </td>
-                                        
-                                        
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
+                        
                     </div>
                 </div>
             </div>

@@ -415,6 +415,10 @@
                                             <input type="text" class="form-control filter-input"
                                                 data-filter="location-filter" placeholder="Filter Location">
                                         </th>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Remark <br>
+                                            
+                                        </th>
 
                                     </tr>
                                 </thead>
@@ -437,6 +441,7 @@
                                             style="font-size: 15px; color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">
                                             {{ candidate.status }}</td>
                                         <td style="font-size: 15px;">{{ candidate.commission }}</td>
+                                        <td data-filter="job-preference-filter" style="font-size: 15px;">{{ candidate.Remark }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

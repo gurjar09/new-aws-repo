@@ -225,6 +225,7 @@ def CandidateDetails(request, candidate_id):
         'Contact': candidate.Contact,
         'status': candidate.status,
         'Contact_by': candidate.Contact_by,
+        'Remark' : candidate.Remark,
         'resume': candidate.resume.url if candidate.resume else None
     }
     if request.method == 'POST':
@@ -233,6 +234,7 @@ def CandidateDetails(request, candidate_id):
         candidate.Contact = request.POST.get('Contact')
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
+        candidate.Remark = request.POST.get('Remark')
         candidate.save()
         return redirect(candidateDashboard)
     return render(request, 'CandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
@@ -521,7 +523,6 @@ def reset_password(request):
         else:
             messages.error(request, 'User with this mobile number does not exist')
     return render(request, 'reset_password.html')
-
 def adminDashBoard(request):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == 'POST':
@@ -541,52 +542,45 @@ def adminDashBoard(request):
             vendors = Vendor.objects.filter(user__username__icontains=username_query)
             total_candidate_commission = Candidate.objects.aggregate(total_commission=Sum('commission'))['total_commission']
             total_vendor_commission = Vendor.objects.aggregate(total_commission_received=Sum('total_commission_received'))['total_commission_received']
-            
+
             user_data = []
-            for user in User.objects.filter(is_superuser=False):
-                profile = None
-                try:
-                    profile = Vendor.objects.get(user=user)
-                except Vendor.DoesNotExist:
-                    pass
-                
-                if profile:
-                    document_id = None
-                    if hasattr(profile, 'profiledocument'):
-                        document_id = profile.profiledocument.id
-                    bussiness_id = None
-                    if hasattr(profile, 'bussinessdetails'):
-                        bussiness_id = profile.bussinessdetails.id
-                    bank_id = None
-                    if hasattr(profile, 'bank'):
-                        bank_id = profile.bank.id
-                    user_data.append({
-                        'user': user,
-                        'shop_name': profile.shop_name.capitalize(),
-                        'mobile_number': profile.mobile_number,
-                        'vendor_commission': profile.total_commission_received,
-                        'CommissionReceived': profile.CommissionReceived,
-                        'document_id': document_id,
-                        'bussiness_id': bussiness_id,
-                        'bank_id': bank_id,
-                        'vendor_id': profile.id,
-                    })
+            for vendor in vendors:
+                candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
+                total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission'] or 0
+                user_data.append({
+                    'user': vendor.user,
+                    'shop_name': vendor.shop_name.capitalize(),
+                    'mobile_number': vendor.mobile_number,
+                    'total_commission': total_commission,  # Ensure this field is used
+                    'CommissionReceived': vendor.CommissionReceived,
+                    'document_id': getattr(vendor, 'profiledocument', None) and vendor.profiledocument.id,
+                    'bussiness_id': getattr(vendor, 'bussinessdetails', None) and vendor.bussinessdetails.id,
+                    'bank_id': getattr(vendor, 'bank', None) and vendor.bank.id,
+                    'vendor_id': vendor.id,
+                })
 
             vendor_count = Vendor.objects.count()
             total_candidates_all = Candidate.objects.all().count()
             current_month = timezone.now().month
             current_year = timezone.now().year
             vendors_this_month = Vendor.objects.filter(user__date_joined__year=current_year, user__date_joined__month=current_month).count()
-
             if not user_data:
                 no_vendors_message = 'No vendors found.'
                 return render(request, 'AdminDashBoard.html', {'no_vendors_message': no_vendors_message, 'superuser_name': superuser_name})
-            
-            return render(request, 'AdminDashBoard.html', {'user_data': user_data, 'vendor_count': vendor_count, 'vendors_this_month': vendors_this_month, 'total_vendor_commission': total_vendor_commission, 'total_candidate_commission': total_candidate_commission , 'total_candidates_all': total_candidates_all, 'username_query': username_query, 'superuser_name': superuser_name})
+
+            return render(request, 'AdminDashBoard.html', {
+                'user_data': user_data,
+                'vendor_count': vendor_count,
+                'vendors_this_month': vendors_this_month,
+                'total_vendor_commission': total_vendor_commission,
+                'total_candidate_commission': total_candidate_commission,
+                'superuser_name': superuser_name,
+            })
         except User.DoesNotExist:
             return render(request, 'usernotfound.html', {'error': 'User details not found'})
     else:
         return render(request, 'username.html', {'error': 'User not authenticated or not a superuser'})
+
 
 
 
@@ -879,6 +873,7 @@ def EmployeeCandidateDetails(request, candidate_id):
         'Contact': candidate.Contact,
         'status': candidate.status,
         'Contact_by' : candidate.Contact_by,
+        'Remark' : candidate.Remark,
         'resume': candidate.resume.url if candidate.resume else None
     }
     if request.method == 'POST':
@@ -887,6 +882,7 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.Contact = request.POST.get('Contact')
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
+        candidate.Remark = request.POST.get('Remark')
         candidate.save()
         return redirect(Employeecandidate)
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
