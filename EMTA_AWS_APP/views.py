@@ -181,6 +181,8 @@ def VendorDashboard(request):
     }
     return render(request, 'VendorDashboard.html', context)
 
+
+
 def candidateform(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -204,18 +206,24 @@ def candidateform(request):
             qualification=qualification,
             mobile_number=mobile_number,
             email=email,
+            resume=resume,
             sector=sector,
             location=location,
             refer_code=refer_code,
-            resume = resume
+            totalCommission=totalCommission,
+            commission=commission,
+            Contact=Contact,
+            status=status,
+            Contact_by=User.objects.get(id=Contact_by)  # Assuming Contact_by is the ID of the user
         )
 
-        return redirect(CandidateSuccess, candidate_id=candidate.id)
+        return redirect('CandidateSuccess', candidate_id=candidate.id)
 
     else:
         refer_code = request.GET.get('ref', '')
         initial_data = {'refer_code': refer_code}
         return render(request, 'candidateform.html', {'initial_data': initial_data})
+
 
 def CandidateDetails(request, candidate_id):
     candidate = get_object_or_404(Candidate, id=candidate_id)
@@ -226,6 +234,7 @@ def CandidateDetails(request, candidate_id):
         'status': candidate.status,
         'Contact_by': candidate.Contact_by,
         'Remark' : candidate.Remark,
+        'Payment_Status' : candidate.Payment_Status,
         'resume': candidate.resume.url if candidate.resume else None
     }
     if request.method == 'POST':
@@ -235,6 +244,7 @@ def CandidateDetails(request, candidate_id):
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.Remark = request.POST.get('Remark')
+        candidate.Payment_Status = request.POST.get('Payment_Status')
         candidate.save()
         return redirect(candidateDashboard)
     return render(request, 'CandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
@@ -873,6 +883,7 @@ def EmployeeCandidateDetails(request, candidate_id):
         'Contact': candidate.Contact,
         'status': candidate.status,
         'Contact_by' : candidate.Contact_by,
+        'commission_Generate_date' : candidate.commission_Generate_date,
         'Remark' : candidate.Remark,
         'resume': candidate.resume.url if candidate.resume else None
     }
@@ -882,6 +893,7 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.Contact = request.POST.get('Contact')
         candidate.status = request.POST.get('status')
         candidate.Contact_by = request.POST.get('Contact_by')
+        candidate.commission_Generate_date = request.POST.get('commission_Generate_date')
         candidate.Remark = request.POST.get('Remark')
         candidate.save()
         return redirect(Employeecandidate)
@@ -892,3 +904,29 @@ def sitemap(request) :
 
 def robots(request) :
     return render(request,'robots.txt')
+
+
+
+
+@login_required
+def Transections(request):
+    try:
+        vendor = Vendor.objects.get(user=request.user)
+    except Vendor.DoesNotExist:
+        return render(request, 'VendorLogin.html', {'error': 'Vendor details not found'})
+
+    
+    candidates = Candidate.objects.filter(refer_code=vendor.refer_code,commission__gt=0)
+    num_candidates = candidates.count()
+    total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission']
+
+    context = {
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'shop_name': vendor.shop_name,
+        'candidates': candidates,
+        'num_candidates': num_candidates,
+        'total_commission': total_commission,
+              
+    }
+    return render(request, 'transactionHistory.html', context)

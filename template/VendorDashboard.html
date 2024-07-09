@@ -72,7 +72,7 @@
             </button>
             <!-- Brand -->
             <a class="navbar-brand pt-0" href="{% url 'VendorDashboard' %}">
-                <img src="/static/pics/logo (2).png" class="navbar-brand-img" height="100" width="100" alt="...">
+                <img src="/static/pics/EMTALOGO.jpeg" class="navbar-brand-img" height="100" width="100" alt="...">
             </a>
             <!-- User -->
             <ul class="nav align-items-center d-md-none">
@@ -108,7 +108,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <a href="{% url 'VendorDashboard' %}">
-                                <img src="/static/pics/EMTALOGO.png">
+                                <img src="/static/pics/EMTALOGO.jpeg">
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
@@ -143,6 +143,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'bank_details' %}" target="_blank">
                             Bank Details
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Transections' %}" target="_blank">
+                            Transactions
                         </a>
                     </li>
                     <li class="nav-item">
@@ -389,8 +394,8 @@
                                             <input type="text" class="form-control filter-input"
                                                 data-filter="location-filter" placeholder="Filter Location">
                                         </th>
-                                        <th scope="col" style="font-size: 20px;">
-                                            Remark <br> <br> 
+                                        <th scope="col"  style="font-size: 20px; padding: 26px;">
+                                            Remark <br> <br> <br>
                                             
                                         </th>
 
@@ -412,7 +417,7 @@
                                         <td data-filter="location-filter" style="font-size: 15px;">{{ candidate.location}}</td>
                                         <td data-filter="job-preference-filter" style="font-size: 15px;">{{candidate.sector }}</td>
                                         <td data-filter="status-filter"
-                                            style="font-size: 15px; color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">
+                                            style="font-size: 15px; color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}orange{% elif candidate.status == 'Pending' %}skyblue{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">
                                             {{ candidate.status }}</td>
                                         <td style="font-size: 15px;">{{ candidate.commission }}</td>
                                         <td data-filter="job-preference-filter" style="font-size: 15px;"><textarea >{{ candidate.Remark }}</textarea></td>
@@ -436,64 +441,31 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () {
+        // Get all filter inputs
+        var filterInputs = document.querySelectorAll('.filter-input');
     
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.filter-input').on('keyup', function () {
-                var locationFilter = $('#location-filter').val().toLowerCase();
-                $('#candidateTable tbody tr').filter(function () {
-                    $(this).toggle($(this).find('td[data-filter="location-filter"]').text().toLowerCase().indexOf(locationFilter) > -1);
-                });
-            });
-        });
-    </script>
+        // Add event listeners to each filter input
+        filterInputs.forEach(function (input) {
+            input.addEventListener('change', function () {
+                var filterType = input.getAttribute('data-filter');
+                var filterValue = input.value.toLowerCase(); // Convert value to lowercase for case insensitive comparison
     
-    <script>
-        $(document).ready(function () {
-            $('#candidateTable').DataTable({
-                "searching": true,
-                "paging": true,
-                "ordering": true,
-                "language": {
-                    "search": "_INPUT_",
-                    "searchPlaceholder": "Search...",
-                },
-                "columnDefs": [
-                    { "searchable": true, "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }
-                ]
-            });
-        });
-    </script>
+                // Loop through each table row
+                var tableRows = document.querySelectorAll('#candidateTable tbody tr');
+                tableRows.forEach(function (row) {
+                    var rowData = row.querySelector('[data-filter="' + filterType + '"]').textContent.toLowerCase();
     
-    <script>
-        function filterTable() {
-            var filters = {};
-            document.querySelectorAll(".filter-input").forEach(function (input) {
-                filters[input.dataset.filter] = input.value.trim().toUpperCase();
-            });
-    
-            var rows = document.querySelectorAll("#candidateTable tbody tr");
-            rows.forEach(function (row) {
-                var displayRow = true;
-                Object.keys(filters).forEach(function (key) {
-                    var filterValue = filters[key];
-                    if (filterValue) {
-                        var cell = row.querySelector("td[data-filter='" + key + "']");
-                        var cellValue = cell ? cell.textContent.trim().toUpperCase() : '';
-                        if (!cellValue.includes(filterValue)) {
-                            displayRow = false;
-                        }
+                    // Check if the row data contains the filter value
+                    if (rowData.includes(filterValue) || filterValue === '') {
+                        row.style.display = ''; // Show row
+                    } else {
+                        row.style.display = 'none'; // Hide row
                     }
                 });
-                row.style.display = displayRow ? "" : "none";
             });
-        }
-    
-        document.querySelectorAll(".filter-input").forEach(function (input) {
-            input.addEventListener("change", filterTable);
         });
+    });
     </script>
     
     <script>
@@ -501,28 +473,7 @@
             window.location.href = '/candidate/details/' + candidateId + '/';
         }
     </script>
-    <script>
-        function filterTable() {
-            var searchInput = document.getElementById('searchInput');
-            var searchText = searchInput.value.toLowerCase();
-            var rows = document.querySelectorAll('#candidateTable tbody tr');
-    
-            rows.forEach(function (row) {
-                var cells = row.querySelectorAll('td');
-                var found = false;
-    
-                cells.forEach(function (cell) {
-                    if (cell.textContent.toLowerCase().indexOf(searchText) > -1) {
-                        found = true;
-                    }
-                });
-    
-                row.style.display = found ? '' : 'none';
-            });
-        }
-    
-        document.getElementById('searchInput').addEventListener('input', filterTable);
-    </script>
+   
     
 
     <script>
@@ -630,9 +581,5 @@ function copyReferralLink() {
     }
 });
 </script>
-
-  
-
 </body>
-
 </html>

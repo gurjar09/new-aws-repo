@@ -30,7 +30,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="{% url 'VendorDashboard' %}">
-        <img src="/static/pics/EMTALOGO.png" class="navbar-brand-img" alt="...">
+        <img src="/static/pics/EMTALOGO.jpeg" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <!-- Collapse -->
@@ -86,6 +86,11 @@
                   Bank Details
               </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'Transections' %}" target="_blank">
+                Transactions
+            </a>
+        </li>
           <li class="nav-item">
               <a class="nav-link" href="{% url 'VendorLogout' %}" target="_blank">
                   Logout

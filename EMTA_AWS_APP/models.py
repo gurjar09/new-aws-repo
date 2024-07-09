@@ -74,7 +74,14 @@ class Candidate(models.Model):
     totalCommission = models.CharField(max_length=10)
     Contact_by = models.CharField(max_length=50,default='None')
     Remark = models.CharField(max_length=200)
-
+    commission_Generate_date = models.CharField(max_length=20,default=0)
+    Payment_Status = [
+        ('Pending', 'Pending'),
+        ('Success', 'Success'),
+        ('Under Process', 'Under Process'),
+        ('Hold', 'Hold'),
+    ]
+    Payment_Status = models.CharField(max_length=30, choices=Payment_Status , default='Pending')
     
     
     
