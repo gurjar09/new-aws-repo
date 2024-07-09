@@ -874,7 +874,7 @@ def AdminVendorDetails(request, vendor_id):
         'bank_document_url' : bank_document_url
     })
 
-@login_required
+
 def EmployeeCandidateDetails(request, candidate_id):
     candidate = get_object_or_404(Candidate, id=candidate_id)
     initial_data = {
