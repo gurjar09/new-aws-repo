@@ -17,7 +17,7 @@ from django.core.files.base import ContentFile
 from io import BytesIO
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.db.models import Sum
+from django.db.models import Sum,Max
 import random
 import requests
 
@@ -194,11 +194,7 @@ def candidateform(request):
         sector = request.POST.get('sector')
         location = request.POST.get('location')
         refer_code = request.POST.get('refer_code', '')
-        totalCommission = request.POST.get('totalCommission')
-        commission = request.POST.get('commission')
-        Contact = request.POST.get('Contact')
-        status = request.POST.get('status')
-        Contact_by = request.POST.get('Contact_by')
+        Job_Type = request.POST.get('Job_Type')
 
         candidate = Candidate.objects.create(
             first_name=first_name,
@@ -210,14 +206,10 @@ def candidateform(request):
             sector=sector,
             location=location,
             refer_code=refer_code,
-            totalCommission=totalCommission,
-            commission=commission,
-            Contact=Contact,
-            status=status,
-            Contact_by=User.objects.get(id=Contact_by)  # Assuming Contact_by is the ID of the user
+            Job_Type=Job_Type,
         )
 
-        return redirect('CandidateSuccess', candidate_id=candidate.id)
+        return redirect(CandidateSuccess, candidate_id=candidate.id)
 
     else:
         refer_code = request.GET.get('ref', '')
@@ -235,6 +227,7 @@ def CandidateDetails(request, candidate_id):
         'Contact_by': candidate.Contact_by,
         'Remark' : candidate.Remark,
         'Payment_Status' : candidate.Payment_Status,
+        'Payment_Status' : candidate.Payment_Status,
         'resume': candidate.resume.url if candidate.resume else None
     }
     if request.method == 'POST':
@@ -245,6 +238,7 @@ def CandidateDetails(request, candidate_id):
         candidate.Contact_by = request.POST.get('Contact_by')
         candidate.Remark = request.POST.get('Remark')
         candidate.Payment_Status = request.POST.get('Payment_Status')
+        candidate.Payment_complete_date = request.POST.get('Payment_complete_date')
         candidate.save()
         return redirect(candidateDashboard)
     return render(request, 'CandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
@@ -874,7 +868,7 @@ def AdminVendorDetails(request, vendor_id):
         'bank_document_url' : bank_document_url
     })
 
-
+@login_required
 def EmployeeCandidateDetails(request, candidate_id):
     candidate = get_object_or_404(Candidate, id=candidate_id)
     initial_data = {
@@ -930,3 +924,49 @@ def Transections(request):
               
     }
     return render(request, 'transactionHistory.html', context)
+
+
+@login_required
+def VendorTransaction(request):
+    if not request.user.is_superuser:
+        return render(request, 'NotAuthorized.html')
+
+    # Retrieve all vendors and their total commissions
+    vendors = Vendor.objects.all()
+    vendor_data = []
+    total_commission_sum = 0
+    
+    for index, vendor in enumerate(vendors, start=1):
+        total_commission = Candidate.objects.filter(refer_code=vendor.refer_code).aggregate(total_commission=Sum('commission'))['total_commission'] or 0
+        total_commission_sum += total_commission
+        
+        # Check if Bank details exist for the vendor
+        try:
+            bank_details = Bank.objects.get(vendor=vendor)
+            account_number = bank_details.account_number1
+            ifsc = bank_details.ifs_code
+        except Bank.DoesNotExist:
+            account_number = "N/A"
+            ifsc = "N/A"
+        
+        # Get the latest commission_Generate_date and Payment_complete_date for the vendor's candidates
+        latest_commission_date = Candidate.objects.filter(refer_code=vendor.refer_code).aggregate(latest_commission_date=Max('commission_Generate_date'))['latest_commission_date'] or "N/A"
+        latest_payment_date = Candidate.objects.filter(refer_code=vendor.refer_code).aggregate(latest_payment_date=Max('Payment_complete_date'))['latest_payment_date'] or "N/A"
+
+        vendor_data.append({
+            'serial_no': index,
+            'vendor_name': vendor.user.get_full_name(),
+            'shop_name': vendor.shop_name,
+            'account_number': account_number,
+            'ifsc': ifsc,
+            'total_commission': total_commission,
+            'date_of_commission_generation': latest_commission_date,
+            'send_commission_date': latest_payment_date,
+        })
+
+    context = {
+        'vendor_data': vendor_data,
+        'total_commission_sum': total_commission_sum,
+    }
+    
+    return render(request, 'VendorTransaction.html', context)

@@ -39,5 +39,6 @@ urlpatterns = [
     path('verify-otp/',verify_otp, name='verify_otp'),
     path('resend-otp/', resend_otp, name='resend_otp'),
     path('Transections/', Transections, name='Transections'),
+    path('Payment_Transfer/',VendorTransaction, name='Payment_Transfer'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

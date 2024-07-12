@@ -206,6 +206,18 @@
                                             <input type="text" class="form-control filter-input" data-filter="location-filter" placeholder="Filter Location">
                                         </th>
                                         <th scope="col" style="font-size: 20px;">
+                                            Job Type 
+                                            <select class="form-control filter-input" data-filter="job-type-filter">
+                                                <option value="">All</option>
+                                                <option value="Part-Time">Part-Time</option>
+                                                <option value="Full-Time">Full-Time</option>
+                                                <option value="Internship">Internship</option>
+                                                <option value="Work From Home (WFH)
+                                                
+                                                ">Work From Home (WFH)</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" style="font-size: 20px;">
                                             Job Preference 
                                             <input type="text" class="form-control filter-input" data-filter="job-preference-filter" placeholder="Filter Job Preference">
                                         </th>
@@ -233,7 +245,9 @@
                                         <td class="fs-5" data-filter="name-filter">{{ candidate.first_name }}&nbsp;{{ candidate.last_name }}</td>
                                         <td class="fs-5" data-filter="mobile-filter">{{ candidate.mobile_number }}</td>
                                         <td class="fs-5" data-filter="email-filter">{{ candidate.email }}</td>
+                                        
                                         <td class="fs-5" data-filter="location-filter">{{ candidate.location }}</td>
+                                        <td class="fs-5" data-filter="job-type-filter">{{ candidate.Job_Type }}</td>
                                         <td class="fs-5" data-filter="job-preference-filter">{{ candidate.sector }}</td>
                                         <td class="fs-5" data-filter="status-filter" style="color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}yellow{% elif candidate.status == 'Pending' %}orange{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">{{ candidate.status }}</td>
                                         <td class="fs-5"><button type="button" class="btn btn-success" onclick="redirectToDetails('{{ candidate.id }}')">View</button></td>
@@ -278,34 +292,44 @@
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get all filter inputs
-            const filterInputs = document.querySelectorAll('.filter-input');
-    
-            // Add event listeners to each filter input
-            filterInputs.forEach(function (input) {
-                input.addEventListener('keyup', function () {
-                    const filterKey = input.getAttribute('data-filter');
-                    const filterValue = input.value.toLowerCase();
-    
-                    // Get all table rows
-                    const rows = document.querySelectorAll('#candidateTable tbody tr');
-    
-                    // Loop through each row and hide those that don't match the filter criteria
-                    rows.forEach(function (row) {
-                        const cell = row.querySelector(`[data-filter="${filterKey}"]`);
-                        if (cell) {
-                            const cellValue = cell.textContent.toLowerCase();
-                            if (cellValue.includes(filterValue)) {
-                                row.style.display = '';
-                            } else {
-                                row.style.display = 'none';
-                            }
-                        }
-                    });
-                });
-            });
+       document.addEventListener('DOMContentLoaded', function() {
+    const filterInputs = document.querySelectorAll('.filter-input');
+    const tableRows = document.querySelectorAll('#candidateTable tbody tr');
+
+    filterInputs.forEach(input => {
+        input.addEventListener('input', filterTable);
+        input.addEventListener('change', filterTable);
+    });
+
+    function filterTable() {
+        const filterValues = {};
+
+        filterInputs.forEach(input => {
+            const filterKey = input.getAttribute('data-filter');
+            const filterValue = input.value.trim().toLowerCase();
+            if (filterValue) {
+                filterValues[filterKey] = filterValue;
+            }
         });
+
+        tableRows.forEach(row => {
+            let isVisible = true;
+
+            Object.keys(filterValues).forEach(filterKey => {
+                const cell = row.querySelector(`[data-filter="${filterKey}"]`);
+                if (cell) {
+                    const cellValue = cell.textContent.trim().toLowerCase();
+                    if (!cellValue.includes(filterValues[filterKey])) {
+                        isVisible = false;
+                    }
+                }
+            });
+
+            row.style.display = isVisible ? '' : 'none';
+        });
+    }
+});
+
     </script>
 
 <script>

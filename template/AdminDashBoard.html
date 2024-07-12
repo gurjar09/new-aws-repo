@@ -73,6 +73,11 @@
                             <i class="ni ni-tv-2 text-primary"></i> Employee
                         </a>
                     </li>
+                    <li class="nav-item {% if request.path == '/Payment_Transfer' %}active{% endif %}">
+                        <a class="nav-link {% if request.path == '/Payment_Transfer' %}active{% endif %}" href="{% url 'Payment_Transfer' %}">
+                            <i class="ni ni-tv-2 text-primary"></i> Transactions
+                        </a>
+                    </li>
                 </ul>
                 
                 <!-- Divider -->

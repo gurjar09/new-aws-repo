@@ -71,7 +71,7 @@ class Candidate(models.Model):
     sector = models.CharField(max_length=50)
     commission = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     location = models.CharField(max_length=50)
-    totalCommission = models.CharField(max_length=10)
+    totalCommission = models.CharField(max_length=100, default='0')
     Contact_by = models.CharField(max_length=50,default='None')
     Remark = models.CharField(max_length=200)
     commission_Generate_date = models.CharField(max_length=20,default=0)
@@ -82,6 +82,11 @@ class Candidate(models.Model):
         ('Hold', 'Hold'),
     ]
     Payment_Status = models.CharField(max_length=30, choices=Payment_Status , default='Pending')
+    Job_Type = models.CharField(max_length=30)
+    Payment_complete_date = models.CharField(max_length=20)
+   
+    
+    
     
     
     
@@ -131,9 +136,7 @@ class Bank(models.Model) :
     micr_code = models.CharField(max_length=20)
     bank_name = models.CharField(max_length=20)
 
-class ReferredVendor(models.Model):
-    referring_vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='referred_vendors')
-    referred_vendor = models.OneToOneField(Vendor, on_delete=models.CASCADE, related_name='referring_vendor')
+
 
 CustomUser = get_user_model()
 

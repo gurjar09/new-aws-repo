@@ -9,27 +9,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/transaction.css">
-</head>
-<style>
-    
-    .logo {
+    <style>
+        .table-dark {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .table-dark th, .table-dark td {
+            border-color: #454d55;
+        }
+        .logo {
       position: revert;
       top: 20px;
       right: 20px;
       width: 100px; /* Adjust the width as needed */
     }
-    
-  
-    .table-dark {
-        background-color: #343a40;
-        color: #fff;
-    }
-    .table-dark th, .table-dark td {
-        border-color: #454d55;
-    }
-</style>
+    </style>
+</head>
+
 <body>
-    
     <div class="wrapper rounded">
         <img src="/static/pics/EMTALOGO.jpeg" alt="Logo" class="logo">
         <nav class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start"> <a class="navbar-brand"
@@ -51,16 +48,16 @@
                 <div class="d-flex justify-content-start align-items-center">
                     <p class="fa fa-long-arrow-down"></p>
                     <p class="text mx-3">Income</p>
-                    <p class="text-white ml-4 money">₹{{ total_commission }}</p>
+                    <p class="text-white ml-4 money">₹{{ total_commission_sum }}</p>
                 </div>
             </div>
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
                 <div class="d-flex justify-content-md-end align-items-center">
                     <div class="fa fa-long-arrow-up"></div>
                     <div class="text mx-3">Expense</div>
                     <div class="text-white ml-4 money"></div>
                 </div>
-            </div> -->
+            </div>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-3">
             <ul class="nav nav-tabs w-75">
@@ -73,29 +70,34 @@
                 <thead>
                     <tr>
                         <th scope="col">S.R.</th>
-                        <th scope="col">Commission Generate</th>
-                        <th scope="col">Candidate Name</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Amount Credit</th>
-                        <th scope="col">Commission Amount</th>
+                        <th scope="col">Vendor Name</th>
+                        <th scope="col">Shop Name</th>
+                        <th scope="col">Account Number</th>
+                        <th scope="col">IFSC</th>
+                        <th scope="col">Total Commission</th>
+                        <th scope="col">Date of Commission Generation</th>
+                        <th scope="col">Payment Complete Date</th>
                     </tr>
                 </thead>
                 <tbody id="candidatesTable">
-                    {% for candidate in candidates %}
+                    {% for vendor in vendor_data %}
                     <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ candidate.commission_Generate_date }}</td>
-                        <td>{{ candidate.first_name }} {{ candidate.last_name }}</td>
-                        <td>{{ candidate.Payment_Status }}</td>
-                        <td>{{ candidate.Payment_complete_date }}</td>
-                        <td>₹{{ candidate.commission }}</td>
+                        <td>{{ vendor.serial_no }}</td>
+                        <td>{{ vendor.vendor_name }}</td>
+                        <td>{{ vendor.shop_name }}</td>
+                        <td>{{ vendor.account_number }}</td>
+                        <td>{{ vendor.ifsc }}</td>
+                        <td>₹{{ vendor.total_commission }}</td>
+                        <td>{{ vendor.date_of_commission_generation }}</td>
+                        <td>{{ vendor.send_commission_date }}</td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5">No candidates with commission found.</td>
+                        <td colspan="8">No vendors with commission found.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
+                
             </table>
         </div>
         

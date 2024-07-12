@@ -66,6 +66,17 @@
         <label>Qualification</label>
       </div>
       <div class="input-field">
+        <select name="Job_Type" required>
+          <option value="" disabled selected>Select Job Type</option>
+          <option value="Full-Time">Full-Time</option>
+          <option value="Part-Time">Part-Time</option>
+          <option value="Work From Home (WFH)">Work From Home (WFH)</option>
+          <option value="Internship">Internship</option>
+          <option value="Ph.D.">Ph.D.</option>
+        </select>
+        <label>Job Type</label>
+      </div>
+      <div class="input-field">
         <input type="text" name="sector" id="sector">
         <label for="sector">Sector Preference</label>
       </div>
@@ -77,10 +88,64 @@
         <input type="email" name="email" id="email" required>
         <label for="email">Email</label>
       </div>
+      
       <div class="input-field">
-        <input type="text" name="location" id="location" required>
-        <label for="location">Enter Your Location</label>
-      </div>
+        <select name="location" required>
+            <option value="" disabled selected>Select your Location</option>
+            <option value="Indore">Indore</option>
+            <option value="Jabalpur">Jabalpur</option>
+            <option value="Sagar">Sagar</option>
+            <option value="Bhopal">Bhopal</option>
+            <option value="Rewa">Rewa</option>
+            <option value="Chhindwara">Chhindwara</option>
+            <option value="Ujjain">Ujjain</option>
+            <option value="Ratlam">Ratlam</option>
+            <option value="Satna">Satna</option>
+            <option value="Dhar">Dhar</option>
+            <option value="Morena">Morena</option>
+            <option value="Khargone">Khargone</option>
+            <option value="Chhattarpur">Chhattarpur</option>
+            <option value="Shivpuri">Shivpuri</option>
+            <option value="Bhind">Bhind</option>
+            <option value="Balaghat">Balaghat</option>
+            <option value="Betul">Betul</option>
+            <option value="Dewas">Dewas</option>
+            <option value="Rajgarh">Rajgarh</option>
+            <option value="Shajapur">Shajapur</option>
+            <option value="Vidisha">Vidisha</option>
+            <option value="Gwalior">Gwalior</option>
+            <option value="Tikamgarh">Tikamgarh</option>
+            <option value="Barwani">Barwani</option>
+            <option value="Seoni">Seoni</option>
+            <option value="Mandsaur">Mandsaur</option>
+            <option value="Raisen">Raisen</option>
+            <option value="Sehore">Sehore</option>
+            <option value="Khandwa">Khandwa</option>
+            <option value="Katni">Katni</option>
+            <option value="Damoh">Damoh</option>
+            <option value="Guna">Guna</option>
+            <option value="Hoshangabad">Hoshangabad</option>
+            <option value="Singrauli">Singrauli</option>
+            <option value="Sidhi">Sidhi</option>
+            <option value="Narsimhapur">Narsimhapur</option>
+            <option value="Shahdol">Shahdol</option>
+            <option value="Mandla">Mandla</option>
+            <option value="Jhabua">Jhabua</option>
+            <option value="Panna">Panna</option>
+            <option value="Ashoknagar">Ashoknagar</option>
+            <option value="Neemuch">Neemuch</option>
+            <option value="Datia">Datia</option>
+            <option value="Burhanpur">Burhanpur</option>
+            <option value="Anuppur">Anuppur</option>
+            <option value="Alirajpur">Alirajpur</option>
+            <option value="Dindori">Dindori</option>
+            <option value="Sheopur">Sheopur</option>
+            <option value="Umaria">Umaria</option>
+            <option value="Harda">Harda</option>
+        </select>
+        <label>Location</label>
+    </div>
+    
       <div class="input-field">
         <input type="text" name="refer_code" id="refer_code" value="{{ initial_data.refer_code }}">
         <label for="refer_code">Enter Refer Code</label>

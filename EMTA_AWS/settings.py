@@ -148,3 +148,23 @@ CSRF_TRUSTED_ORIGINS = [
     'https://emtavms.com',
 ]
 
+# settings.py
+
+# Session expiration
+SESSION_COOKIE_AGE = 1209600  # 2 weeks, in seconds
+
+# Session storage
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Store sessions in the database
+# Other options:
+# 'django.contrib.sessions.backends.file' (File-based sessions)
+# 'django.contrib.sessions.backends.cache' (Cache-based sessions)
+# 'django.contrib.sessions.backends.cached_db' (Database + cache sessions)
+
+# Cookie settings
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_SECURE = False  # Set to True for HTTPS
+SESSION_COOKIE_HTTPONLY = True
+SESSION_SAVE_EVERY_REQUEST = False  # If True, save the session to the database on every request
+
+# Expire sessions when the browser closes
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
