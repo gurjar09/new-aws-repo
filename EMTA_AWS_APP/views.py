@@ -583,7 +583,7 @@ def adminDashBoard(request):
         except User.DoesNotExist:
             return render(request, 'usernotfound.html', {'error': 'User details not found'})
     else:
-        return render(request, 'username.html', {'error': 'User not authenticated or not a superuser'})
+        return render(request, 'usernotfound.html', {'error': 'User not authenticated or not a superuser'})
 
 
 
