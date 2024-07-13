@@ -135,53 +135,58 @@ def resend_otp(request):
 
 @login_required
 def VendorDashboard(request):
-    try:
-        vendor = Vendor.objects.get(user=request.user)
-    except Vendor.DoesNotExist:
-        return render(request, 'VendorLogin.html', {'error': 'Vendor details not found'})
+    if request.user.is_authenticated:
+        try:
+            vendor = Vendor.objects.get(user=request.user)
+            referral_link = request.build_absolute_uri('/candidateform/?ref={}'.format(vendor.refer_code))
+            candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
+            num_candidates = candidates.count()
+            total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission']
 
-    referral_link = request.build_absolute_uri('/candidateform/?ref={}'.format(vendor.refer_code))
-    candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
-    num_candidates = candidates.count()
-    total_commission = candidates.aggregate(total_commission=Sum('commission'))['total_commission']
+            # Generate QR code
+            qr = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=10,
+                border=4,
+            )
+            qr.add_data(referral_link)
+            qr.make(fit=True)
 
-    # Generate QR code
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(referral_link)
-    qr.make(fit=True)
+            img = qr.make_image(fill='black', back_color='white')
+            buffer = BytesIO()
+            img.save(buffer, format='PNG')
+            qr_code_file = ContentFile(buffer.getvalue(), name=f'{vendor.user.username}_qr.png')
 
-    img = qr.make_image(fill='black', back_color='white')
-    buffer = BytesIO()
-    img.save(buffer, format='PNG')
-    qr_code_file = ContentFile(buffer.getvalue(), name=f'{vendor.user.username}_qr.png')
+            # Save QR code to vendor
+            vendor.qr_code.save(qr_code_file.name, qr_code_file)
+            vendor.save()
 
-    # Save QR code to vendor
-    vendor.qr_code.save(qr_code_file.name, qr_code_file)
-    vendor.save()
+            if request.method == 'POST' and request.FILES.get('profile_picture'):
+                profile_picture = request.FILES['profile_picture']
+                vendor.profile_image = profile_picture
+                vendor.save()
 
-    if request.method == 'POST' and request.FILES.get('profile_picture'):
-        profile_picture = request.FILES['profile_picture']
-        vendor.profile_image = profile_picture
-        vendor.save()
+            context = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'shop_name': vendor.shop_name,
+                'candidates': candidates,
+                'num_candidates': num_candidates,
+                'total_commission': total_commission,
+                'referral_link': referral_link,
+                'qr_code_url': vendor.qr_code.url if vendor.qr_code else None,
+            }
 
-    context = {
-        'first_name': request.user.first_name,
-        'last_name': request.user.last_name,
-        'shop_name': vendor.shop_name,
-        'candidates': candidates,
-        'num_candidates': num_candidates,
-        'total_commission': total_commission,
-        'referral_link': referral_link,
-        'qr_code_url': vendor.qr_code.url if vendor.qr_code else None,
-    }
-    return render(request, 'VendorDashboard.html', context)
+            return render(request, 'VendorDashboard.html', context)
 
+        except Vendor.DoesNotExist:
+            return render(request, 'usernotfound.html', {'error': 'Vendor details not found'})
 
+        
+
+    else:
+        return render(request, 'usernotfound.html', {'error': 'User not authenticated'})
 
 def candidateform(request):
     if request.method == 'POST':
