@@ -339,7 +339,7 @@ def Profile(request):
             return render(request, 'Profile.html', {'error': 'Profile document not found'})
 
     else:
-        return render(request, 'username.html', {'error': 'User not authenticated'})
+        return render(request, 'usernotfound.html', {'error': 'User not authenticated'})
 
 
 @login_required
