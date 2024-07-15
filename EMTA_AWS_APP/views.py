@@ -182,9 +182,6 @@ def VendorDashboard(request):
 
         except Vendor.DoesNotExist:
             return render(request, 'usernotfound.html', {'error': 'Vendor details not found'})
-
-        
-
     else:
         return render(request, 'usernotfound.html', {'error': 'User not authenticated'})
 
