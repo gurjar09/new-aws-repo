@@ -61,14 +61,15 @@ width: 200px; /* Adjust the width as needed */
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <div class="wrapper">
-
+    
     <form method="POST" class="register-container" id="register" enctype="multipart/form-data" onsubmit="popup()">
-
+     
       {% csrf_token %}
       <div class="top">
         <span>Have an account? <a href="{% url 'VendorLogin' %}">Login</a></span>
         <header>EVMS - Vendor Signup </header>
       </div>
+      <p style="font-size: 20px;">Refer and Earn - Integrated Vendor Management System for Manpower Consultants.</p>
       {% if messages %}
       <ul class="messages">
         {% for message in messages %}
