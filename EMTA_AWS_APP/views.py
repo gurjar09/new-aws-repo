@@ -215,7 +215,7 @@ def candidateform(request):
             submission_time=submission_time,
         )
 
-        return redirect(CandidateSuccess, candidate_id=candidate.id)
+        return redirect(CandidateSuccess, candidate_id=candidate.id,formatted_submission_time=formatted_submission_time)
 
     else:
         refer_code = request.GET.get('ref', '')
