@@ -39,7 +39,7 @@
 <body>
   <div class="container">
     <img src="/static/pics/EMTALOGO.jpeg" alt="Logo" class="logo">
-    <form method="POST" class="register-container" id="register" enctype="multipart/form-data">
+    <form method="POST" class="register-container" id="register" enctype="multipart/form-data" onsubmit="return validateForm()">
       {% csrf_token %}
 
       <div class="top">
@@ -164,7 +164,7 @@
       <div id="resumeError" style="display: none; color: red;">Please upload a valid file.</div>
       <div class="input-field">
         <label>
-          <input type="checkbox" id="terms" required />
+          <input type="checkbox" id="terms"  />
           <span>I agree to the <a class="modal-trigger" href="#termsModal">terms and conditions</a></span>
         </label>
       </div><br><br>
@@ -212,7 +212,10 @@
         }
       });
     });
+    
   </script>
+  
+    
 </body>
 </html>
 
