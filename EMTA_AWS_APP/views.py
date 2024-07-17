@@ -197,6 +197,7 @@ def candidateform(request):
         location = request.POST.get('location')
         refer_code = request.POST.get('refer_code', '')
         Job_Type = request.POST.get('Job_Type')
+        submission_time = request.POST.get('submission_time')
 
         candidate = Candidate.objects.create(
             first_name=first_name,
@@ -209,6 +210,7 @@ def candidateform(request):
             location=location,
             refer_code=refer_code,
             Job_Type=Job_Type,
+            submission_time=submission_time,
         )
 
         return redirect(CandidateSuccess, candidate_id=candidate.id)
