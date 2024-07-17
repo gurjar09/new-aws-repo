@@ -242,7 +242,7 @@ def CandidateDetails(request, candidate_id):
         candidate.Payment_Status = request.POST.get('Payment_Status')
         candidate.Payment_complete_date = request.POST.get('Payment_complete_date')
         candidate.save()
-        return redirect(candidateDashboard)
+        return redirect(CandidateDetails)
     return render(request, 'CandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
 
 def VendorLogin(request):
@@ -892,7 +892,7 @@ def EmployeeCandidateDetails(request, candidate_id):
         candidate.commission_Generate_date = request.POST.get('commission_Generate_date')
         candidate.Remark = request.POST.get('Remark')
         candidate.save()
-        return redirect(Employeecandidate)
+        return redirect(EmployeeCandidateDetails)
     return render(request, 'EmployeeCandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
 
 def sitemap(request) :
