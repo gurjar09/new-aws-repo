@@ -20,6 +20,7 @@ from django.shortcuts import render
 from django.db.models import Sum,Max
 import random
 import requests
+from django.core.files.base import ContentFile
 
 # 2Factor configuration
 TWO_FACTOR_API_KEY = '4ae01fe2-1cb9-11ef-8b60-0200cd936042'
@@ -138,6 +139,24 @@ def VendorDashboard(request):
     if request.user.is_authenticated:
         try:
             vendor = Vendor.objects.get(user=request.user)
+            
+            # Find the highest number used in existing usernames matching the pattern EMTAxxxx
+            latest_vendor = Vendor.objects.filter(user__username__startswith='EMTA').order_by('-user__username').first()
+            if latest_vendor:
+                last_number = int(latest_vendor.user.username[4:])  # Extract the number part
+                next_number = last_number + 1
+            else:
+                next_number = 1
+            
+            # Generate the next username in the format EMTA0001
+            new_username = f'EMTA{next_number:04d}'  # Pad the number with zeros
+            
+            # Save the new username to the user associated with the vendor
+            vendor.user.username = new_username
+            vendor.user.save()
+            
+            # Rest of your existing code...
+            
             referral_link = request.build_absolute_uri('/candidateform/?ref={}'.format(vendor.refer_code))
             candidates = Candidate.objects.filter(refer_code=vendor.refer_code)
             num_candidates = candidates.count()
@@ -184,7 +203,6 @@ def VendorDashboard(request):
             return render(request, 'usernotfound.html', {'error': 'Vendor details not found'})
     else:
         return render(request, 'usernotfound.html', {'error': 'User not authenticated'})
-
 def candidateform(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
