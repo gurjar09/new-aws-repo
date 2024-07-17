@@ -125,9 +125,9 @@ class Bank(models.Model) :
     ]
     account_type = models.CharField(max_length=100, choices=account_type,blank=True, null=True)
     preffered_payout_date = [
-        ('05', '05'),
+        
         ('15', '15'),
-        ('25', '25'),
+        ('30', '30'),
     ]
     preffered_payout_date = models.CharField(max_length=10, choices=preffered_payout_date)
     account_holder_name = models.CharField(max_length=50)
