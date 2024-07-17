@@ -152,7 +152,7 @@
         <input type="hidden" name="refer_code" id="refer_code" value="{{ initial_data.refer_code }}">
         <label for="refer_code">Enter Refer Code</label>
       </div>
-      <input type="hidden" id="submission_time" name="submission_time">
+      
       <div class="file-field input-field">
         <div class="btn custom-btn">
           <span>Upload Resume</span>
@@ -215,16 +215,7 @@
     });
     
   </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('myForm').addEventListener('submit', function() {
-            var now = new Date();
-            var submissionTime = now.toISOString(); // Convert date to ISO format
-            
-            document.getElementById('submission_time').value = submissionTime;
-        });
-    });
-    </script>
+ 
     
 </body>
 </html>

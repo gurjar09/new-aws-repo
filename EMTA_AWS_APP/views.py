@@ -197,7 +197,7 @@ def candidateform(request):
         location = request.POST.get('location')
         refer_code = request.POST.get('refer_code', '')
         Job_Type = request.POST.get('Job_Type')
-        submission_time = request.POST.get('submission_time')
+        submission_time = str(timezone.now())
 
         candidate = Candidate.objects.create(
             first_name=first_name,
