@@ -243,14 +243,13 @@
                                     {% for candidate in candidates %}
                                     <tr>
                                         <!-- <td>{{ forloop.counter }}</td> -->
-                                        <td class="fs-5" data-filter="contact-by-filter">{{ candidate.formatted_submission_time }}</td>
+                                        <td class="fs-5" data-filter="contact-by-filter">{{ candidate.submission_time }}</td>
                                         <td class="fs-5" data-filter="contact-filter" style="color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">{{ candidate.Contact }}</td>
                                         <td class="fs-5" data-filter="contact-by-filter">{{ candidate.Contact_by }}</td>
                                         <td class="fs-5" data-filter="refer-code-filter">{{ candidate.refer_code }}</td>
                                         <td class="fs-5" data-filter="name-filter">{{ candidate.first_name }}&nbsp;{{ candidate.last_name }}</td>
                                         <td class="fs-5" data-filter="mobile-filter">{{ candidate.mobile_number }}</td>
                                         <td class="fs-5" data-filter="email-filter">{{ candidate.email }}</td>
-                                        
                                         <td class="fs-5" data-filter="location-filter">{{ candidate.location }}</td>
                                         <td class="fs-5" data-filter="job-type-filter">{{ candidate.Job_Type }}</td>
                                         <td class="fs-5" data-filter="job-preference-filter">{{ candidate.sector }}</td>

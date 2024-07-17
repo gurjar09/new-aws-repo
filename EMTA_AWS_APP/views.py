@@ -199,7 +199,7 @@ def candidateform(request):
         Job_Type = request.POST.get('Job_Type')
         submission_time = str(timezone.now())
 
-        formatted_submission_time = submission_time.strftime('%B %d, %Y, %I:%M %p')
+        
 
         candidate = Candidate.objects.create(
             first_name=first_name,
@@ -215,7 +215,7 @@ def candidateform(request):
             submission_time=submission_time,
         )
 
-        return redirect(CandidateSuccess, candidate_id=candidate.id,formatted_submission_time=formatted_submission_time)
+        return redirect(CandidateSuccess, candidate_id=candidate.id)
 
     else:
         refer_code = request.GET.get('ref', '')
