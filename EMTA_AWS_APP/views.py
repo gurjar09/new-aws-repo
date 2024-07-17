@@ -418,7 +418,7 @@ def EstablishmentDetails(request):
         except BussinessDetails.DoesNotExist:
             return render(request, 'EstablishmentDetails.html', {'error': 'Business details not found'})
     else:
-        return render(request, 'username.html', {'error': 'User not authenticated'})
+        return render(request, 'usernotfound.html', {'error': 'User not authenticated'})
 
 
 @login_required
@@ -480,7 +480,7 @@ def Bank_Details(request):
         except Bank.DoesNotExist:
             return render(request, 'VendorBankDetails.html', {'error': 'Bank details not found'})
     else:
-        return render(request, 'username.html', {'error': 'User not authenticated'})
+        return render(request, 'usernotfound.html', {'error': 'User not authenticated'})
 
 
 def forgot_password(request):
@@ -583,9 +583,9 @@ def adminDashBoard(request):
                 'superuser_name': superuser_name,
             })
         except User.DoesNotExist:
-            return render(request, 'usernotfound.html', {'error': 'User details not found'})
+            return render(request, '404.html', {'error': 'User details not found'})
     else:
-        return render(request, 'usernotfound.html', {'error': 'User not authenticated or not a superuser'})
+        return render(request, '404.html', {'error': 'User not authenticated or not a superuser'})
 
 
 
@@ -602,7 +602,7 @@ def vendor_candidates(request, vendor_code):
 
         return render(request, 'VendorsCandidate.html', { 'vendor': vendor, 'candidates': candidates, 'vendor_name': vendor_name, 'vendor_last_name': vendor_last_name, 'total_candidates': total_candidates, 'superuser_name': superuser_name})
     except Vendor.DoesNotExist:
-        return render(request, 'vendor_not_found.html', {'error': 'Vendor not found'})
+        return render(request, '404.html', {'error': 'Vendor not found'})
 
 
 def candidateDashboard(request):
@@ -708,7 +708,7 @@ def EmployeeDashboard(request):
 
         return render(request, 'EmployeeAdminDashboard.html', {'username': username,'user_data': user_data, 'vendor_count': vendor_count, 'vendors_this_month': vendors_this_month, 'total_vendor_commission': total_vendor_commission, 'total_candidate_commission': total_candidate_commission , 'total_candidates_all': total_candidates_all, 'username_query': username_query, 'user_name': user_name})
     except User.DoesNotExist:
-        return render(request, 'usernotfound.html', {'error': 'User details not found'})
+        return render(request, '404.html', {'error': 'User details not found'})
     
 @login_required
 def Employeecandidate(request):
@@ -740,7 +740,7 @@ def Employee_vendorecandidate(request, vendor_code):
 
         return render(request, 'EmployeVendorCandidate.html', { 'vendor': vendor, 'candidates': candidates, 'vendor_name': vendor_name, 'vendor_last_name': vendor_last_name, 'total_candidates': total_candidates, 'superuser_name': superuser_name})
     except Vendor.DoesNotExist:
-        return render(request, 'vendor_not_found.html', {'error': 'Vendor not found'})
+        return render(request, '404.html', {'error': 'Vendor not found'})
     
 def employee_login(request):
     if request.method == 'POST':
@@ -802,7 +802,7 @@ def EmployeeDetails(request):
 
         return render(request, 'EmployeeDetails.html', context)
     except Employee.DoesNotExist:
-        return render(request, 'usernotfound.html', {'error': 'Employee details not found'})
+        return render(request, '404.html', {'error': 'Employee details not found'})
     
 
 
