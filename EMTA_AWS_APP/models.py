@@ -84,7 +84,7 @@ class Candidate(models.Model):
     Payment_Status = models.CharField(max_length=30, choices=Payment_Status , default='Pending')
     Job_Type = models.CharField(max_length=30)
     Payment_complete_date = models.CharField(max_length=20)
-    submission_time = models.CharField(max_length=20)
+    submission_time = models.CharField(max_length=50)
    
     
     
