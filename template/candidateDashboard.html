@@ -173,6 +173,10 @@
                             <table id="candidateTable" class="table table-borderless table-striped table-earning">
                                 <thead class="thead-bold font-size-16">
                                     <tr>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Registration 
+                                            <input type="text" class="form-control filter-input" data-filter="contact-by-filter" placeholder="Filter Contact By">
+                                        </th>
                                         <th scope="col"  style="font-size: 20px;">
                                             Contact 
                                             <select class="form-control filter-input" data-filter="contact-filter">
@@ -239,6 +243,7 @@
                                     {% for candidate in candidates %}
                                     <tr>
                                         <!-- <td>{{ forloop.counter }}</td> -->
+                                        <td class="fs-5" data-filter="contact-by-filter">{{ candidate.submission_time }}</td>
                                         <td class="fs-5" data-filter="contact-filter" style="color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">{{ candidate.Contact }}</td>
                                         <td class="fs-5" data-filter="contact-by-filter">{{ candidate.Contact_by }}</td>
                                         <td class="fs-5" data-filter="refer-code-filter">{{ candidate.refer_code }}</td>
