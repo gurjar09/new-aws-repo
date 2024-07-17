@@ -92,7 +92,7 @@ DATABASES = {
 
         'PASSWORD': 'Emta0505',
 
-        'HOST': 'database-4.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
+        'HOST': 'database-7.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
 
         'PORT': '5432',
     }

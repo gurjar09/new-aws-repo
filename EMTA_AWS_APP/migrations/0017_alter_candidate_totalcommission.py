@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='candidate',
             name='totalCommission',
-            field=models.DecimalField(decimal_places=2, default=0, max_digits=10),
+            field=models.CharField( default=0),
         ),
         migrations.RunPython(set_default_totalcommission),
     ]
