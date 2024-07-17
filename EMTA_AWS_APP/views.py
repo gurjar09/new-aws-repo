@@ -242,7 +242,7 @@ def CandidateDetails(request, candidate_id):
         candidate.Payment_Status = request.POST.get('Payment_Status')
         candidate.Payment_complete_date = request.POST.get('Payment_complete_date')
         candidate.save()
-        return redirect(CandidateDetails)
+        return redirect(vendor_candidates(vendor_code))
     return render(request, 'CandidateDetails.html', {'candidate': candidate, 'initial_data': initial_data})
 
 def VendorLogin(request):
