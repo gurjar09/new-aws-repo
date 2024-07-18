@@ -84,17 +84,8 @@ WSGI_APPLICATION = 'EMTA_AWS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-
-        'NAME': 'EMTAVMS_2024',
-
-        'USER': 'postgres',
-
-        'PASSWORD': 'Emta0505',
-
-        'HOST': 'database-7.c78yiau2i7f4.ap-southeast-2.rds.amazonaws.com',
-
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
